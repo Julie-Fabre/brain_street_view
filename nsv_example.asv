@@ -1,0 +1,25 @@
+%% Neuro street view example script 
+
+regions = {'VISp', 'VISl', 'VISal', 'VISpm', 'VISam'}; % region(s), use Allen Atlas abbreviation conventions
+% can also be a single or vector of experiment IDs e.g. 
+    % experiments = [183618139, 112952510, 177459319];
+mouseLine = ''; % leave empty to include all 
+primaryInjection % search for injections where 'injection' was the primary
+%             injection structure. if false it it will search for cases where 'injection' was not the primary
+%             structure.
+%% Get allen connectivity experiments of interest 
+experimentIDs = nsv_findConnectivityExperiments(regions, mouseLine, primaryInjection);
+
+%% Fetch/load experiment data 
+experimentData = nsv_fetchConnectivityData();
+
+%% Plot injections (2D)
+
+
+%% Plot injections (3D)
+
+
+%% Plot projection data (2D) 
+
+
+%% Plot projection data (3D) 
