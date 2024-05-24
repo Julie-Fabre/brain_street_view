@@ -2,6 +2,8 @@
 
 % local save directory 
 saveLocation = '/home/julie/Dropbox/Data/AllenQueries';
+allenAtlasPath =  '/home/julie/Dropbox/Atlas/allenCCF';
+fileName = 'Vis_projections';
 
 % experiment to load information
 regions = {'VISp', 'VISl', 'VISal', 'VISpm', 'VISam'}; % region(s), use Allen Atlas abbreviation conventions
@@ -14,12 +16,17 @@ normalizationMethod = 'injectionIntensity'; % can be 'none', 'injectionVolume', 
 subtractOtherHemisphere = true;
 
 % plotting parameters
+color 
+numberOfSlices 
+plane % coroncal or sagital 
+smoothing 
+colorLimits 
 
 %% Get allen connectivity experiments of interest 
 experimentIDs = nsv_findConnectivityExperiments(regions, mouseLine, primaryInjection);
 
 %% Fetch/load experiment data 
-experimentData = nsv_fetchConnectivityData(experimentIDs, saveLocation, normalizationMethod, subtractOtherHemisphere);
+experimentData = nsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
 
 %% Plot injections (2D)
 

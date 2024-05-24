@@ -1,0 +1,12 @@
+ObjectType = Image
+NDims = 3
+BinaryData = True
+BinaryDataByteOrderMSB = False
+TransformMatrix = 1 0 0 0 1 0 0 0 1
+Offset = 0 0 0
+CenterOfRotation = 0 0 0
+AnatomicalOrientation = RAI
+ElementSpacing = 100 100 100
+DimSize = 132 80 114
+ElementType = MET_FLOAT
+ElementDataFile = density.raw
