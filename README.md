@@ -1,12 +1,21 @@
 # neuro street view 
+Load and plot Allen Connectivity Data 
 
+### Getting started 
 
-See the script 
+See the script `nsv_example` to get started .
 
+#### Installation
 
-- allenCCf
-- prettify
-- YAHT
+Bombcell requires MATLAB>=2019a.
+
+To begin using Bombcell:
+- [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the [repository](https://github.com/Julie-Fabre/bombcell/bombcell) and the [dependencies](#Dependencies).
+- add bombcell's and the dependancies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
+
+#### Dependencies
+- [allenCCF](https://github.com/cortex-lab/allenCCF)
+- [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab), to make plots pretty.
 
 resources:
 - https://allensdk.readthedocs.io/en/latest/unionizes.html 
