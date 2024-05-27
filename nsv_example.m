@@ -3,10 +3,10 @@
 % local save directory 
 saveLocation = '/home/julie/Dropbox/Data/AllenQueries';
 allenAtlasPath =  '/home/julie/Dropbox/Atlas/allenCCF';
-fileName = 'Vis_projections';
+fileName = 'VIS_projections_all';
 
 % experiment to load information
-regions = {'VISp', 'VISl', 'VISal', 'VISpm', 'VISam'}; % region(s), use Allen Atlas abbreviation conventions
+regions = {'VISp', 'VISl', 'VISal', 'VISpl', 'VISam', 'VISpm', 'VISli', 'VISpor'}; % region(s), use Allen Atlas abbreviation conventions
     % or if you already have experiment IDs , skip step 1 below and input
     % them directly in step 2
 mouseLine = ''; % leave empty to include all 

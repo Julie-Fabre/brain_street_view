@@ -3,7 +3,7 @@ function status = nsv_fetchConnectivityImages(experimentID, saveFilePath)
 status = true;
 zipFile = [saveFilePath, filesep, 'temp.zip'];
 urlwrite(sprintf('http://api.brain-map.org/grid_data/download/%d?include=density', experimentID), zipFile);
-unzip(zipFile, num2str(experimentID));
+unzip(zipFile, saveFilePath);
 
 filePath = [saveFilePath, '/density.raw'];
 if ~exist(filePath, 'file')

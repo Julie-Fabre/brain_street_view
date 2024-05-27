@@ -44,6 +44,6 @@ for iRegion = 1:size(regions,2)
     for iID = 1:length(result.msg)
         experimentIDs = [experimentIDs, result.msg{iID}.id];
     end
-    fprintf('Found %d experiments in %s \n', length(experimentIDs), regions{iRegion})
+    fprintf('Found %d experiments in %s \n', length(result.msg), regions{iRegion})
 end
 end
