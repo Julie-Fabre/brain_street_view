@@ -3,15 +3,17 @@ function experimentData = nsv_fetchConnectivityData(experimentIDs, saveLocation,
 %% fetch data
 
 projectionGridSize = [132 80 114];
+combinedProjection = zeros(projectionGridSize);
+
 filePath = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
 if ~exist(filePath, 'file')
     for iExpID = 1:size(experimentIDs, 2)
         expID = experimentIDs(iExpID);
 
-        mkdir([saveLocation, num2str(experimentIDs(iExpID))]);
+        mkdir([saveLocation, filesep, num2str(experimentIDs(iExpID))]);
         
         % raw data 
-        rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), '/density.raw'];
+        rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'density.raw'];
         if ~exist(rawFilePath)
             nsv_fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))])  
         end
@@ -22,7 +24,7 @@ if ~exist(filePath, 'file')
         experiment_projection = reshape(experiment_projection, projectionGridSize);
 
         % summary (structure.ionizes
-        summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), '/injectionSummary.mat'];
+        summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary.mat'];
         if ~exist(summaryFilePath)
             nsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))])  
         end
@@ -56,7 +58,7 @@ if ~exist(filePath, 'file')
         combinedProjection = combinedProjection + experiment_projection;
 
     end
-    combinedProjection = combinedProjection ./size(expIDs)
+    combinedProjection = combinedProjection ./ size(experimentIDs, 2);
     save(filePath, 'combinedProjection')
 else
     load(filePath)

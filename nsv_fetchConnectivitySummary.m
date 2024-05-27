@@ -1,4 +1,4 @@
-function nsv_fetchConnectivitySummary(experimentID, saveFilePath)
+function status = nsv_fetchConnectivitySummary(experimentID, saveFilePath)
 % structure.unionizes
 % - experiment_id : ID of the experiment (a.k.a SectionDataSet)
 % - structure_id : ID of the structure (e.g. 315 for Isocortex)
@@ -34,7 +34,9 @@ url = 'http://connectivity.brain-map.org/api/v2/data/ProjectionStructureUnionize
 try
     page = urlread(sprintf(url, experimentID));
 catch
-    fprintf('Failed to get data for ID %d\n', experimentID)
+    status = false;
+    warning('Failed to get data for ID %d\n', experimentID)
+
 end
 
 injectionInfo = [];
@@ -45,7 +47,7 @@ if ~isempty(page)
     
     if tmp.success
         % load just the injection data 
-        for iLine = 1:length(tmp.msg)
+        for iLine = length(tmp.msg):-1:1 % usually (always?) end is injection
             if tmp.msg{iLine}.is_injection
                 injectionInfo = tmp.msg{iLine};
                 continue;

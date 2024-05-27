@@ -10,12 +10,15 @@ if ~exist(filePath, 'file')
     for iExpID = 1:size(experimentIDs, 2)
         expID = experimentIDs(iExpID);
 
-        mkdir([saveLocation, num2str(experimentIDs(iExpID))]);
+        mkdir([saveLocation, filesep, num2str(experimentIDs(iExpID))]);
         
         % raw data 
-        rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), '/density.raw'];
+        rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'density.raw'];
         if ~exist(rawFilePath)
-            nsv_fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))])  
+            status=nsv_fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]) ;
+            if ~status
+                continue;
+            end
         end
 
         fid = fopen(rawFilePath, 'r', 'l');
@@ -24,9 +27,12 @@ if ~exist(filePath, 'file')
         experiment_projection = reshape(experiment_projection, projectionGridSize);
 
         % summary (structure.ionizes
-        summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), '/injectionSummary.mat'];
+        summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary.mat'];
         if ~exist(summaryFilePath)
-            nsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))])  
+            status=nsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))])  ;
+            if ~true
+                continue;
+            end
         end
         load(summaryFilePath)
 
