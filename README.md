@@ -25,7 +25,7 @@ Dependencies:
 If you run into any issues or if you have any suggestions, please raise a github issu, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@hmail.com).
 
 ### Misc. 
-Allen resources:
+Allen documentation:
 - https://allensdk.readthedocs.io/en/latest/unionizes.html 
 - https://community.brain-map.org/t/api-allen-brain-connectivity/2988
 - https://download.alleninstitute.org/informatics-archive/october-2014/mouse_projection/Accessing_October_2014_projection_data%20.pdf
