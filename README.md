@@ -16,6 +16,7 @@ To begin using NeuroStreetView:
 
 Dependencies:
 - [allenCCF](https://github.com/cortex-lab/allenCCF)
+- [YAHT](https://github.com/cortex-lab/YAHT)
 - [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab), to make plots pretty.
 
 ### 🖼️ Gallery 
