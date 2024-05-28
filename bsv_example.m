@@ -13,7 +13,7 @@ mouseLine = ''; % leave empty to include all
 primaryInjection = true; % boolean, search for injections where 'injection' was the primary or not
 
 % experiment loading parameters 
-subtractOtherHemisphere = true;
+subtractOtherHemisphere = false;
 normalizationMethod = 'injectionIntensity'; % can be 'none' or 'injectionIntensity'
 
 % plotting parameters
