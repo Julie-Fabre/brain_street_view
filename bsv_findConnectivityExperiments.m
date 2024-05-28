@@ -1,4 +1,4 @@
-function experimentIDs = nsv_findConnectivityExperiments(regions, mouseLine, primaryInjection)
+function experimentIDs = bsv_findConnectivityExperiments(regions, mouseLine, primaryInjection)
 
 %% sanitize inputs
 if nargin < 2

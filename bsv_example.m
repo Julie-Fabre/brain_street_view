@@ -30,24 +30,24 @@ outputRegions = {'CP'};
 regionOnly = true; % - not implemented yet - 
 
 %% 1. Get allen connectivity experiments of interest 
-experimentIDs = nsv_findConnectivityExperiments(inputRegions, mouseLine, primaryInjection);
+experimentIDs = bsv_findConnectivityExperiments(inputRegions, mouseLine, primaryInjection);
 
 %% 2. Fetch/load experiment data 
-[experimentImgs, injectionSummary] = nsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
+[experimentImgs, injectionSummary] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
 
 %% 3. Plot projection data (2D) 
-nsv_plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(1), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+bsv_plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(1), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 
 %% 4. Plot injections
 %% a. 2D, region by region
 for iInputRegion = 1:size(inputRegions,2)
-    nsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+    bsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 end
 
 %% b. 2D, all regions - QQ TO DO
-% nsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+% bsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 
 %% c. 3D, all regions
 plotPatch = true; % if true plots a full volume; if false, plots a grid
-nsv_plotConnectivity3D(injectionSummary, allenAtlasPath, outputRegions(1), color, plotPatch)
+bsv_plotConnectivity3D(injectionSummary, allenAtlasPath, outputRegions(1), color, plotPatch)
 

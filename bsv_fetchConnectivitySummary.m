@@ -1,4 +1,4 @@
-function status = nsv_fetchConnectivitySummary(experimentID, saveFilePath)
+function status = bsv_fetchConnectivitySummary(experimentID, saveFilePath)
 % structure.unionizes
 % - experiment_id : ID of the experiment (a.k.a SectionDataSet)
 % - structure_id : ID of the structure (e.g. 315 for Isocortex)

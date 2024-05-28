@@ -1,4 +1,4 @@
-function nsv_plotConnectivity3D(injectionSummary, allenAtlasPath, regionToPlot, color, plotPatch)
+function bsv_plotConnectivity3D(injectionSummary, allenAtlasPath, regionToPlot, color, plotPatch)
 
 % load atlas 
 av = readNPY([allenAtlasPath, filesep, 'annotation_volume_10um_by_index.npy']); % the number at each pixel labels the area, see note below

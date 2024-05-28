@@ -1,2 +1,0 @@
-function nsv_plotProjectionData(injections)
-end

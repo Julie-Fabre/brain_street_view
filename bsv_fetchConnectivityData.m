@@ -1,4 +1,4 @@
-function [combinedProjection, combinedInjectionInfo] = nsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere)
+function [combinedProjection, combinedInjectionInfo] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere)
 
 %% fetch data
 
@@ -18,7 +18,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         % raw data
         rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'density.raw'];
         if ~exist(rawFilePath)
-            status = nsv_fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
+            status = bsv_fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
             if ~status
                 continue;
             end
@@ -32,7 +32,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         % summary (structure.ionizes
         summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary.mat'];
         if ~exist(summaryFilePath)
-            status = nsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
+            status = bsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
             if ~true
                 continue;
             end

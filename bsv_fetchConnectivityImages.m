@@ -1,4 +1,4 @@
-function status = nsv_fetchConnectivityImages(experimentID, saveFilePath)
+function status = bsv_fetchConnectivityImages(experimentID, saveFilePath)
 % density.raw is in AP x DV x ML, 100um resolution
 status = true;
 zipFile = [saveFilePath, filesep, 'temp.zip'];
