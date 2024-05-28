@@ -3,7 +3,7 @@
 % local save directory 
 saveLocation = '/home/julie/Dropbox/Data/AllenQueries';
 allenAtlasPath =  '/home/julie/Dropbox/Atlas/allenCCF';
-fileName = 'VIS_projections_all';
+fileName = 'VIS_projections_all4';
 
 % experiment to load information
 inputRegions = {'VISp', 'VISl', 'VISal', 'VISpl', 'VISam', 'VISpm', 'VISli', 'VISpor'}; % region(s), use Allen Atlas abbreviation conventions
@@ -35,10 +35,18 @@ experimentIDs = nsv_findConnectivityExperiments(inputRegions, mouseLine, primary
 %% 2. Fetch/load experiment data 
 experimentData = nsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
 
-%% 3. Plot injections (2D)
+%% 3. Plot injections
+%% a. 2D, region by region
 for iInputRegion = 1:size(inputRegions,2)
     nsv_plotConnectivity(experimentData, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 end
+
+%% b. 2D, all regions
+nsv_plotConnectivity(experimentData, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+
+%% b. 3D, all regions
+nsv_plotConnectivity(experimentData, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+
 
 %% 4. Plot projection data (2D) 
 for iInputRegion = 1:size(outputRegions,2)

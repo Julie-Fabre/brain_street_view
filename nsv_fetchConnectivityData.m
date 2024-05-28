@@ -38,27 +38,28 @@ if ~exist(filePath, 'file')
 
 
         % Sum or average the projections
-        if strcmp(normalizationMethod, 'injectionIntensity')
-            experiment_projection = experiment_projection / injectionInfo.sum_projection_pixel_intensity;
-        else
-        end
-
-        if subtractOtherHemisphere
-            if injectionInfo.hemisphere_id == 1 %left
-                experiment_projection_tmp = zeros(132, 80, 114);
-                for iML = 1:57
-                    experiment_projection_tmp(:, :, iML) = [experiment_projection(:, :, iML) - experiment_projection(:, :, 114-iML+1)];
-                end
-            elseif injectionInfo.hemisphere_id == 2 %right
-                experiment_projection_tmp = zeros(132, 80, 114);
-                for iML = 1:57
-                    experiment_projection_tmp(:, :, 114-iML+1) = [experiment_projection(:, :, 114-iML+1) - experiment_projection(:, :, iML)];
-                end
-            elseif injectionInfo.hemisphere_id == 3 %both
-                % do nothing ?
-            end
-
-        end
+        % if strcmp(normalizationMethod, 'injectionIntensity')
+        %     experiment_projection = experiment_projection / (injectionInfo.sum_projection_pixel_intensity/injectionInfo.sum_pixels);
+        % else
+        %     experiment_projection = experiment_projection;
+        % end
+        % 
+        % if subtractOtherHemisphere
+        %     if injectionInfo.hemisphere_id == 1 %left
+        %         experiment_projection_tmp = zeros(132, 80, 114);
+        %         for iML = 1:57
+        %             experiment_projection_tmp(:, :, iML) = [experiment_projection(:, :, iML) - experiment_projection(:, :, 114-iML+1)];
+        %         end
+        %     elseif injectionInfo.hemisphere_id == 2 %right
+        %         experiment_projection_tmp = zeros(132, 80, 114);
+        %         for iML = 1:57
+        %             experiment_projection_tmp(:, :, 114-iML+1) = [experiment_projection(:, :, 114-iML+1) - experiment_projection(:, :, iML)];
+        %         end
+        %     elseif injectionInfo.hemisphere_id == 3 %both
+        %         % do nothing ?
+        %     end
+        % 
+        % end
 
         combinedProjection = combinedProjection + experiment_projection;
 

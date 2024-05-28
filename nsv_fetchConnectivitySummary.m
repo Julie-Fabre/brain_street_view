@@ -31,8 +31,10 @@ url = 'http://connectivity.brain-map.org/api/v2/data/ProjectionStructureUnionize
 
 
 % Get projection data
+status = true;
 try
     page = urlread(sprintf(url, experimentID));
+
 catch
     status = false;
     warning('Failed to get data for ID %d\n', experimentID)

@@ -7,7 +7,7 @@ unzip(zipFile, saveFilePath);
 
 filePath = [saveFilePath, '/density.raw'];
 if ~exist(filePath, 'file')
-    status=false;
+    status = false;
     warning('Error downloading experiment %s, skipping.', experimentID);
 end
 
