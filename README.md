@@ -21,16 +21,16 @@ Dependencies:
 
 ### 🖼️ Gallery 
  - projections from visual cortices to striatum: injection sites and striatum plotted in 3D
-<img src="./images/visualInjections.gif" width="50%" title="ex_vis_cp" align="left" vspace = "20">
+<img src="./images/visualInjections.gif" width="50%" title="ex_vis_cp" vspace = "20">
 
 - example injections in primary visual cortex (VISp)
-<img src="./images/ex_VISp.png" width="100%" title="ex_visp" align="left" vspace = "20">
+<img src="./images/ex_VISp.png" width="100%" title="ex_visp" vspace = "20">
 
 - example injections in antero-lateral visual cortex (VISal)
-<img src="./images/ex_VISal.png" width="100%" title="ex_visal" align="left" vspace = "20">
+<img src="./images/ex_VISal.png" width="100%" title="ex_visal" " vspace = "20">
 
 - projections from visual cortices (VIS) to striatum (CP)
-<img src="./images/ex_VIS_to_CP.png" width="100%" title="ex_vis_cp" align="left" vspace = "20">
+<img src="./images/ex_VIS_to_CP.png" width="100%" title="ex_vis_cp" vspace = "20">
 
 ### 📬 Contact me
 If you run into any issues or if you have any suggestions, please raise a github issue, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@hmail.com).
