@@ -45,7 +45,8 @@ end
 % nsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 
 %% b. 3D, all regions
-nsv_plotConnectivity3D(injectionSummary, allenAtlasPath, inputRegions(iInputRegion), color)
+plotPatch = true; % if true plots a full volume; if false, plots a grid
+nsv_plotConnectivity3D(injectionSummary, allenAtlasPath, outputRegions(1), color, plotPatch)
 
 %% 4. Plot projection data (2D) 
 nsv_plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
