@@ -1,18 +1,18 @@
 
-# Neuro Street View <img src="./images/nsv.svg" width="10%" title="nsv" alt="nsv" align="left" vspace = "20">
+# Brain Street View <img src="./images/nsv.svg" width="10%" title="nsv" alt="nsv" align="left" vspace = "20">
 Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](doi.org/10.1038/nature13186))
 
 ### 🏁 Quick start 
 
-See the script `nsv_example` to get started. The first time the script is run, it will be slow  because images need to be downloaded. In subsequent runs, these images will simply be loaded and it will be much faster. 
+See the script `bsv_example` to get started. The first time the script is run, it will be slow  because images need to be downloaded. In subsequent runs, these images will simply be loaded and it will be much faster. 
 
 ### ⚒️ Installation
 
 Bombcell requires MATLAB>=2019a.
 
-To begin using NeuroStreetView:
-- [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the [repository](https://github.com/Julie-Fabre/bombcell/bombcell) and the [dependencies](#Dependencies).
-- add NeuroStreetView's and the dependancies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
+To begin using brainStreetView:
+- [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the [repository](https://github.com/Julie-Fabre/brain_street_view) and the [dependencies](#Dependencies).
+- add BrainStreetView's and the dependancies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
 
 Dependencies:
 - [allenCCF](https://github.com/cortex-lab/allenCCF)
