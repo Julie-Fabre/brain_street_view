@@ -3,7 +3,7 @@
 % local save directory 
 saveLocation = '/home/julie/Dropbox/Data/AllenQueries';
 allenAtlasPath =  '/home/julie/Dropbox/Atlas/allenCCF';
-fileName = 'VIS_projections_all4';
+fileName = ''; % leave empty to recompute each time, or enter text (e.g. fileName = 'Visual_projections') to save and reload
 
 % experiment to load information
 inputRegions = {'VISp', 'VISl', 'VISal', 'VISpl', 'VISam', 'VISpm', 'VISli', 'VISpor'}; % region(s), use Allen Atlas abbreviation conventions
@@ -20,7 +20,7 @@ subtractOtherHemisphere = true;
 color = [0.543,0, 0; ...
     0, 0.746, 1;...
     0.180,0.543,0.340;...
-    1,0.547,0];%outline color for each region
+    1,0.547,0]; % outline color for each region in RGB. leave empty to use defaults 
 numberOfSlices = 10;
 numberOfPixels = 15;
 plane = 'coronal'; % coroncal or sagital 

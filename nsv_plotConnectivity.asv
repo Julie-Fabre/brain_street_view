@@ -330,18 +330,18 @@ for iChunk = 1:numberOfChunks
     ylim([ylims_region(iChunk, 1) - ylims_here, ylims_region(iChunk, 2) + ylims_here])
 
     shrink_factor_x = diff(xlims_region(iChunk, :)) ./ (diff(xlims_region(iChunk, :)) + xlims_here*2);
-    %shrink_factor_y = diff(ylims_region(iChunk, :)) ./ (diff(ylims_region(iChunk, :)) + ylims_here*2);
-    if iChunk == 1
+    shrink_factor_y = diff(ylims_region(iChunk, :)) ./ (diff(ylims_region(iChunk, :)) + xlims_here*2);
+    %if iChunk == 1
         axis_length_mm = 1;
         one_pixel_x = (diff(projection_view_bins{iChunk}{1}(2:3)));
-        one_pixel_x_um = one_pixel_x / 2.5 / shrink_factor_x; % QQ why 2.5 here 
+        one_pixel_x_um = one_pixel_x;
        % one_pixel_y = (diff(projection_view_bins{iChunk}{2}(2:3)));
        % one_pixel_y_um = one_pixel_y;
         axis_length_atlas_units_x = (axis_length_mm * 1000) / (one_pixel_x_um);
        % axis_length_atlas_units_y = (axis_length_mm * 1000) / (one_pixel_y_um);
         prettify_addScaleBars(axis_length_atlas_units_x, 0, ...
             [num2str(axis_length_mm) 'mm'], '', 'topLeft', '', '')
-    end
+    %end
 
 end
 

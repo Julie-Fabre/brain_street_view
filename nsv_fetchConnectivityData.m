@@ -6,7 +6,7 @@ projectionGridSize = [132, 80, 114];
 combinedProjection = zeros(projectionGridSize);
 
 filePath = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
-if ~exist(filePath, 'file')
+if ~exist(filePath, 'file') || isempty(fileName)
     for iExpID = 1:size(experimentIDs, 2)
         expID = experimentIDs(iExpID);
 
@@ -65,7 +65,9 @@ if ~exist(filePath, 'file')
 
     end
     combinedProjection = combinedProjection ./ size(experimentIDs, 2);
-    save(filePath, 'combinedProjection')
+    if ~isempty(fileName)
+        save(filePath, 'combinedProjection')
+    end
 else
     load(filePath)
 end
