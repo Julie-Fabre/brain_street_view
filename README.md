@@ -31,7 +31,7 @@ Dependencies:
 <img src="./images/ex_VIS_to_CP.png" width="100%" title="ex_vis_cp" align="left" vspace = "20">
 
 ### 📬 Contact me
-If you run into any issues or if you have any suggestions, please raise a github issu, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@hmail.com).
+If you run into any issues or if you have any suggestions, please raise a github issue, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@hmail.com).
 
 ### Misc. 
 Allen documentation:
