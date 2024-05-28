@@ -27,7 +27,7 @@ Dependencies:
 <img src="./images/ex_VISp.png" width="100%" title="ex_visp" vspace = "20">
 
 - example injections in antero-lateral visual cortex (VISal)
-<img src="./images/ex_VISal.png" width="100%" title="ex_visal" " vspace = "20">
+<img src="./images/ex_VISal.png" width="100%" title="ex_visal" vspace = "20">
 
 - projections from visual cortices (VIS) to striatum (CP)
 <img src="./images/ex_VIS_to_CP.png" width="100%" title="ex_vis_cp" vspace = "20">
