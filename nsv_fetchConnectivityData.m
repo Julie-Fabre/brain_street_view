@@ -1,14 +1,17 @@
-function experimentData = nsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere)
+function [combinedProjection, combinedInjectionInfo] = nsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere)
 
 %% fetch data
 
 projectionGridSize = [132, 80, 114];
-combinedProjection = zeros(projectionGridSize);
 
-filePath = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
-if ~exist(filePath, 'file') || isempty(fileName)
+combinedProjection = zeros(projectionGridSize);
+combinedInjectionInfo = table;
+
+filePath_imgs = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
+filePath_injectionSummary = [saveLocation, filesep, fileName, '_injectionSummary.mat'];
+
+if ~exist(filePath_imgs, 'file') || isempty(fileName)
     for iExpID = 1:size(experimentIDs, 2)
-        expID = experimentIDs(iExpID);
 
         mkdir([saveLocation, filesep, num2str(experimentIDs(iExpID))]);
 
@@ -62,15 +65,21 @@ if ~exist(filePath, 'file') || isempty(fileName)
         % end
 
         combinedProjection = combinedProjection + experiment_projection;
+        
+        fieldNames = fieldnames(injectionInfo);
+        for iFieldName = 1:size(fieldNames,1)
+            combinedInjectionInfo.(fieldNames{iFieldName})(iExpID) = injectionInfo.(fieldNames{iFieldName});
+        end
 
     end
     combinedProjection = combinedProjection ./ size(experimentIDs, 2);
     if ~isempty(fileName)
-        save(filePath, 'combinedProjection')
+        save(filePath_imgs, 'combinedProjection')
+        save(filePath_injectionSummary, 'combinedInjectionInfo')
     end
 else
-    load(filePath)
+    load(filePath_imgs)
+    readtable(filePath_injectionSummary)
 end
 
-experimentData = combinedProjection;
 end
