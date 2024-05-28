@@ -35,7 +35,10 @@ experimentIDs = nsv_findConnectivityExperiments(inputRegions, mouseLine, primary
 %% 2. Fetch/load experiment data 
 [experimentImgs, injectionSummary] = nsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
 
-%% 3. Plot injections
+%% 3. Plot projection data (2D) 
+nsv_plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(1), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+
+%% 4. Plot injections
 %% a. 2D, region by region
 for iInputRegion = 1:size(inputRegions,2)
     nsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
@@ -44,9 +47,7 @@ end
 %% b. 2D, all regions - QQ TO DO
 % nsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 
-%% b. 3D, all regions
+%% c. 3D, all regions
 plotPatch = true; % if true plots a full volume; if false, plots a grid
 nsv_plotConnectivity3D(injectionSummary, allenAtlasPath, outputRegions(1), color, plotPatch)
 
-%% 4. Plot projection data (2D) 
-nsv_plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
