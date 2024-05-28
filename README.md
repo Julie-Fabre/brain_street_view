@@ -21,7 +21,7 @@ Dependencies:
 
 ### 🖼️ Gallery 
  - projections from visual cortices to striatum: injection sites and striatum plotted in 3D
-<img src="./images/visualInjections.gif" width="100%" title="ex_vis_cp" align="left" vspace = "20">
+<img src="./images/visualInjections.gif" width="50%" title="ex_vis_cp" align="left" vspace = "20">
 
 - example injections in primary visual cortex (VISp)
 <img src="./images/ex_VISp.png" width="100%" title="ex_visp" align="left" vspace = "20">
