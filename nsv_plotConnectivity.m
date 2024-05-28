@@ -207,7 +207,7 @@ for iChunk = 1:numberOfChunks
 end
 
 %% get and plot all fluorescence
-figProjection = figure('Name', 'Fluorescence intensity');
+figProjection = figure('Name', 'Fluorescence intensity', 'Color' ,'w');
 
 for iChunk = 1:numberOfChunks
     thisCmap_limits = [-max(max(projectionMatrix{iChunk})), max(max(projectionMatrix{iChunk}))];
