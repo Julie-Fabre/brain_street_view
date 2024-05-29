@@ -184,7 +184,11 @@ end
 
 prettify_plot;
 
-theseLocations_ap_dv_ml = zeros(size(experimentData)./[1, 1, 2, 1]);
+if size(experimentData,4)==1
+    theseLocations_ap_dv_ml = zeros(size(experimentData)./[1, 1, 2]);
+else
+    theseLocations_ap_dv_ml = zeros(size(experimentData)./[1, 1, 2, 1]);
+end
 for iGroup = 1:size(experimentData, 4)
     theseLocations_ap_dv_ml(:, :, :, iGroup) = experimentData(:, :, 1:projectionGridSize(3)/2, iGroup) + ...
         experimentData(:, :, projectionGridSize(3):-1:projectionGridSize(3)/2+1, iGroup); % collapse ML so we only have one hemisphere
