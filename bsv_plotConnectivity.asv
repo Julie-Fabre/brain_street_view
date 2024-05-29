@@ -227,6 +227,7 @@ end
 figProjection = figure('Name', 'Fluorescence intensity', 'Color', 'w');
 nGroups = size(experimentData, 4);
 for iChunk = 1:numberOfChunks
+ iChunk=iChunk+1;
 
     clearvars regionLocation isIN
 
@@ -249,7 +250,7 @@ for iChunk = 1:numberOfChunks
     for iGroup = 1:nGroups
         % setup plotting axis
         figure(figProjection);
-        subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk)
+        subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk-1)
         hold on;
         ax = gca;
         ax.YColor = 'w';
@@ -294,7 +295,6 @@ for iChunk = 1:numberOfChunks
         axis image
         ax.XLabel.Color = [0, 0, 0];
         ax.YLabel.Color = [0, 0, 0];
-        set(ax, 'YDir', 'reverse');
 
         % yaxis
         nColors = numel(ax.YTickLabel);
@@ -336,7 +336,7 @@ end
 xlims_region = nan(numberOfChunks, 2);
 ylims_region = nan(numberOfChunks, 2);
 for iChunk = 1:numberOfChunks
-    subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk)
+    subplot(size(1, 2), numberOfChunks, iChunk)
     xlims_region(iChunk, :) = xlim;
     ylims_region(iChunk, :) = ylim;
 end
