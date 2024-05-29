@@ -3,25 +3,27 @@ function [combinedProjection, combinedInjectionInfo] = bsv_fetchConnectivityData
 
 if nargin < 6 || isempty(groupingMethod)
     groupingMethod = 'NaN';
-    numberOfGroups = 1;
-else
-    numberOfGroups = 10; % some value for now
 end
 
 %% fetch data
 
 projectionGridSize = [132, 80, 114];
 
+% filepaths 
 filePath_imgs = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
 filePath_injectionSummary = [saveLocation, filesep, fileName, '_injectionSummary.mat'];
 
 if ~exist(filePath_imgs, 'file') || isempty(fileName)
     combinedInjectionInfo = table;
     for iExpID = 1:size(experimentIDs, 2)
+        
+        % create dir if it doesn't exist
+        saveDir = [saveLocation, filesep, num2str(experimentIDs(iExpID))];
+        if ~exist(saveDir, 'dir')
+            mkdir(saveDir);
+        end
 
-        mkdir([saveLocation, filesep, num2str(experimentIDs(iExpID))]);
-
-        % summary (structure.ionizes
+        % summary (structure.ionizes)
         summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary.mat'];
         if ~exist(summaryFilePath)
             status = bsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
@@ -30,14 +32,16 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             end
         end
         load(summaryFilePath)
-
+        
+        % put all strcuture.ionizes summary into one table
         fieldNames = fieldnames(injectionInfo);
         for iFieldName = 1:size(fieldNames, 1)
             combinedInjectionInfo.(fieldNames{iFieldName})(iExpID) = injectionInfo.(fieldNames{iFieldName});
         end
 
     end
-
+    
+    % grouping method 
     if strcmp(groupingMethod, 'AP')
         [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_x);
         [groups, ~, groupID] = unique(sorted_values);
@@ -53,15 +57,20 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         [groups, ~, groupID] = unique(sorted_values);
         groupID_original_order = zeros(size(groupID));
         groupID_original_order(sort_indices) = groupID;
+    elseif strcmp(groupingMethod, 'NaN')
+        groups = ones(size(experimentIDs,2), 1);
+        groupID_original_order = ones(size(experimentIDs,2), 1);
     else
         warning('grouping method not recognized - skipping grouping. ')
         groups = ones(size(experimentIDs,2), 1);
         groupID_original_order = ones(size(experimentIDs,2), 1);
     end
+    
+
     numberOfGroups = numel(unique(groups));
-
     combinedProjection = zeros([projectionGridSize, numberOfGroups]);
-
+    
+    % get raw images 
     for iExpID = 1:size(experimentIDs, 2)
 
         thisGroup = groupID_original_order(iExpID);
@@ -113,10 +122,13 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
 
     end
     
+    % normalize images to number of projections 
     for iGroup = 1:numberOfGroups
-        theseGroups = numel(find(groupID==iGroup));
+        theseGroups = numel(find(groupID_original_order==iGroup));
         combinedProjection(:,:,:,numberOfGroups) = combinedProjection(:,:,:,numberOfGroups) ./ theseGroups;
     end
+
+    % save files 
     if ~isempty(fileName)
         save(filePath_imgs, 'combinedProjection')
         save(filePath_injectionSummary, 'combinedInjectionInfo')
