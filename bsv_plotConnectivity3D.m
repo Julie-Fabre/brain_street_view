@@ -45,7 +45,8 @@ else
     rgbMatrix = hex2dec(reshape(st.color_hex_triplet{injection_structure_idx(1)}, 2, [])')' ./ 255;
 end
 % projection_volume is in mm^ 3, atlas is in 10um x 10um x 10um -> multiply
-% by 10^6 - but that looks really odd. QQ leave as 10^3 for now 
+% by 10^6 - but that looks really odd. QQ leave as 10^3 for now. scatter is
+% also the wrong tool for this - it doesn't scale with the plot
 dotSize = 10^3;
 scatter3(max_voxel_x(keepMe), max_voxel_z(keepMe), max_voxel_y(keepMe), ...
     [injectionSummary.projection_volume(keepMe)].*dotSize , rgbMatrix, 'filled', ...

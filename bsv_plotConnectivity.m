@@ -210,7 +210,7 @@ end
 figProjection = figure('Name', 'Fluorescence intensity', 'Color' ,'w');
 
 for iChunk = 1:numberOfChunks
-    thisCmap_limits = [-max(max(projectionMatrix{iChunk})), max(max(projectionMatrix{iChunk}))];
+    thisCmap_limits = [0, max(max(projectionMatrix{iChunk}))];
 
     binnedArrayPixelSmooth = projectionMatrix{iChunk};
     % remove any data points outside of the ROI
@@ -244,7 +244,7 @@ for iChunk = 1:numberOfChunks
 
     set(gca, 'color', [0.5, 0.5, 0.5]);
 
-    originalColormap = brewermap([], '*RdBu');
+    originalColormap = brewermap([], 'Greys');
 
     colormap(originalColormap);
 
@@ -252,7 +252,7 @@ for iChunk = 1:numberOfChunks
     try
         caxis(thisCmap_limits)
     catch
-        caxis([-1, 1])
+        caxis([0, 1])
     end
     hold on;
 

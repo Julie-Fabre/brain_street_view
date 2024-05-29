@@ -1,4 +1,5 @@
-function [combinedProjection, combinedInjectionInfo] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere)
+function [combinedProjection, combinedInjectionInfo] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName,...
+    normalizationMethod, subtractOtherHemisphere, groupingMethod, numberOfGroups)
 
 %% fetch data
 
@@ -46,7 +47,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         % else
         %     experiment_projection = experiment_projection;
         % end
-        % 
+        
        if subtractOtherHemisphere
            experiment_projection_tmp = zeros(132, 80, 114);
             if injectionInfo.max_voxel_z <= 114/2  %left
