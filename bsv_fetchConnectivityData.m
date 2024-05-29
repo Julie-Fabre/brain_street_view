@@ -34,9 +34,20 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         load(summaryFilePath)
         
         % put all strcuture.ionizes summary into one table
-        fieldNames = fieldnames(injectionInfo);
-        for iFieldName = 1:size(fieldNames, 1)
-            combinedInjectionInfo.(fieldNames{iFieldName})(iExpID) = injectionInfo.(fieldNames{iFieldName});
+        % Initialize combinedInjectionInfo if it doesn't exist
+        if iExpID == 1
+            combinedInjectionInfo = struct();
+            fieldNames = fieldnames(injectionInfo);
+        end
+        
+        for iFieldName = 1:numel(fieldNames)
+            % Ensure the field exists in combinedInjectionInfo
+            if ~isfield(combinedInjectionInfo, fieldNames{iFieldName})
+                combinedInjectionInfo.(fieldNames{iFieldName}) = [];
+            end
+            
+            % Concatenate the data
+            combinedInjectionInfo.(fieldNames{iFieldName}) = [combinedInjectionInfo.(fieldNames{iFieldName}); injectionInfo.(fieldNames{iFieldName})];
         end
 
     end
