@@ -19,6 +19,7 @@ normalizationMethod = 'injectionIntensity'; % can be 'none' or 'injectionIntensi
 % plotting parameters
 numberOfSlices = 10;
 numberOfPixels = 15;
+outputRegions = {'CP'};
 color = [0.543,0, 0; ...
     0, 0.746, 1;...
     0.180,0.543,0.340;...
@@ -26,7 +27,6 @@ color = [0.543,0, 0; ...
 plane = 'coronal'; % - not implemented yet - coronal or sagital
 smoothing = 2; % - not implemented yet - none or a number (of pixels)
 colorLimits = 'global'; % - not implemented yet - global, per slice or two numbers  
-outputRegions = {'CP'};
 regionOnly = true; % - not implemented yet - 
 
 %% 1. Get allen connectivity experiments of interest 
