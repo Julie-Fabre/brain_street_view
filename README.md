@@ -8,15 +8,14 @@ See the script `bsv_example` to get started. The first time the script is run, i
 
 ### ⚒️ Installation
 
-Bombcell requires MATLAB>=2019a.
+BrainStreetView requires MATLAB>=2019a.
 
-To begin using brainStreetView:
+To begin using BrainStreetView:
 - [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the [repository](https://github.com/Julie-Fabre/brain_street_view) and the [dependencies](#Dependencies).
 - add BrainStreetView's and the dependancies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
 
 Dependencies:
 - [allenCCF](https://github.com/cortex-lab/allenCCF)
-- [YAHT](https://github.com/cortex-lab/YAHT)
 - [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab), to make plots pretty.
 
 ### 🖼️ Gallery 
