@@ -34,7 +34,7 @@ for iRegion = 1:size(regions,2)
 
     %Get data from Allen
     experimentPage = urlread(fullURL);
-    result = loadjson(experimentPage);
+    result = jsondecode(experimentPage);
     if ~result.success
         fprintf('Query failed!\n%s\nAt URL: %s\n\n', result.msg, url);
     end
@@ -42,7 +42,7 @@ for iRegion = 1:size(regions,2)
     %% get the experiment IDs
     %experimentIDs = [experimentIDs, ones(1, length(result.msg))];
     for iID = 1:length(result.msg)
-        experimentIDs = [experimentIDs, result.msg{iID}.id];
+        experimentIDs = [experimentIDs, result.msg(iID).id];
     end
     fprintf('Found %d experiments in %s \n', length(result.msg), regions{iRegion})
 end

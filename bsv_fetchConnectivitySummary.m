@@ -45,13 +45,13 @@ injectionInfo = [];
 % parse the JSON data
 if ~isempty(page)
        
-    tmp = loadjson(page);
+    tmp = jsondecode(page);
     
     if tmp.success
         % load just the injection data 
         for iLine = length(tmp.msg):-1:1 % usually (always?) end is injection
-            if tmp.msg{iLine}.is_injection
-                injectionInfo = tmp.msg{iLine};
+            if tmp.msg(iLine).is_injection
+                injectionInfo = tmp.msg(iLine);
                 continue;
             end
         end
