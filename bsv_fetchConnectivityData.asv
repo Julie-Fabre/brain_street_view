@@ -1,27 +1,29 @@
 function [combinedProjection, combinedInjectionInfo] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
     normalizationMethod, subtractOtherHemisphere, groupingMethod)
 
-if nargin < 6 || isempty(groupingMethod)
+if nargin < 6 || isempty(groupingMethod)% group experiments by brain region (groupingMethod = 'region') or not
     groupingMethod = 'NaN';
-    numberOfGroups = 1;
-else
-    numberOfGroups = 10; % some value for now
 end
 
 %% fetch data
 
 projectionGridSize = [132, 80, 114];
 
+% filepaths 
 filePath_imgs = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
 filePath_injectionSummary = [saveLocation, filesep, fileName, '_injectionSummary.mat'];
 
 if ~exist(filePath_imgs, 'file') || isempty(fileName)
     combinedInjectionInfo = table;
     for iExpID = 1:size(experimentIDs, 2)
+        
+        % create dir if it doesn't exist
+        saveDir = [saveLocation, filesep, num2str(experimentIDs(iExpID))];
+        if ~exist(saveDir, 'dir')
+            mkdir(saveDir);
+        end
 
-        mkdir([saveLocation, filesep, num2str(experimentIDs(iExpID))]);
-
-        % summary (structure.ionizes
+        % summary (structure.ionizes)
         summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary.mat'];
         if ~exist(summaryFilePath)
             status = bsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
@@ -30,37 +32,61 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             end
         end
         load(summaryFilePath)
-
-        fieldNames = fieldnames(injectionInfo);
-        for iFieldName = 1:size(fieldNames, 1)
-            combinedInjectionInfo.(fieldNames{iFieldName})(iExpID) = injectionInfo.(fieldNames{iFieldName});
+        
+        % put all strcuture.ionizes summary into one table
+        % Initialize combinedInjectionInfo if it doesn't exist
+        if iExpID == 1
+            combinedInjectionInfo = struct();
+            fieldNames = fieldnames(injectionInfo);
+        end
+        
+        for iFieldName = 1:numel(fieldNames)
+            % Ensure the field exists in combinedInjectionInfo
+            if ~isfield(combinedInjectionInfo, fieldNames{iFieldName})
+                combinedInjectionInfo.(fieldNames{iFieldName}) = [];
+            end
+            
+            % Concatenate the data
+            combinedInjectionInfo.(fieldNames{iFieldName}) = [combinedInjectionInfo.(fieldNames{iFieldName}); injectionInfo.(fieldNames{iFieldName})];
         end
 
     end
-
-    if strcmp(groupingMethod, 'AP')
+    
+    % grouping method 
+    if strcmp(groupingMethod, 'brainRegion')
+        
+    elseif strcmp(groupingMethod, 'AP')
         [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_x);
         [groups, ~, groupID] = unique(sorted_values);
         groupID_original_order = zeros(size(groupID));
         groupID_original_order(sort_indices) = groupID;
-
-        [groups, groupID] = sort(combinedInjectionInfo.max_voxel_x);
     elseif strcmp(groupingMethod, 'ML')
-        [groups, groupID] = sort(combinedInjectionInfo.max_voxel_z);
+        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_z);
+        [groups, ~, groupID] = unique(sorted_values);
+        groupID_original_order = zeros(size(groupID));
+        groupID_original_order(sort_indices) = groupID;
     elseif strcmp(groupingMethod, 'DV')
-        [groups, groupID] = sort(combinedInjectionInfo.max_voxel_y);
+        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_y);
+        [groups, ~, groupID] = unique(sorted_values);
+        groupID_original_order = zeros(size(groupID));
+        groupID_original_order(sort_indices) = groupID;
+    elseif strcmp(groupingMethod, 'NaN')
+        groups = ones(size(experimentIDs,2), 1);
+        groupID_original_order = ones(size(experimentIDs,2), 1);
     else
         warning('grouping method not recognized - skipping grouping. ')
         groups = ones(size(experimentIDs,2), 1);
-        groupID = ones(size(experimentIDs,2), 1);
+        groupID_original_order = ones(size(experimentIDs,2), 1);
     end
+    
+
     numberOfGroups = numel(unique(groups));
-
     combinedProjection = zeros([projectionGridSize, numberOfGroups]);
-
+    
+    % get raw images 
     for iExpID = 1:size(experimentIDs, 2)
 
-        thisGroup = groupID(iExpID);
+        thisGroup = groupID_original_order(iExpID);
 
         % raw data
         rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'density.raw'];
@@ -108,10 +134,14 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
 
 
     end
+    
+    % normalize images to number of projections 
     for iGroup = 1:numberOfGroups
-        theseGroups = numel(find(groupID==iGroup));
+        theseGroups = numel(find(groupID_original_order==iGroup));
         combinedProjection(:,:,:,numberOfGroups) = combinedProjection(:,:,:,numberOfGroups) ./ theseGroups;
     end
+
+    % save files 
     if ~isempty(fileName)
         save(filePath_imgs, 'combinedProjection')
         save(filePath_injectionSummary, 'combinedInjectionInfo')

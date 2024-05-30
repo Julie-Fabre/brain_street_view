@@ -1,7 +1,7 @@
 function [combinedProjection, combinedInjectionInfo] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
     normalizationMethod, subtractOtherHemisphere, groupingMethod)
 
-if nargin < 6 || isempty(groupingMethod)
+if nargin < 6 || isempty(groupingMethod)% group experiments by brain region (groupingMethod = 'region') or not
     groupingMethod = 'NaN';
 end
 
@@ -53,24 +53,9 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     end
     
     % grouping method 
-    if strcmp(groupingMethod, 'AP')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_x);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'ML')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_z);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'DV')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_y);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'NaN')
-        groups = ones(size(experimentIDs,2), 1);
-        groupID_original_order = ones(size(experimentIDs,2), 1);
+    if strcmp(groupingMethod, 'brainRegion')
+        
+    
     else
         warning('grouping method not recognized - skipping grouping. ')
         groups = ones(size(experimentIDs,2), 1);
