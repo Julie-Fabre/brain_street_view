@@ -31,5 +31,9 @@ Dependencies:
 - projections from visual cortices (VIS) to striatum (CP)
 <img src="./images/ex_VIS_to_CP.png" width="100%" title="ex_vis_cp" vspace = "20">
 
+### 🤗 Support and citing
+
+If you find this repo useful in your work, we would like a citation [more details coming soon-ish]. Cheers! 
+
 ### 📬 Contact me
 If you run into any issues or if you have any suggestions, please raise a github issue, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@hmail.com).
