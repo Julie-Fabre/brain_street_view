@@ -260,7 +260,9 @@ for iChunk = 1:numberOfChunks
         ax.XColor = 'w';
 
         % colormap limits
-        thisCmap_limits = [0, max(max(projectionMatrix{iChunk}(:, :, iGroup)))];
+        maxValue = max(cellfun(@(x) max(x(:, :, iGroup), [], 'all'), projectionMatrix));
+        thisCmap_limits = [0, maxValue];
+
         % remove any data points outside of the
         binnedArrayPixelSmooth = projectionMatrix{iChunk}(:, :, iGroup);
         binnedArrayPixelSmooth(isIN == 0) = NaN;
