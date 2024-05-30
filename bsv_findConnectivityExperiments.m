@@ -34,7 +34,11 @@ for iRegion = 1:size(regions,2)
 
     %Get data from Allen
     experimentPage = urlread(fullURL);
-    result = jsondecode(experimentPage);
+    try
+        result = jsondecode(experimentPage);
+    catch
+        keyboard;
+    end
     if ~result.success
         fprintf('Query failed!\n%s\nAt URL: %s\n\n', result.msg, url);
     end

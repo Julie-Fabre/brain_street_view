@@ -63,7 +63,7 @@ for iChunk = 1:numberOfChunks
     if strcmp(plane, 'coronal')
         subplot(numberOfChunks, 1, iChunk)
         if iChunk == numberOfChunks
-            xlabel('Left-to-right (a.u.)');
+            xlabel('Lateral-to-medial (a.u.)');
             hold on;
         elseif iChunk == round(numberOfChunks/2)
             ylabel('Posterior-to-anterior (a.u.)');
@@ -72,10 +72,11 @@ for iChunk = 1:numberOfChunks
     else
         subplot(1, numberOfChunks, iChunk)
         if iChunk == 1
-            ylabel('Posterior-to-anterior (a.u.)');
+            ylabel('Anterior-to-posterior (a.u.)');
             hold on;
         elseif iChunk == round(numberOfChunks/2)
-            xlabel('Left-to-right (a.u.)');
+            xlabel('Lateral-to-medial (a.u.)');
+            hold on;
         end
     end
     boundary_projection{iChunk} = boundary(thisChunk_x', ...
@@ -94,8 +95,6 @@ for iChunk = 1:numberOfChunks
     set(gca, 'XTick', []);
     set(gca, 'XTickLabel', []);
     set(gca, 'YTickLabel', []);
-    hold on;
-
 
     projection_view_lims(iChunk, 1, :) = xlim;
     projection_view_lims(iChunk, 2, :) = ylim;
@@ -105,6 +104,10 @@ for iChunk = 1:numberOfChunks
         projection_view_lims(iChunk, 2, 1): ...
         (projection_view_lims(iChunk, 2, 2) - projection_view_lims(iChunk, 2, 1)) / numberOfPixels: ...
         projection_view_lims(iChunk, 2, 2)};
+
+    if strcmp(plane, 'coronal')
+        set(gca, 'YDir', 'reverse');
+    end
 end
 
 if strcmp(plane, 'coronal')
@@ -136,13 +139,23 @@ projection_view_lims = nan(3, 2, 2);
 for iChunk = 1:numberOfChunks
     clearvars regionLocation
     % get structure boundaries and plot outline
-    region_area = permute(ismember(av(round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1)), ...
-        1:1:end, 1:1:end/2), curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere
-    % AP, DV, ML -> ML, AP, DV
+    if strcmp(plane, 'coronal')
+        region_area = permute(ismember(av(round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1)), ...
+            1:1:end, 1:1:end/2), curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere, ML x AP x DV
+    else
+        region_area = permute(ismember(av(1:1:end, ...
+            1:1:end, round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1))), curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere, ML x AP x DV
+    end
 
     [regionLocation(1, :), regionLocation(2, :), regionLocation(3, :)] ...
-        = ind2sub(size(region_area), find(region_area)); %ML, AP, DV
-    regionLocation(2, :) = regionLocation(2, :) + round(chunks_region(iChunk)) - 1;
+        = ind2sub(size(region_area), find(region_area)); % ML, AP, DV
+    if strcmp(plane, 'coronal')
+        regionLocation(2, :) = regionLocation(2, :) + round(chunks_region(iChunk)) - 1;
+    else
+        regionLocation(1, :) = regionLocation(1, :) + round(chunks_region(iChunk)) - 1;
+    end
+   
+
     thisChunk_x = regionLocation(projection_views(1, 1), :);
     thisChunk_DV = regionLocation(projection_views(1, 2), :);
 
@@ -152,11 +165,11 @@ for iChunk = 1:numberOfChunks
     hold on;
 
     if iChunk == 1
-        ylabel('Dorsal-to-ventral (a.u.)');
+        ylabel('Ventral-to-dorsal (a.u.)');
         if strcmp(plane, 'coronal')
-            xlabel('lateral-to-medial (a.u.)');
+            xlabel('Lateral-to-medial (a.u.)');
         else
-            xlabel('anterior-to-posterior (a.u.)');
+            xlabel('Anterior-to-posterior (a.u.)');
         end
     end
 
@@ -190,7 +203,8 @@ else
     theseLocations_ap_dv_ml = zeros(size(experimentData)./[1, 1, 2, 1]);
 end
 for iGroup = 1:size(experimentData, 4)
-    theseLocations_ap_dv_ml(:, :, :, iGroup) = experimentData(:, :, 1:projectionGridSize(3)/2, iGroup) + ...
+    theseLocations_ap_dv_ml(:, :, :, iGroup) = ...
+        experimentData(:, :, 1:projectionGridSize(3)/2, iGroup) + ...
         experimentData(:, :, projectionGridSize(3):-1:projectionGridSize(3)/2+1, iGroup); % collapse ML so we only have one hemisphere
 end
 
@@ -211,8 +225,17 @@ for iChunk = 1:numberOfChunks
 
     % find voxels that fit inside
     if ~any(xEdges == 0) && ~any(yEdges == 0)
-        projtemp = permute(squeeze(nanmean(theseLocations_ap_dv_ml(round((chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), ...
-            round(yEdges/10), round(xEdges/10), :), 1)), [2, 1, 3]);
+        if strcmp(plane, 'coronal')
+            projtemp = permute(squeeze(nanmean(...
+                theseLocations_ap_dv_ml(round(...
+                (chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), ...
+                round(yEdges/10), round(xEdges/10), :), 1)), [2, 1, 3]);% AP x DV x ML ->  DV x AP x ML
+        else
+            projtemp = permute(squeeze(nanmean(...
+                theseLocations_ap_dv_ml(round(xEdges/10), round(yEdges/10), ...
+                round((chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), :), 1)), [2, 1, 3]);
+        
+        end
         projectionMatrix{iChunk} = projtemp;
     end
 
@@ -229,17 +252,25 @@ end
 
 %% get and plot all fluorescence
 figProjection = figure('Name', 'Fluorescence intensity', 'Color', 'w');
+
 nGroups = size(experimentData, 4);
 for iChunk = 1:numberOfChunks
 
     clearvars regionLocation isIN
 
     % get structure boundaries 
-    region_area = permute(ismember(av(round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1)), ...
-        1:1:end, 1:1:end/2), curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere
+    if strcmp(plane, 'coronal')
+        region_area = permute(ismember(av(round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1)), ...
+            1:1:end, 1:1:end/2), curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere, ML x AP x DV
+    else
+        region_area = permute(ismember(av(1:1:end, ...
+            1:1:end, round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1))),...
+            curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere, ML x AP x DV
+    end
     [regionLocation(1, :), regionLocation(2, :), regionLocation(3, :)] ...
         = ind2sub(size(region_area), find(region_area)); %ML, AP, DV
-
+    
+    
     isIN = nan(size(projectionMatrix{iChunk}, 1), size(projectionMatrix{iChunk}, 2));
     for iPixelX = 1:size(projectionMatrix{iChunk}, 1)
         for iPixelY = 1:size(projectionMatrix{iChunk}, 2)
@@ -256,40 +287,33 @@ for iChunk = 1:numberOfChunks
         subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk)
         hold on;
         ax = gca;
-        ax.YColor = 'w';
-        ax.XColor = 'w';
 
         % colormap limits
         maxValue = max(cellfun(@(x) max(x(:, :, iGroup), [], 'all'), projectionMatrix));
         thisCmap_limits = [0, maxValue];
 
-        % remove any data points outside of the
-        binnedArrayPixelSmooth = projectionMatrix{iChunk}(:, :, iGroup);
-        binnedArrayPixelSmooth(isIN == 0) = NaN;
+        % remove any data points outside of the region
+        binnedArrayPixel = projectionMatrix{iChunk}(:, :, iGroup);
+        binnedArrayPixel(isIN == 0) = NaN;
+
+        % smooth - QQ TODO
+        binnedArrayPixelSmooth = binnedArrayPixel;
 
         % plot data
         im = imagesc(projection_view_bins{iChunk}{1}, projection_view_bins{iChunk}{2}, ...
             binnedArrayPixelSmooth');
-        set(im, 'AlphaData', ~isnan(get(im, 'CData')));
 
+        % make NaN values (outside of ROI) grey
+        set(im, 'AlphaData', ~isnan(get(im, 'CData')));
         set(gca, 'color', [0.5, 0.5, 0.5]);
 
         % set colormap
-        originalColormap = brewermap([], 'Greys');
-        colormap(originalColormap);
+        colormap(brewermap([], 'Greys'));
 
         % set colormap limits
-        try
-            caxis(thisCmap_limits)
-        catch
-            caxis([0, 1])
-        end
-        hold on;
+        clim(thisCmap_limits)
 
         % plot region boundaries
-        clearvars binnedArrayPixel
-        boundary_projection{iChunk} = boundary(regionLocation(projection_views(iChunk, 1), :)', ...
-            regionLocation(projection_views(iChunk, 2), :)', 0);
         plot(regionLocation(projection_views(iChunk, 1), boundary_projection{iChunk}), ...
             regionLocation(projection_views(iChunk, 2), boundary_projection{iChunk}), ...
             'Color', plot_structure_color, 'LineWidth', 2);
@@ -300,13 +324,15 @@ for iChunk = 1:numberOfChunks
         axis image
         ax.XLabel.Color = [0, 0, 0];
         ax.YLabel.Color = [0, 0, 0];
-        set(ax, 'YDir', 'reverse');
+
+        if strcmp(plane, 'coronal')
+            set(ax, 'YDir', 'reverse');
+        end
 
         % yaxis
         nColors = numel(ax.YTickLabel);
-        cm = [0, 0, 0];
         for i = 1:nColors
-            ax.YTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', cm, ax.YTickLabel{i})];
+            ax.YTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', [0, 0, 0], ax.YTickLabel{i})];
         end
         ylim([projection_view_bins{iChunk}{2}(1), projection_view_bins{iChunk}{2}(end)])
         ylabel(''); % Remove y-axis label
@@ -314,7 +340,7 @@ for iChunk = 1:numberOfChunks
         % xaxis
         nColors = numel(ax.XTickLabel);
         for i = 1:nColors
-            ax.XTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', cm, ax.XTickLabel{i})];
+            ax.XTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', [0, 0, 0], ax.XTickLabel{i})];
         end
         xlim([projection_view_bins{iChunk}{1}(1), projection_view_bins{iChunk}{1}(end)])
         xlabel(''); % Remove y-axis label
@@ -324,13 +350,18 @@ for iChunk = 1:numberOfChunks
         % title
         this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./10); %  coordinates = ya_convert_allen_to_paxinos(values_toConvert, allenOrBrainreg)
         if iChunk == 1
-            title(['ARA level: ', num2str(this_slice_ARA)]); % Allen Reference Atlas level
+            if strcmp(plane, 'coronal')
+                title(['ARA level (cor.): ', num2str(this_slice_ARA)]); % Allen Reference Atlas level
+            else
+                title(['ARA level (sag.): ', num2str(this_slice_ARA)]); % Allen Reference Atlas level
+            end
         elseif iChunk == numberOfChunks
             title([num2str(this_slice_ARA)]);
         else
             title([num2str(this_slice_ARA)]);
         end
-
+        
+        clearvars binnedArrayPixelSmooth binnedArrayPixel
 
     end
 
