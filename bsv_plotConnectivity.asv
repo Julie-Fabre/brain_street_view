@@ -1,5 +1,6 @@
 function bsv_plotConnectivity(experimentData, allenAtlasPath, inputRegion, numberOfChunks, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
-% this function needs cleaning up + commenting 
+% this function needs cleaning up + commenting
+
 %% load Allen atlas
 av = readNPY([allenAtlasPath, filesep, 'annotation_volume_10um_by_index.npy']); % the number at each pixel labels the area, see note below
 st = loadStructureTree([allenAtlasPath, filesep, 'structure_tree_safe_2017.csv']); % a table of what all the labels mean
@@ -154,7 +155,7 @@ for iChunk = 1:numberOfChunks
     else
         regionLocation(1, :) = regionLocation(1, :) + round(chunks_region(iChunk)) - 1;
     end
-   
+
 
     thisChunk_x = regionLocation(projection_views(1, 1), :);
     thisChunk_DV = regionLocation(projection_views(1, 2), :);
@@ -171,6 +172,12 @@ for iChunk = 1:numberOfChunks
         else
             xlabel('Anterior-to-posterior (a.u.)');
         end
+    elseif iChunk == round(numberOfChunks/2)
+        if strcmp(plane, 'coronal')
+            title('<- Anterior to posterior slices ->');
+        else
+            title('<- Lateral to medial slices ->');
+        end          
     end
 
 
@@ -197,7 +204,7 @@ end
 
 prettify_plot;
 
-if size(experimentData,4)==1
+if size(experimentData, 4) == 1
     theseLocations_ap_dv_ml = zeros(size(experimentData)./[1, 1, 2]);
 else
     theseLocations_ap_dv_ml = zeros(size(experimentData)./[1, 1, 2, 1]);
@@ -212,8 +219,8 @@ projectionMatrix = {};
 
 % Loop over each chunk
 for iChunk = 1:numberOfChunks
-    nBinsX = numberOfPixels;
-    nBinsY = numberOfPixels;
+    nBinsX = numberOfPixels+1;
+    nBinsY = numberOfPixels+1;
 
     projectionMatrix{iChunk} = zeros(nBinsX, nBinsY);
 
@@ -226,15 +233,15 @@ for iChunk = 1:numberOfChunks
     % find voxels that fit inside
     if ~any(xEdges == 0) && ~any(yEdges == 0)
         if strcmp(plane, 'coronal')
-            projtemp = permute(squeeze(nanmean(...
-                theseLocations_ap_dv_ml(round(...
+            projtemp = permute(squeeze(nanmean( ...
+                theseLocations_ap_dv_ml(round( ...
                 (chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), ...
-                round(yEdges/10), round(xEdges/10), :), 1)), [2, 1, 3]);% AP x DV x ML ->  DV x AP x ML
+                round(yEdges/10), round(xEdges/10), :), 1)), [2, 1, 3]); % AP x DV x ML ->  DV x AP x ML
         else
-            projtemp = permute(squeeze(nanmean(...
-                theseLocations_ap_dv_ml(round(xEdges/10), round(yEdges/10), ...
+            projtemp = permute(squeeze(nanmean( ...
+                theseLocations_ap_dv_ml(round(yEdges/10), round(xEdges/10), ...
                 round((chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), :), 1)), [2, 1, 3]);
-        
+
         end
         projectionMatrix{iChunk} = projtemp;
     end
@@ -258,19 +265,19 @@ for iChunk = 1:numberOfChunks
 
     clearvars regionLocation isIN
 
-    % get structure boundaries 
+    % get structure boundaries
     if strcmp(plane, 'coronal')
         region_area = permute(ismember(av(round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1)), ...
             1:1:end, 1:1:end/2), curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere, ML x AP x DV
     else
         region_area = permute(ismember(av(1:1:end, ...
-            1:1:end, round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1))),...
+            1:1:end, round(chunks_region(iChunk)):1:round(chunks_region(iChunk+1))), ...
             curr_plot_structure_idx), [3, 1, 2]); % / 2 to only get one hemispehere, ML x AP x DV
     end
     [regionLocation(1, :), regionLocation(2, :), regionLocation(3, :)] ...
         = ind2sub(size(region_area), find(region_area)); %ML, AP, DV
-    
-    
+
+
     isIN = nan(size(projectionMatrix{iChunk}, 1), size(projectionMatrix{iChunk}, 2));
     for iPixelX = 1:size(projectionMatrix{iChunk}, 1)
         for iPixelY = 1:size(projectionMatrix{iChunk}, 2)
@@ -302,17 +309,16 @@ for iChunk = 1:numberOfChunks
         % plot data
         im = imagesc(projection_view_bins{iChunk}{1}, projection_view_bins{iChunk}{2}, ...
             binnedArrayPixelSmooth');
-        set(im, 'AlphaData', ~isnan(get(im, 'CData')));
 
+        % make NaN values (outside of ROI) grey
+        set(im, 'AlphaData', ~isnan(get(im, 'CData')));
         set(gca, 'color', [0.5, 0.5, 0.5]);
 
         % set colormap
-        originalColormap = brewermap([], 'Greys');
-        colormap(originalColormap);
+        colormap(brewermap([], 'Greys'));
 
         % set colormap limits
         clim(thisCmap_limits)
-        hold on;
 
         % plot region boundaries
         plot(regionLocation(projection_views(iChunk, 1), boundary_projection{iChunk}), ...
@@ -326,11 +332,8 @@ for iChunk = 1:numberOfChunks
         ax.XLabel.Color = [0, 0, 0];
         ax.YLabel.Color = [0, 0, 0];
 
-        if strcmp(plane, 'coronal')
-            set(ax, 'YDir', 'reverse');
-        end
-
         % yaxis
+        set(ax, 'YDir', 'reverse');
         nColors = numel(ax.YTickLabel);
         for i = 1:nColors
             ax.YTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', [0, 0, 0], ax.YTickLabel{i})];
@@ -361,7 +364,7 @@ for iChunk = 1:numberOfChunks
         else
             title([num2str(this_slice_ARA)]);
         end
-        
+
         clearvars binnedArrayPixelSmooth binnedArrayPixel
 
     end
