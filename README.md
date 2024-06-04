@@ -15,7 +15,9 @@ To begin using BrainStreetView:
 - add BrainStreetView's and the dependancies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
 
 Dependencies:
-- [allenCCF](https://github.com/cortex-lab/allenCCF)
+- [allenCCF](https://github.com/cortex-lab/allenCCF), to get Allen Atlas files
+- [npy-matlab](https://github.com/kwikteam/npy-matlab), to read in .npy files
+- [brewermap](https://github.com/DrosteEffect/BrewerMap), to generate colormaps
 - [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab), to make plots pretty.
 
 ### 🖼️ Gallery 
