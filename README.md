@@ -4,7 +4,7 @@ Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](doi.org/10.1038
 
 ### 🏁 Quick start 
 
-See the script `bsv_example` to get started. The first time the script is run, it will be slow  because images need to be downloaded. In subsequent runs, these images will simply be loaded and it will be much faster. 
+See the script `gettingStarted.mlx` to get started. The first time the script is run, it will be slow  because images need to be downloaded. In subsequent runs, these images will simply be loaded and it will be much faster. 
 
 ### ⚒️ Installation
 

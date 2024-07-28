@@ -1,4 +1,4 @@
-function status = bsv_fetchConnectivitySummary(experimentID, saveFilePath)
+function status = fetchConnectivitySummary(experimentID, saveFilePath)
 % structure.unionizes
 % - experiment_id : ID of the experiment (a.k.a SectionDataSet)
 % - structure_id : ID of the structure (e.g. 315 for Isocortex)
@@ -41,7 +41,7 @@ catch
 
 end
 
-injectionInfo = [];
+injectionInfo = struct;
 % parse the JSON data
 if ~isempty(page)
        
@@ -49,16 +49,11 @@ if ~isempty(page)
     
     if tmp.success
         % load just the injection data 
-        for iLine = length(tmp.msg):-1:1 % usually (always?) end is injection
-            if tmp.msg(iLine).is_injection
-                injectionInfo = tmp.msg(iLine);
-                continue;
-            end
-        end
+        injectionInfo = tmp.msg([tmp.msg.is_injection] == 1);
     end
 end
 
 % save results
-save([saveFilePath, filesep, 'injectionSummary.mat'], 'injectionInfo')
+save([saveFilePath, filesep, 'injectionSummary_all.mat'], 'injectionInfo')
 
 end

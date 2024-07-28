@@ -30,24 +30,24 @@ colorLimits = 'global'; % - not implemented yet - global, per slice or two numbe
 regionOnly = true; % - not implemented yet - 
 
 %% 1. Get allen connectivity experiments of interest 
-experimentIDs = bsv_findConnectivityExperiments(inputRegions, mouseLine, primaryInjection);
+experimentIDs = bsv.findConnectivityExperiments(inputRegions, mouseLine, primaryInjection);
 
 %% 2. Fetch/load experiment data 
-[experimentImgs, injectionSummary] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
+[experimentImgs, injectionSummary] = bsv.fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
 
 %% 3. Plot projection data (2D) 
-bsv_plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(1), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+bsv.plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(1), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 
 %% 4. Plot injections
 %% a. 2D, region by region
 for iInputRegion = 1:size(inputRegions,2)
-    bsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+    bsv.plotConnectivity(experimentImgs, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 end
 
 %% b. 2D, all regions - QQ TO DO
-% bsv_plotConnectivity(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+% bsv.plotConnectivity(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 
 %% c. 3D, all regions
 plotPatch = true; % if true plots a full volume; if false, plots a grid
-bsv_plotConnectivity3D(injectionSummary, allenAtlasPath, outputRegions(1), color, plotPatch)
+bsv.plotConnectivity3D(injectionSummary, allenAtlasPath, outputRegions(1), color, plotPatch)
 

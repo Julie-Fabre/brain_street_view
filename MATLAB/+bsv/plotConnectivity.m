@@ -1,4 +1,4 @@
-function bsv_plotConnectivity(experimentData, allenAtlasPath, inputRegion, numberOfChunks, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+function [projectionMatrix_array, projectionMatrixCoordinates_ARA] = plotConnectivity(experimentData, allenAtlasPath, inputRegion, numberOfChunks, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
 % this function needs cleaning up + commenting
 
 %% load Allen atlas
@@ -236,11 +236,14 @@ for iChunk = 1:numberOfChunks
             projtemp = permute(squeeze(nanmean( ...
                 theseLocations_ap_dv_ml(round( ...
                 (chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), ...
-                round(yEdges/10), round(xEdges/10), :), 1)), [2, 1, 3]); % AP x DV x ML ->  DV x AP x ML
+                round(yEdges/10),...
+                round(xEdges/10), :), 1)), [2, 1, 3]); % AP x DV x ML ->  DV x AP x ML
         else
             projtemp = permute(squeeze(nanmean( ...
-                theseLocations_ap_dv_ml(round(yEdges/10), round(xEdges/10), ...
-                round((chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), :), 1)), [2, 1, 3]);
+                theseLocations_ap_dv_ml(round(xEdges/10),...
+                round(yEdges/10), ...
+                round((chunks_region(iChunk) - thisdiff)./10):...
+                round((chunks_region(iChunk) + thisdiff)./10), :), 3)), [2, 1, 3]);
 
         end
         projectionMatrix{iChunk} = projtemp;
@@ -333,7 +336,9 @@ for iChunk = 1:numberOfChunks
         ax.YLabel.Color = [0, 0, 0];
 
         % yaxis
-        set(ax, 'YDir', 'reverse');
+        if strcmp(plane, 'coronal')
+            set(ax, 'YDir', 'reverse');
+        end
         nColors = numel(ax.YTickLabel);
         for i = 1:nColors
             ax.YTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', [0, 0, 0], ax.YTickLabel{i})];
@@ -364,6 +369,8 @@ for iChunk = 1:numberOfChunks
         else
             title([num2str(this_slice_ARA)]);
         end
+
+        sliceARAs(iChunk) = this_slice_ARA;
 
         clearvars binnedArrayPixelSmooth binnedArrayPixel
 
@@ -411,5 +418,10 @@ for iChunk = 1:numberOfChunks
 
 end
 
+projectionMatrix_array = reshape(cell2mat(projectionMatrix(:)),size(projectionMatrix{1},1) ,size(projectionMatrix{1},2) ,size(projectionMatrix,2));
 
+projectionMatrixCoordinates_ARA_initial = cell2mat(cellfun(@(x) cat(3, x{:}), projection_view_bins, 'UniformOutput', false));
+slice_AP_ARA = repmat(sliceARAs, [size(projectionMatrix{1},1), 1, 1]);
+slice_AP_ARA = permute(slice_AP_ARA, [2, 1, 3]);
+projectionMatrixCoordinates_ARA = cat(3, projectionMatrixCoordinates_ARA_initial, slice_AP_ARA);
 end

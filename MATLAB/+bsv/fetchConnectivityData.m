@@ -1,8 +1,10 @@
-function [combinedProjection, combinedInjectionInfo] = bsv_fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
-    normalizationMethod, subtractOtherHemisphere, groupingMethod)
+function [combinedProjection, combinedInjectionInfo] = fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
+    normalizationMethod, subtractOtherHemisphere, groupingMethod, allenAtlasPath)
 
-if nargin < 6 || isempty(groupingMethod)% group experiments by brain region (groupingMethod = 'region') or not
+if nargin < 6 || isempty(groupingMethod) || nargin < 7 || isempty(allenAtlasPath) % group experiments by brain region (groupingMethod = 'region') or not
     groupingMethod = 'NaN';
+else
+    st = loadStructureTree([allenAtlasPath, filesep, 'structure_tree_safe_2017.csv']); % a table of what all the labels mean
 end
 
 %% fetch data
@@ -24,9 +26,9 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         end
 
         % summary (structure.ionizes)
-        summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary.mat'];
+        summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary_all.mat'];
         if ~exist(summaryFilePath)
-            status = bsv_fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
+            status = bsv.fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
             if ~true
                 continue;
             end
@@ -47,32 +49,24 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             end
             
             % Concatenate the data
-            combinedInjectionInfo.(fieldNames{iFieldName}) = [combinedInjectionInfo.(fieldNames{iFieldName}); injectionInfo.(fieldNames{iFieldName})];
+            if size(combinedInjectionInfo.(fieldNames{iFieldName}),1) == 1
+                combinedInjectionInfo.(fieldNames{iFieldName}) = [combinedInjectionInfo.(fieldNames{iFieldName}), [injectionInfo.(fieldNames{iFieldName})]];
+            else
+                combinedInjectionInfo.(fieldNames{iFieldName}) = [combinedInjectionInfo.(fieldNames{iFieldName}); [injectionInfo.(fieldNames{iFieldName})]];
+            end
         end
 
     end
     
     % grouping method 
     if strcmp(groupingMethod, 'brainRegion')
-        
-    elseif strcmp(groupingMethod, 'AP')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_x);
+        outputAcronyms = arrayfun(@(id) st.acronym{st.id == id}, combinedInjectionInfo.structure_id, 'UniformOutput', false);
+
+        [sorted_values, sort_indices] = st.acronym(st.id==combinedInjectionInfo.structure_id);
         [groups, ~, groupID] = unique(sorted_values);
         groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'ML')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_z);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'DV')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_y);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'NaN')
-        groups = ones(size(experimentIDs,2), 1);
-        groupID_original_order = ones(size(experimentIDs,2), 1);
+        groupID_original_order(sort_indices) = groupID
+    
     else
         warning('grouping method not recognized - skipping grouping. ')
         groups = ones(size(experimentIDs,2), 1);
@@ -91,7 +85,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         % raw data
         rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'density.raw'];
         if ~exist(rawFilePath)
-            status = bsv_fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
+            status = bsv.fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
             if ~status
                 continue;
             end
