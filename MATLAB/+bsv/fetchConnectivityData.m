@@ -15,16 +15,17 @@ projectionGridSize = [132, 80, 114];
 filePath_imgs = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
 filePath_injectionSummary = [saveLocation, filesep, fileName, '_injectionSummary.mat'];
 
+nExpIDs = size(experimentIDs, 2); % added by Matteo
+
 if ~exist(filePath_imgs, 'file') || isempty(fileName)
     combinedInjectionInfo = table;
     
     % display progress
-    totalExperiments = size(experimentIDs, 2);
-    disp(['Loading ' num2str(totalExperiments) ' experiments...']);
+    disp(['Loading ' num2str(nExpIDs) ' experiments...']);
     progressBarHandle = waitbar(0, 'Loading experiments...');
 
-    for iExpID = 1:totalExperiments
-        waitbar(iExpID / totalExperiments, progressBarHandle, sprintf('Loading experiment %d of %d', iExpID, totalExperiments)); 
+    for iExpID = 1:nExpIDs
+        waitbar(iExpID / totalExperiments, progressBarHandle, sprintf('Loading experiment %d of %d', iExpID, nExpIDs)); 
         
         % create dir if it doesn't exist
         saveDir = [saveLocation, filesep, num2str(experimentIDs(iExpID))];
@@ -40,7 +41,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
                 continue;
             end
         end
-        load(summaryFilePath)
+         load(summaryFilePath,'injectionInfo'); % MC specified what to load
         
         % put all strcuture.ionizes summary into one table
         % Initialize combinedInjectionInfo if it doesn't exist
@@ -68,17 +69,17 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
 
     % grouping method 
     if strcmp(groupingMethod, 'brainRegion')
-        outputAcronyms = arrayfun(@(id) st.acronym{st.id == id}, combinedInjectionInfo.structure_id, 'UniformOutput', false);
+        % outputAcronyms = arrayfun(@(id) st.acronym{st.id == id}, combinedInjectionInfo.structure_id, 'UniformOutput', false); % Commented out by Matteo because it's unused
 
         [sorted_values, sort_indices] = st.acronym(st.id==combinedInjectionInfo.structure_id);
         [groups, ~, groupID] = unique(sorted_values);
         groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID
+        groupID_original_order(sort_indices) = groupID;
     
     else
         warning('grouping method not recognized - skipping grouping. ')
-        groups = ones(size(experimentIDs,2), 1);
-        groupID_original_order = ones(size(experimentIDs,2), 1);
+        groups = ones(nExpIDs, 1);
+        groupID_original_order = ones(nExpIDs, 1);
     end
     
 
@@ -94,8 +95,8 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     % get raw images 
     disp('Getting raw images...');
     progressBarHandle = waitbar(0, 'Getting raw images...');
-    for iExpID = 1:size(experimentIDs, 2)
-        waitbar(iExpID / size(experimentIDs, 2), progressBarHandle, sprintf('Getting raw image %d of %d', iExpID, size(experimentIDs, 2)));
+    for iExpID = 1:nExpIDs
+        waitbar(iExpID / nExpIDs, progressBarHandle, sprintf('Getting raw image %d of %d', iExpID, nExpIDs));
 
         thisGroup = groupID_original_order(iExpID);
 
@@ -159,7 +160,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     end
 else
     disp('Loading existing data...');
-    load(filePath_imgs)
+    load(filePath_imgs, 'combinedProjection')
     readtable(filePath_injectionSummary)
 end
 disp('Data processing complete.');
