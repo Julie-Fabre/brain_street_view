@@ -25,7 +25,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     progressBarHandle = waitbar(0, 'Loading experiments...');
 
     for iExpID = 1:nExpIDs
-        waitbar(iExpID / totalExperiments, progressBarHandle, sprintf('Loading experiment %d of %d', iExpID, nExpIDs)); 
+        waitbar(iExpID / nExpIDs, progressBarHandle, sprintf('Loading experiment %d of %d', iExpID, nExpIDs)); 
         
         % create dir if it doesn't exist
         saveDir = [saveLocation, filesep, num2str(experimentIDs(iExpID))];
