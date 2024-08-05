@@ -126,6 +126,11 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
                     experiment_projection_tmp(:, :, 114-iML+1) = [experiment_projection(:, :, 114-iML+1) - experiment_projection(:, :, iML)];
                 end
             end
+            % debug
+            %figure(); imagesc(squeeze(experiment_projection(88,:,:)))
+            %figure(); imagesc(squeeze(experiment_projection_tmp(88,:,:)))
+            %figure(); imagesc(squeeze(experiment_projection(88,:,:))-squeeze(experiment_projection_tmp(88,:,:)))
+
             experiment_projection = experiment_projection_tmp;
         end
 
@@ -134,8 +139,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
 
     end
     
-    % normalize images to number of projections - also need to add
-    % normalization to injection intensity / volume
+    % normalize images to number of projections
     for iGroup = 1:numberOfGroups
         theseGroups = numel(find(groupID_original_order==iGroup));
         combinedProjection(:,:,:,numberOfGroups) = combinedProjection(:,:,:,numberOfGroups) ./ theseGroups;
@@ -143,14 +147,12 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
 
     % save files 
     if ~isempty(fileName)
-        disp('Saving combined results...');
         save(filePath_imgs, 'combinedProjection')
         save(filePath_injectionSummary, 'combinedInjectionInfo')
     end
 else
-    disp('Loading existing data...');
     load(filePath_imgs)
     readtable(filePath_injectionSummary)
 end
-disp('Data processing complete.');
+
 end
