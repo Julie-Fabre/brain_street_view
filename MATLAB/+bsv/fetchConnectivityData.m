@@ -1,5 +1,5 @@
-function [combinedProjection, combinedInjectionInfo] = fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
-    normalizationMethod, subtractOtherHemisphere, groupingMethod, allenAtlasPath)
+function [combinedProjection, combinedInjectionInfo, individualProjections] = fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
+    normalizationMethod, subtractOtherHemisphere, groupingMethod, allenAtlasPath, loadAll)
 
 if nargin < 6 || isempty(groupingMethod) || nargin < 7 || isempty(allenAtlasPath) % group experiments by brain region (groupingMethod = 'region') or not
     groupingMethod = 'NaN';
@@ -20,11 +20,11 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     
     % display progress
     totalExperiments = size(experimentIDs, 2);
-    disp(['Processing ' num2str(totalExperiments) ' experiments...']);
-    progressBar = waitbar(0, 'Processing experiments...');
+    disp(['Loading ' num2str(totalExperiments) ' experiments...']);
+    progressBarHandle = waitbar(0, 'Loading experiments...');
 
     for iExpID = 1:totalExperiments
-        waitbar(iExpID / totalExperiments, progressBar, sprintf('Processing experiment %d of %d', iExpID, totalExperiments)); 
+        waitbar(iExpID / totalExperiments, progressBarHandle, sprintf('Loading experiment %d of %d', iExpID, totalExperiments)); 
         
         % create dir if it doesn't exist
         saveDir = [saveLocation, filesep, num2str(experimentIDs(iExpID))];
@@ -64,7 +64,8 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         end
 
     end
-    
+    close(progressBarHandle);
+
     % grouping method 
     if strcmp(groupingMethod, 'brainRegion')
         outputAcronyms = arrayfun(@(id) st.acronym{st.id == id}, combinedInjectionInfo.structure_id, 'UniformOutput', false);
@@ -84,11 +85,17 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     numberOfGroups = numel(unique(groups));
     combinedProjection = zeros([projectionGridSize, numberOfGroups]);
     
+    if loadAll
+        individualProjections = zeros([projectionGridSize, size(experimentIDs, 2)]);
+    else
+        individualProjections = '';
+    end
+
     % get raw images 
     disp('Getting raw images...');
-    progressBar = waitbar(0, 'Getting raw images...');
+    progressBarHandle = waitbar(0, 'Getting raw images...');
     for iExpID = 1:size(experimentIDs, 2)
-        waitbar(iExpID / size(experimentIDs, 2), progressBar, sprintf('Processing image %d of %d', iExpID, size(experimentIDs, 2)));
+        waitbar(iExpID / size(experimentIDs, 2), progressBarHandle, sprintf('Getting raw image %d of %d', iExpID, size(experimentIDs, 2)));
 
         thisGroup = groupID_original_order(iExpID);
 
@@ -128,11 +135,14 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             end
             experiment_projection = experiment_projection_tmp;
         end
-
+        if loadAll
+            individualProjections(:,:,:,iExpID) = experiment_projection;
+        end
         combinedProjection(:,:,:,thisGroup) = combinedProjection(:,:,:,thisGroup) + experiment_projection;
 
 
     end
+    close(progressBarHandle);
     
     % normalize images to number of projections - also need to add
     % normalization to injection intensity / volume
