@@ -1,5 +1,5 @@
 function status = fetchConnectivitySummary(experimentID, saveFilePath)
-% returns a MATLAB structure with one entry per injection structure. 
+% returns a 
 
 % structure.unionizes
 % - structure_id : ID of the structure (e.g. 315 for Isocortex)
