@@ -1,9 +1,12 @@
 function status = fetchConnectivitySummary(experimentID, saveFilePath)
 % returns a MATLAB structure with one entry per injection structure. 
 
-% structure.unionizes
+% structure.unionizes (from the Allen documentation)
 % - structure_id : ID of the structure (e.g. 315 for Isocortex)
 % - hemisphere_id : ID of the hemisphere (1 = left, 2 = right, 3 = both)
+%       if the entry is an injection & the hemisphere = 3, then the
+%       injection itself spans both hemispheres:
+%       https://community.brain-map.org/t/selecting-connectivity-data-with-injection-into-particular-hemisphere/2095 
 % - is_injection : If true, numbers only include voxels from injection site.
 %   If false, numbers only include voxels outside of the injection site.
 % - sum_pixels : Number of valid pixels in the structure in this experiment.
@@ -27,9 +30,8 @@ function status = fetchConnectivitySummary(experimentID, saveFilePath)
 % - max_voxel_y : y (DV, dorsal to ventral) coordinate in um of grid voxel with largest density.
 % - max_voxel_z : z ("ML", right to left) coordinate in um of grid voxel with largest density.
 
-%Build the URL
+% Build the URL
 url = 'http://connectivity.brain-map.org/api/v2/data/ProjectionStructureUnionize/query.json?criteria=[section_data_set_id$eq%d]&num_rows=all';
-
 
 % Get projection data
 status = true;
@@ -39,7 +41,6 @@ try
 catch
     status = false;
     warning('Failed to get data for ID %d\n', experimentID)
-
 end
 
 injectionInfo = struct;
@@ -54,7 +55,7 @@ if ~isempty(page)
     end
 end
 
-[injectionInfo.experimentID] = deal(experimentID);
+[injectionInfo.experimentID] = deal(experimentID);% store information about the experiment ID
 
 % save results
 save([saveFilePath, filesep, 'injectionSummary_all.mat'], 'injectionInfo')
