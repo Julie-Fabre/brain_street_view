@@ -9,6 +9,8 @@ function status = fetchConnectivitySummary(experimentID, saveFilePath)
 %       https://community.brain-map.org/t/selecting-connectivity-data-with-injection-into-particular-hemisphere/2095 
 % - is_injection : If true, numbers only include voxels from injection site.
 %   If false, numbers only include voxels outside of the injection site.
+%   When there are several entries for one experiment (=injection) with is_injection = true 
+%   it means that the injection site spans multiple regions
 % - sum_pixels : Number of valid pixels in the structure in this experiment.
 %   Valid pixels are those not manually annotated as invalid data.
 % - sum_projection_pixels : Number of pixels identified as projecting in this
