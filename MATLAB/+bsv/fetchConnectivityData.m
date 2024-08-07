@@ -34,10 +34,10 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         end
 
         % summary (structure.ionizes)
-        summaryFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'injectionSummary_all.mat'];
-        if ~exist(summaryFilePath)
+        summaryFilePath = fullfile(saveLocation, num2str(experimentIDs(iExpID)), 'injectionSummary_all.mat');
+        if ~exist(summaryFilePath, 'file')
             status = bsv.fetchConnectivitySummary(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
-            if ~true
+            if ~status
                 continue;
             end
         end
@@ -100,9 +100,9 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
 
         thisGroup = groupID_original_order(iExpID);
 
-        % raw data
-        rawFilePath = [saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'density.raw'];
-        if ~exist(rawFilePath)
+        % raw data   
+        rawFilePath = fullfile(saveLocation, filesep, num2str(experimentIDs(iExpID)), filesep, 'density.raw');
+        if ~exist(rawFilePath, 'file')
             status = bsv.fetchConnectivityImages(experimentIDs(iExpID), [saveLocation, filesep, num2str(experimentIDs(iExpID))]);
             if ~status
                 continue;
