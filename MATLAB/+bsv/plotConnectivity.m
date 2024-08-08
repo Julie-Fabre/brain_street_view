@@ -417,11 +417,19 @@ for iChunk = 1:numberOfChunks
     end
 
 end
-
-projectionMatrix_array = reshape(cell2mat(projectionMatrix(:)),size(projectionMatrix{1},1) ,size(projectionMatrix{1},2) ,size(projectionMatrix,2));
-
-projectionMatrixCoordinates_ARA_initial = cell2mat(cellfun(@(x) cat(3, x{:}), projection_view_bins, 'UniformOutput', false));
-slice_AP_ARA = repmat(sliceARAs, [size(projectionMatrix{1},1), 1, 1]);
-slice_AP_ARA = permute(slice_AP_ARA, [2, 1, 3]);
-projectionMatrixCoordinates_ARA = cat(3, projectionMatrixCoordinates_ARA_initial, slice_AP_ARA);
+if nGroups == 1
+    projectionMatrix_array = zeros(size(projectionMatrix{1},1), size(projectionMatrix{1},2), size(projectionMatrix,2));
+    for iSlice = 1:size(projectionMatrix,2)
+        projectionMatrix_array(:,:,iSlice) = cell2mat(projectionMatrix(iSlice));
+    end
+else
+    projectionMatrix_array = zeros(size(projectionMatrix{1},1), size(projectionMatrix{1},2), size(projectionMatrix{1},3), size(projectionMatrix,2));
+    for iSlice = 1:size(projectionMatrix,2)
+        projectionMatrix_array(:,:,:,iSlice) = cell2mat(projectionMatrix(iSlice));
+    end
+end
+projectionMatrixCoordinates_ARA = projection_view_bins;
+for iSlice = 1:size(projectionMatrix,2)
+    projectionMatrixCoordinates_ARA{iSlice}{3} = sliceARAs(iSlice)*10;
+end
 end

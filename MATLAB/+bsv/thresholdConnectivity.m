@@ -315,6 +315,7 @@ for iChunk = 1:numberOfChunks
         binnedArrayPixel = projectionMatrix{iChunk}(:, :, iGroup);
         binnedArrayPixel(isIN == 0) = NaN;
         [isIN_i, isIN_j] = find(isIN==0);
+        
         % Set corresponding elements in projectionMatrix to 0
         projectionMatrix{iChunk}(sub2ind(size(projectionMatrix{iChunk}(:,:,iGroup)), isIN_i, isIN_j, repmat(iGroup, size(isIN_i)))) = 0;
 
@@ -429,12 +430,17 @@ for iChunk = 1:numberOfChunks
     end
 
 end
-
-projectionMatrix_array = zeros(size(projectionMatrix{1},1), size(projectionMatrix{1},2), size(projectionMatrix,2));
-for iSlice = 1:size(projectionMatrix,2)
-    projectionMatrix_array(:,:,iSlice) = cell2mat(projectionMatrix(iSlice));
+if nGroups == 1
+    projectionMatrix_array = zeros(size(projectionMatrix{1},1), size(projectionMatrix{1},2), size(projectionMatrix,2));
+    for iSlice = 1:size(projectionMatrix,2)
+        projectionMatrix_array(:,:,iSlice) = cell2mat(projectionMatrix(iSlice));
+    end
+else
+    projectionMatrix_array = zeros(size(projectionMatrix{1},1), size(projectionMatrix{1},2), size(projectionMatrix{1},3), size(projectionMatrix,2));
+    for iSlice = 1:size(projectionMatrix,2)
+        projectionMatrix_array(:,:,:,iSlice) = cell2mat(projectionMatrix(iSlice));
+    end
 end
-
 projectionMatrixCoordinates_ARA = projection_view_bins;
 for iSlice = 1:size(projectionMatrix,2)
     projectionMatrixCoordinates_ARA{iSlice}{3} = sliceARAs(iSlice)*10;
