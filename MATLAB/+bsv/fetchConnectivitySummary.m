@@ -55,7 +55,7 @@ if ~isempty(page)
         % load just the injection data 
         injectionInfo = tmp.msg([tmp.msg.is_injection] == 1);
     else
-        warning('Failed to get jsondecode data for ID %d\n', experimentID)
+        warning('Failed to jsondecode data for ID %d\n', experimentID)
     end
 end
 
