@@ -3,8 +3,10 @@ function [combinedProjection, combinedInjectionInfo, individualProjections] = fe
 
 if nargin < 6 || isempty(groupingMethod) || nargin < 7 || isempty(allenAtlasPath) % group experiments by brain region (groupingMethod = 'region') or not
     groupingMethod = 'NaN';
-else
-    st = loadStructureTree([allenAtlasPath, filesep, 'structure_tree_safe_2017.csv']); % a table of what all the labels mean
+%else
+    % st = loadStructureTree([allenAtlasPath, filesep, 'structure_tree_safe_2017.csv']); % a table of what all the labels mean
+    % I will need this to implement some selection of regions by hierarchy.
+    % 
 end
 
 %% fetch data
@@ -15,11 +17,22 @@ projectionGridSize = [132, 80, 114];
 filePath_imgs = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
 filePath_injectionSummary = [saveLocation, filesep, fileName, '_injectionSummary.mat'];
 
+% load summary from the Allen
+currentFileLocation =  which(mfilename('fullpath'));
+currentFileLocation_grandPa = fileparts(fileparts(fileparts(currentFileLocation))); % twp directories up from current file location
+allenAtlasProjection_info = readtable(fullfile(currentFileLocation_grandPa, 'docs', 'allenAtlasProjection_info.csv'), 'VariableNamingRule','modify');
+
+% intialize arrays
 nExpIDs = size(experimentIDs, 2); % added by Matteo
+primaryStructure_AP = zeros(nExpIDs, 1);
+primaryStructure_DV = zeros(nExpIDs, 1);
+primaryStructure_ML = zeros(nExpIDs, 1);
+primaryStructure_ID = zeros(nExpIDs, 1);
+
 
 if ~exist(filePath_imgs, 'file') || isempty(fileName)
     combinedInjectionInfo = table;
-
+    
     % display progress
     disp(['Loading ', num2str(nExpIDs), ' experiments...']);
     progressBarHandle = waitbar(0, 'Loading experiments...');
@@ -64,36 +77,48 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
                 combinedInjectionInfo.(fieldNames{iFieldName}) = [combinedInjectionInfo.(fieldNames{iFieldName}); [injectionInfo.(fieldNames{iFieldName})]];
             end
         end
-
+        currInjectionInfo = struct2table(injectionInfo);
+        primaryStructure_ID(iExpID) = allenAtlasProjection_info.structure_id(allenAtlasProjection_info.id == currExpID); % this should hold true 
+        % in most cases but the best way would be to take into account group hierarchies but they
+        % make no sense to me for instance VISp is at level 7, CP and GPe at level 6, SNr at level
+        % 5 but conceptually they are at the same level to me...
+        currInjectionCoordinates = str2num(allenAtlasProjection_info.injection_coordinates{allenAtlasProjection_info.id == currExpID});
+        primaryStructure_AP(iExpID) = currInjectionCoordinates(1);
+        primaryStructure_DV(iExpID) = currInjectionCoordinates(2);
+        primaryStructure_ML(iExpID) = currInjectionCoordinates(3);
     end
     close(progressBarHandle);
 
-    % grouping method
+    
+
+    % % grouping method 
     if strcmp(groupingMethod, 'brainRegion')
-        % outputAcronyms = arrayfun(@(id) st.acronym{st.id == id}, combinedInjectionInfo.structure_id, 'UniformOutput', false); % Commented out by Matteo because it's unused
-        [sorted_values, sort_indices] = st.acronym(st.id == combinedInjectionInfo.structure_id);
+        % because of hierarchy differences, this doesn't make much sense
+        % currently, not implemented 
+        warning('grouping method not implemented yet - skipping grouping. ')
+        % [sorted_values, sort_indices] = st.acronym(st.id == combinedInjectionInfo.structure_id);
+        % [groups, ~, groupID] = unique(primaryStructure_ID);
+        % groupID_original_order = zeros(size(groupID));
+        % groupID_original_order(sort_indices) = groupID;
+    elseif strcmp(groupingMethod, 'AP') % group by AP value
+        [sorted_values, sort_indices] = sort(primaryStructure_AP);
         [groups, ~, groupID] = unique(sorted_values);
         groupID_original_order = zeros(size(groupID));
         groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'AP')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_x);
+    elseif strcmp(groupingMethod, 'ML') % group by ML value
+        [sorted_values, sort_indices] = sort(primaryStructure_ML);
         [groups, ~, groupID] = unique(sorted_values);
         groupID_original_order = zeros(size(groupID));
         groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'ML')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_z);
+    elseif strcmp(groupingMethod, 'DV') % group by DV value
+        [sorted_values, sort_indices] = sort(primaryStructure_DV);
         [groups, ~, groupID] = unique(sorted_values);
         groupID_original_order = zeros(size(groupID));
         groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'DV')
-        [sorted_values, sort_indices] = sort(combinedInjectionInfo.max_voxel_y);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'NaN') || isempty(groupingMethod)
+    elseif strcmp(groupingMethod, 'NaN') || isempty(groupingMethod) % no grouping
         groups = ones(size(experimentIDs, 2), 1);
         groupID_original_order = ones(size(experimentIDs, 2), 1);
-    else
+    else % error
         warning('grouping method not recognized - skipping grouping. ')
         groups = ones(size(experimentIDs, 2), 1);
         groupID_original_order = ones(size(experimentIDs, 2), 1);
@@ -157,7 +182,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             % Check conditions for valid calculation
             if (numel(vol3) == 1 && numel(vol12) == 1) || ...
                (numel(unique(vol3)) == 1 && numel(unique(vol12)) == 1)
-                % there should be one unique entry for each. sometimes the values are duplicated. no diea why but this is fine
+                % there should be one unique entry for each. sometimes the values are duplicated. no idea why but this is fine
                 
                 % If values are duplicated, use the first one
                 vol3 = vol3(1);
