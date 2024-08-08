@@ -437,6 +437,6 @@ end
 
 projectionMatrixCoordinates_ARA = projection_view_bins;
 for iSlice = 1:size(projectionMatrix,2)
-    projectionMatrixCoordinates_ARA{iSlice}{3} = sliceARAs(iSlice)*10;
+    projectionMatrixCoordinates_ARA{iSlice}(:,3) = repmat(sliceARAs(iSlice)*10,[size(projectionMatrix{1},1),1]);
 end
 end

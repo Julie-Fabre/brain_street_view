@@ -4,8 +4,10 @@ function status = fetchConnectivitySummary(experimentID, saveFilePath)
 % - injectionInfo.experimentID : the experiment ID.
 % - structure_id : ID of the structure (e.g. 315 for Isocortex, 672 for caudoputamen).
 % - hemisphere_id : ID of the hemisphere (1 = left, 2 = right, 3 = both)
-%       if the entry is an injection & the hemisphere == 3, then the
-%       injection itself spans both hemispheres:
+%       for each region there are two entries per region 
+%       (one for one hemisphere, and one for both combined) and then if 
+%       [normalized_projection_volume in one hemisphere] == [normalized_projection_volume in both hemispheres] 
+%       then the injection was only on one side. 
 %       https://community.brain-map.org/t/selecting-connectivity-data-with-injection-into-particular-hemisphere/2095 
 % - is_injection : If true, numbers only include voxels from injection site.
 %       If false, numbers only include voxels outside of the injection site.

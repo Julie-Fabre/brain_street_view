@@ -150,28 +150,24 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             hem3Indices = structureIndices & [combinedInjectionInfo.hemisphere_id] == 3;
             hem12Indices = structureIndices & ([combinedInjectionInfo.hemisphere_id] == 1 | [combinedInjectionInfo.hemisphere_id] == 2);
             
-            % Extract projection volumes for hemisphere 3 and hemispheres 1/2
-            vol3 = combinedInjectionInfo.projection_volume(hem3Indices);
-            vol12 = combinedInjectionInfo.projection_volume(hem12Indices);
-            
-            % Check conditions for valid calculation
-            if (numel(vol3) == 1 && numel(vol12) == 1) || ...
-               (numel(unique(vol3)) == 1 && numel(unique(vol12)) == 1)
-                % there should be one unique entry for each. sometimes the values are duplicated. no diea why but this is fine
-                
-                % If values are duplicated, use the first one
-                vol3 = vol3(1);
-                vol12 = vol12(1);
-                
-                % Calculate volume difference and adjusted volume
+            if sum(hem3Indices) == 1 && sum(hem12Indices) == 1 % one of both
+                % volumes
+                vol3 = sum([combinedInjectionInfo.projection_volume(hem3Indices)]);
+                vol12 = sum([combinedInjectionInfo.projection_volume(hem12Indices)]);
                 volumeDifference = vol12 - vol3;
+                % Add this difference to non-hemisphere 3 volumes
                 adjustedVolume = vol12 + volumeDifference;
             else
-                warning('Unexpected number of entries for structure 997 in experiment %d. Expected one entry for hemisphere 3 and one for hemisphere 1/2.', currExpID);
+                % sometimes the values are duplicated. no diea why but this
+                % is fine
+                if length(unique(combinedInjectionInfo.projection_volume(hem3Indices)))
+            else
+                warning('Unexpected number of entries for structure 997 in experiment %s. Expected one entry for hemisphere 3 and one for hemisphere 1/2.', ...
+                    num2str(currExpID));
                 keyboard;
                 adjustedVolume = NaN;
             end
-                        
+            
             % normalize to adjusted volume
             experiment_projection = experiment_projection / adjustedVolume;
         end
