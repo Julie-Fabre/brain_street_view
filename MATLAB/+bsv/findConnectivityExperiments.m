@@ -40,13 +40,17 @@ for iRegion = 1:size(regions,2)
         keyboard;
     end
     if ~result.success
-        fprintf('Query failed!\n%s\nAt URL: %s\n\n', result.msg, url);
+        fprintf('Query failed!\n%s\nAt URL: %s\n\n', result.msg, fullURL);
     end
 
     %% get the experiment IDs
     %experimentIDs = [experimentIDs, ones(1, length(result.msg))];
     for iID = 1:length(result.msg)
-        experimentIDs = [experimentIDs, result.msg(iID).id];
+        if isfield(result.msg, 'id')
+            experimentIDs = [experimentIDs, result.msg(iID).id];
+        else
+            fprintf('Query empty!\n');
+        end
     end
     fprintf('Found %d experiments in %s \n', length(result.msg), regions{iRegion})
 end

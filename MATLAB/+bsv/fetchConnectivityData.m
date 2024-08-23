@@ -182,7 +182,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             % Check conditions for valid calculation
             if (numel(vol3) == 1 && numel(vol12) == 1) || ...
                (numel(unique(vol3)) == 1 && numel(unique(vol12)) == 1) || ...
-               (sum(vol3 > 1e-4) == 1 && sum(vol12 > 1e-4) == 1)
+               (sum(vol3 > 1e-4) == 1 && sum(vol12 > 1e-4) == 1) || sum(vol12) == sum(vol3)
                 % there should be one unique entry for each. sometimes the values are duplicated,
                 % sometimes they are very small, close to 0. no idea why but this is fine
                 
