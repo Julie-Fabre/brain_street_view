@@ -1,5 +1,5 @@
 
-# Brain Street View <img src="./images/bsv.svg" width="10%" title="bsv" alt="bsv" align="left" vspace = "20">
+# Brain Street View <img src="./images/bsv.png" width="20%" title="bsv" alt="bsv" align="left" vspace = "20">
 Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](doi.org/10.1038/nature13186))
 
 ### 🏁 Quick start 
