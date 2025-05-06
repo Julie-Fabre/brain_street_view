@@ -300,7 +300,7 @@ for iChunk = 1:numberOfChunks
 
         % colormap limits
         maxValue = max(cellfun(@(x) max(x(:, :, iGroup), [], 'all'), projectionMatrix));
-        thisCmap_limits = [0, maxValue];
+        thisCmap_limits = [0, 1];
 
         % remove any data points outside of the region
         binnedArrayPixel = projectionMatrix{iChunk}(:, :, iGroup);

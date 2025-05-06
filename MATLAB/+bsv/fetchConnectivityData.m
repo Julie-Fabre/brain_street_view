@@ -79,7 +79,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         end
         currInjectionInfo = struct2table(injectionInfo);
         primaryStructure_ID(iExpID) = allenAtlasProjection_info.structure_id(allenAtlasProjection_info.id == currExpID); % this should hold true 
-        % in most cases but the best way would be to take into account group hierarchies but they
+        % in most cases. the best way would be to take into account group hierarchies but they
         % make no sense to me for instance VISp is at level 7, CP and GPe at level 6, SNr at level
         % 5 but conceptually they are at the same level to me...
         currInjectionCoordinates = str2num(allenAtlasProjection_info.injection_coordinates{allenAtlasProjection_info.id == currExpID});
@@ -160,7 +160,7 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
         experiment_projection = reshape(experiment_projection, projectionGridSize);
         
         % normalize projection values
-        if strcmp(normalizationMethod, 'injectionVolume')
+        if strcmp(normalizationMethod, 'injectionVolume') || strcmp(normalizationMethod, 'injectionIntensity') 
 
             % Find indices for the current experiment
             expIndices = combinedInjectionInfo.experimentID == currExpID;
@@ -175,9 +175,14 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
             hem3Indices = structureIndices & [combinedInjectionInfo.hemisphere_id] == 3;
             hem12Indices = structureIndices & ([combinedInjectionInfo.hemisphere_id] == 1 | [combinedInjectionInfo.hemisphere_id] == 2);
             
+          if strcmp(normalizationMethod, 'injectionVolume')
             % Extract projection volumes for hemisphere 3 and hemispheres 1/2
             vol3 = combinedInjectionInfo.projection_volume(hem3Indices);
             vol12 = combinedInjectionInfo.projection_volume(hem12Indices);
+          else
+             vol3 =   combinedInjectionInfo.sum_pixel_intensity(hem3Indices);
+            vol12 = combinedInjectionInfo.projection_volume(hem12Indices);
+          end
             
             % Check conditions for valid calculation
             if (numel(vol3) == 1 && numel(vol12) == 1) || ...
