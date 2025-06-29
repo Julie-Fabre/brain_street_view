@@ -9,7 +9,7 @@ fileName = ''; % leave empty to recompute each time, or enter text (e.g. fileNam
 inputRegions = {'VISp', 'VISl', 'VISal', 'VISam', 'VISpl', 'VISpm', 'VISli', 'VISpor'}; % region(s), use Allen Atlas abbreviation conventions
     % or if you already have experiment IDs , skip step 1 below and input
     % them directly in step 2
-mouseLine = ''; % leave empty to include all 
+mouseLine = ''; % leave empty to include all. use allen mouse line ids. 0 = wild-type. 
 primaryInjection = true; % boolean, search for injections where 'injection' was the primary or not
 
 % experiment loading parameters 
@@ -33,15 +33,15 @@ regionOnly = true; % - not implemented yet -
 experimentIDs = bsv.findConnectivityExperiments(inputRegions, mouseLine, primaryInjection);
 
 %% 2. Fetch/load experiment data 
-[experimentImgs, injectionSummary] = bsv.fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere);
+[experimentImgs, injectionSummary] = bsv.fetchConnectivityData(experimentIDs, saveLocation, fileName, normalizationMethod, subtractOtherHemisphere, '', allenAtlasPath, false);
 
 %% 3. Plot projection data (2D) 
-bsv.plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(1), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+bsv.plotConnectivity(experimentImgs, allenAtlasPath, outputRegions(1), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color, normalizationMethod)
 
 %% 4. Plot injections
 %% a. 2D, region by region
 for iInputRegion = 1:size(inputRegions,2)
-    bsv.plotConnectivity(experimentImgs, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color)
+    bsv.plotConnectivity(experimentImgs, allenAtlasPath, inputRegions(iInputRegion), numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color, normalizationMethod)
 end
 
 %% b. 2D, all regions - QQ TO DO

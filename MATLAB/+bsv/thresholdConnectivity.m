@@ -1,6 +1,37 @@
 function [projectionMatrix_array, projectionMatrixCoordinates_ARA] = thresholdConnectivity(experimentData, allenAtlasPath, ...
-    inputRegion, numberOfChunks, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color, threshold)
-% this function needs cleaning up + commenting
+    inputRegion, numberOfChunks, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color, threshold, thresholdMethod, normalizationMethod, dataFetchNormalization)
+% Enhanced thresholding and connectivity visualization
+%
+% INPUTS:
+%   threshold - threshold value OR percentile (0-100) for percentile method
+%   thresholdMethod - 'absolute' (default), 'percentile', 'zscore', 'relative'
+%   normalizationMethod - 'none' (default), 'region', 'zscore', 'robust'
+%
+% THRESHOLDING METHODS:
+%   'absolute' - Direct threshold value
+%   'percentile' - Use percentile of data (threshold = percentile value 0-100)
+%   'zscore' - Threshold at N standard deviations above mean (threshold = N)
+%   'relative' - Threshold as percentage of maximum (threshold = 0-1)
+%
+% NORMALIZATION METHODS:
+%   'none' - No additional normalization
+%   'region' - Scale each region to [0,1] independently  
+%   'zscore' - Z-score normalization (mean=0, std=1)
+%   'robust' - Robust scaling using median and IQR
+
+% Set defaults for new parameters
+if nargin < 12 || isempty(thresholdMethod)
+    thresholdMethod = 'absolute';
+end
+
+if nargin < 13 || isempty(normalizationMethod)
+    normalizationMethod = 'none';
+end
+
+% Handle optional dataFetchNormalization parameter
+if nargin < 14 || isempty(dataFetchNormalization)
+    dataFetchNormalization = 'unknown';
+end
 
 %% load Allen atlas
 av = readNPY([allenAtlasPath, filesep, 'annotation_volume_10um_by_index.npy']); % the number at each pixel labels the area, see note below
@@ -252,14 +283,105 @@ for iChunk = 1:numberOfChunks
 
 end
 
-% normalize each slice (TO DO QQ)
-for iChunk = 1:numberOfChunks
-    % Extract the current chunk
-    currentChunk = projectionMatrix{iChunk}(:, :);
+%% Apply enhanced normalization and thresholding
+fprintf('\n🔧 PROCESSING PARAMETERS\n');
+fprintf('Threshold method: %s\n', thresholdMethod);
+fprintf('Normalization method: %s\n', normalizationMethod);
 
-    % Place the normalized chunk back into the matrix
-    projectionMatrix{iChunk}(:, :) = currentChunk;
+% Apply normalization first
+for iChunk = 1:numberOfChunks
+    for iGroup = 1:size(experimentData, 4)
+        currentChunk = projectionMatrix{iChunk}(:, :, iGroup);
+        
+        switch lower(normalizationMethod)
+            case 'region'
+                % Scale to [0,1] independently
+                minVal = min(currentChunk(:));
+                maxVal = max(currentChunk(:));
+                if maxVal > minVal
+                    currentChunk = (currentChunk - minVal) / (maxVal - minVal);
+                end
+                
+            case 'zscore'
+                % Z-score normalization
+                meanVal = mean(currentChunk(:), 'omitnan');
+                stdVal = std(currentChunk(:), 'omitnan');
+                if stdVal > 0
+                    currentChunk = (currentChunk - meanVal) / stdVal;
+                end
+                
+            case 'robust'
+                % Robust scaling using median and IQR
+                medianVal = median(currentChunk(:), 'omitnan');
+                q75 = prctile(currentChunk(:), 75);
+                q25 = prctile(currentChunk(:), 25);
+                iqr = q75 - q25;
+                if iqr > 0
+                    currentChunk = (currentChunk - medianVal) / iqr;
+                end
+                
+            case 'none'
+                % No additional normalization
+                
+            otherwise
+                warning('Unknown normalization method: %s. Using none.', normalizationMethod);
+        end
+        
+        projectionMatrix{iChunk}(:, :, iGroup) = currentChunk;
+    end
 end
+
+% Calculate adaptive threshold based on method
+adaptiveThreshold = threshold; % default
+allData = [];
+
+% Collect all data for threshold calculation
+for iChunk = 1:numberOfChunks
+    for iGroup = 1:size(experimentData, 4)
+        chunkData = projectionMatrix{iChunk}(:, :, iGroup);
+        allData = [allData; chunkData(:)];
+    end
+end
+
+% Remove NaN values for threshold calculation
+allData = allData(~isnan(allData));
+
+switch lower(thresholdMethod)
+    case 'percentile'
+        adaptiveThreshold = prctile(allData, threshold);
+        fprintf('Calculated %gth percentile threshold: %.4f\n', threshold, adaptiveThreshold);
+        
+    case 'zscore'
+        meanVal = mean(allData);
+        stdVal = std(allData);
+        adaptiveThreshold = meanVal + threshold * stdVal;
+        fprintf('Calculated %g-sigma threshold: %.4f (mean=%.4f, std=%.4f)\n', ...
+            threshold, adaptiveThreshold, meanVal, stdVal);
+        
+    case 'relative'
+        maxVal = max(allData);
+        adaptiveThreshold = threshold * maxVal;
+        fprintf('Calculated relative threshold: %.4f (%g%% of max=%.4f)\n', ...
+            adaptiveThreshold, threshold*100, maxVal);
+        
+    case 'absolute'
+        fprintf('Using absolute threshold: %.4f\n', threshold);
+        
+    otherwise
+        warning('Unknown threshold method: %s. Using absolute.', thresholdMethod);
+end
+
+% Calculate and display processing statistics
+numThresholdedVoxels = sum(allData > adaptiveThreshold);
+totalVoxels = length(allData);
+percentThresholded = (numThresholdedVoxels / totalVoxels) * 100;
+
+fprintf('Data statistics:\n');
+fprintf('  • Total voxels: %d\n', totalVoxels);
+fprintf('  • Voxels above threshold: %d (%.1f%%)\n', numThresholdedVoxels, percentThresholded);
+fprintf('  • Data range: [%.4f, %.4f]\n', min(allData), max(allData));
+fprintf('  • Mean ± SD: %.4f ± %.4f\n', mean(allData), std(allData));
+fprintf('─────────────────────────────────\n');
 
 %% get and plot all fluorescence
 figProjection = figure('Name', 'Thresholded Connectivity', 'Color', 'w');
@@ -297,11 +419,11 @@ for iChunk = 1:numberOfChunks
         end
     end
 
-    % Create threshold mask for polygon overlay
-    thresholdMask = originalProjectionMatrix{iChunk}(:, :, 1) > threshold;
+    % Create threshold mask for polygon overlay using adaptive threshold
+    thresholdMask = originalProjectionMatrix{iChunk}(:, :, 1) > adaptiveThreshold;
     
-    % threshold
-    projectionMatrix{iChunk}(:, :, iGroup) = projectionMatrix{iChunk}(:, :, iGroup) > threshold;
+    % Apply adaptive threshold
+    projectionMatrix{iChunk}(:, :, iGroup) = projectionMatrix{iChunk}(:, :, iGroup) > adaptiveThreshold;
 
     for iGroup = 1:nGroups
         % setup plotting axis
@@ -310,11 +432,8 @@ for iChunk = 1:numberOfChunks
         hold on;
         ax = gca;
 
-       
-
-        % colormap limits
-        %maxValue = max(cellfun(@(x) max(x(:, :, iGroup), [], 'all'), projectionMatrix));
-        thisCmap_limits = [0, 1];
+        % Enhanced colormap and scaling for thresholded data
+        thisCmap_limits = [0, 1]; % Binary for thresholded data
 
         % remove any data points outside of the region
         binnedArrayPixel = projectionMatrix{iChunk}(:, :, iGroup);
@@ -335,11 +454,34 @@ for iChunk = 1:numberOfChunks
         set(im, 'AlphaData', ~isnan(get(im, 'CData')));
         set(gca, 'color', [0.5, 0.5, 0.5]);
 
-        % set colormap
-        colormap(brewermap([], 'Greys'));
-
-        % set colormap limits
-        clim(thisCmap_limits)
+        % Enhanced colormap for thresholded data - black/white only
+        colormap(gca, flipud(gray(256))); % Black = high, white = low (flipped)
+        clim(thisCmap_limits);
+        
+        % Add colorbar with proper labels for thresholded figure
+        if iChunk == numberOfChunks && iGroup == nGroups
+            cb = colorbar('eastoutside');
+            
+            % Create informative label based on normalization
+            switch lower(dataFetchNormalization)
+                case 'injectionvolume'
+                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nvolume');
+                case 'injectionintensity'
+                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nintensity');
+                case 'none'
+                    labelText = sprintf('Raw projection\nintensity (a.u.)');
+                otherwise
+                    labelText = sprintf('Projection intensity (a.u.)\n(normalized)');
+            end
+            
+            cb.Label.String = labelText;
+            cb.Label.FontSize = 9;
+            cb.Label.Rotation = 270;
+            cb.Label.VerticalAlignment = 'bottom';
+            
+            % Position colorbar to not overlap with plots
+            cb.Position(1) = cb.Position(1) + 0.02;
+        end
 
         % plot region boundaries
         plot(regionLocation(projection_views(iChunk, 1), boundary_projection{iChunk}), ...
@@ -402,9 +544,21 @@ for iChunk = 1:numberOfChunks
         hold on;
         ax = gca;
 
-        % colormap limits for original data
-        maxValue = max(cellfun(@(x) max(x(:, :, iGroup), [], 'all'), originalProjectionMatrix));
-        thisCmap_limits = [0, maxValue];
+        % Enhanced colormap limits for original data - consistent across regions
+        if strcmp(normalizationMethod, 'none')
+            % Use global max across all data for consistency
+            globalMax = max(allData);
+            thisCmap_limits = [0, globalMax];
+        else
+            % Normalized data - use consistent scale
+            if strcmp(normalizationMethod, 'region')
+                thisCmap_limits = [0, 1];
+            elseif strcmp(normalizationMethod, 'zscore')
+                thisCmap_limits = [-3, 3]; % ±3 sigma range
+            else % robust
+                thisCmap_limits = [-3, 3]; % ±3 IQR range
+            end
+        end
 
         % remove any data points outside of the region
         binnedArrayPixel_orig = originalProjectionMatrix{iChunk}(:, :, iGroup);
@@ -421,11 +575,34 @@ for iChunk = 1:numberOfChunks
         set(im, 'AlphaData', ~isnan(get(im, 'CData')));
         set(gca, 'color', [0.5, 0.5, 0.5]);
 
-        % set colormap
-        colormap(brewermap([], 'Greys'));
-
-        % set colormap limits
-        clim(thisCmap_limits)
+        % Enhanced colormap for original data - black/white only
+        colormap(gca, flipud(gray(256))); % Black = high, white = low (flipped)
+        clim(thisCmap_limits);
+        
+        % Add colorbar with proper labels for original figure
+        if iChunk == numberOfChunks && iGroup == nGroups
+            cb = colorbar('eastoutside');
+            
+            % Create informative label based on normalization
+            switch lower(dataFetchNormalization)
+                case 'injectionvolume'
+                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nvolume');
+                case 'injectionintensity'
+                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nintensity');
+                case 'none'
+                    labelText = sprintf('Raw projection\nintensity (a.u.)');
+                otherwise
+                    labelText = sprintf('Projection intensity (a.u.)\n(normalized)');
+            end
+            
+            cb.Label.String = labelText;
+            cb.Label.FontSize = 9;
+            cb.Label.Rotation = 270;
+            cb.Label.VerticalAlignment = 'bottom';
+            
+            % Position colorbar to not overlap with plots
+            cb.Position(1) = cb.Position(1) + 0.02;
+        end
 
         % plot region boundaries
         plot(regionLocation(projection_views(iChunk, 1), boundary_projection{iChunk}), ...
