@@ -262,11 +262,13 @@ for iChunk = 1:numberOfChunks
 end
 
 %% get and plot all fluorescence
-figProjection = figure('Name', 'Fluorescence intensity', 'Color', 'w');
+figProjection = figure('Name', 'Thresholded Connectivity', 'Color', 'w');
+figOriginal = figure('Name', 'Original with Threshold Boundary', 'Color', 'w');
 
 nGroups = size(experimentData, 4);
 
- 
+% Store original data for the second figure
+originalProjectionMatrix = projectionMatrix;
 
 for iChunk = 1:numberOfChunks
 
@@ -295,6 +297,9 @@ for iChunk = 1:numberOfChunks
         end
     end
 
+    % Create threshold mask for polygon overlay
+    thresholdMask = originalProjectionMatrix{iChunk}(:, :, 1) > threshold;
+    
     % threshold
     projectionMatrix{iChunk}(:, :, iGroup) = projectionMatrix{iChunk}(:, :, iGroup) > threshold;
 
@@ -388,14 +393,179 @@ for iChunk = 1:numberOfChunks
         clearvars binnedArrayPixelSmooth binnedArrayPixel
 
     end
+    
+    %% Plot original data with threshold boundary overlay
+    for iGroup = 1:nGroups
+        % setup plotting axis for original figure
+        figure(figOriginal);
+        subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk)
+        hold on;
+        ax = gca;
 
+        % colormap limits for original data
+        maxValue = max(cellfun(@(x) max(x(:, :, iGroup), [], 'all'), originalProjectionMatrix));
+        thisCmap_limits = [0, maxValue];
+
+        % remove any data points outside of the region
+        binnedArrayPixel_orig = originalProjectionMatrix{iChunk}(:, :, iGroup);
+        binnedArrayPixel_orig(isIN == 0) = NaN;
+
+        % smooth - QQ TODO
+        binnedArrayPixelSmooth_orig = binnedArrayPixel_orig;
+
+        % plot original data
+        im = imagesc(projection_view_bins{iChunk}{1}, projection_view_bins{iChunk}{2}, ...
+            binnedArrayPixelSmooth_orig');
+
+        % make NaN values (outside of ROI) grey
+        set(im, 'AlphaData', ~isnan(get(im, 'CData')));
+        set(gca, 'color', [0.5, 0.5, 0.5]);
+
+        % set colormap
+        colormap(brewermap([], 'Greys'));
+
+        % set colormap limits
+        clim(thisCmap_limits)
+
+        % plot region boundaries
+        plot(regionLocation(projection_views(iChunk, 1), boundary_projection{iChunk}), ...
+            regionLocation(projection_views(iChunk, 2), boundary_projection{iChunk}), ...
+            'Color', plot_structure_color, 'LineWidth', 2);
+
+        % Plot threshold boundary as ONE dotted red polygon following square edges
+        if any(thresholdMask(:))
+            % Get bin coordinates and widths
+            xBins = projection_view_bins{iChunk}{1};
+            yBins = projection_view_bins{iChunk}{2};
+            
+            if length(xBins) > 1 && length(yBins) > 1
+                xBinWidth = xBins(2) - xBins(1);
+                yBinWidth = yBins(2) - yBins(1);
+                
+                % Create a slightly larger grid to handle edges properly
+                expandedMask = padarray(thresholdMask, [1 1], 0, 'both');
+                
+                % Use bwboundaries to trace the boundary on the pixel grid
+                boundaries = bwboundaries(expandedMask, 'noholes');
+                
+                if ~isempty(boundaries)
+                    % Get the largest boundary (main region)
+                    boundarySizes = cellfun(@length, boundaries);
+                    [~, maxIdx] = max(boundarySizes);
+                    regionBoundary = boundaries{maxIdx};
+                    
+                    % Convert boundary indices back to coordinate space
+                    % regionBoundary contains [row, col] indices in the expanded mask
+                    % Convert to actual x,y coordinates
+                    xCoords = [];
+                    yCoords = [];
+                    
+                    for i = 1:size(regionBoundary, 1)
+                        % Get expanded mask indices (1-based)
+                        expandedRow = regionBoundary(i, 1);
+                        expandedCol = regionBoundary(i, 2);
+                        
+                        % Convert back to original mask indices (accounting for padding)
+                        origRow = expandedRow - 1;
+                        origCol = expandedCol - 1;
+                        
+                        % Convert to coordinate space with pixel edges
+                        if origRow >= 1 && origRow <= length(xBins) && ...
+                           origCol >= 1 && origCol <= length(yBins)
+                            % Get pixel center
+                            xCenter = xBins(origRow);
+                            yCenter = yBins(origCol);
+                            
+                            % Calculate boundary coordinate (on pixel edge)
+                            xCoord = xCenter + (expandedCol - origCol - 1.5) * xBinWidth/2;
+                            yCoord = yCenter + (expandedRow - origRow - 1.5) * yBinWidth/2;
+                        else
+                            % Handle edge cases
+                            if origRow < 1
+                                xCoord = xBins(1) - xBinWidth/2;
+                            elseif origRow > length(xBins)
+                                xCoord = xBins(end) + xBinWidth/2;
+                            else
+                                xCoord = xBins(origRow);
+                            end
+                            
+                            if origCol < 1
+                                yCoord = yBins(1) - yBinWidth/2;
+                            elseif origCol > length(yBins)
+                                yCoord = yBins(end) + yBinWidth/2;
+                            else
+                                yCoord = yBins(origCol);
+                            end
+                        end
+                        
+                        xCoords = [xCoords; xCoord];
+                        yCoords = [yCoords; yCoord];
+                    end
+                    
+                    % Plot the single boundary polygon
+                    if length(xCoords) > 2
+                        plot([xCoords; xCoords(1)], [yCoords; yCoords(1)], ...
+                             'r:', 'LineWidth', 2);
+                    end
+                end
+            end
+        end
+
+        % prettify axis
+        axis equal
+        axis square
+        axis image
+        ax.XLabel.Color = [0, 0, 0];
+        ax.YLabel.Color = [0, 0, 0];
+
+        % yaxis
+        if strcmp(plane, 'coronal')
+            set(ax, 'YDir', 'reverse');
+        end
+        nColors = numel(ax.YTickLabel);
+        for i = 1:nColors
+            ax.YTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', [0, 0, 0], ax.YTickLabel{i})];
+        end
+        ylim([projection_view_bins{iChunk}{2}(1), projection_view_bins{iChunk}{2}(end)])
+        ylabel(''); % Remove y-axis label
+
+        % xaxis
+        nColors = numel(ax.XTickLabel);
+        for i = 1:nColors
+            ax.XTickLabel{i} = ['\color[rgb]', sprintf('{%f,%f,%f}%s', [0, 0, 0], ax.XTickLabel{i})];
+        end
+        xlim([projection_view_bins{iChunk}{1}(1), projection_view_bins{iChunk}{1}(end)])
+        xlabel(''); % Remove y-axis label
+        set(gca, 'XTick', [], 'YTick', []); % Remove tick marks
+        axis off;
+
+        % title
+        this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./10);
+        if iChunk == 1
+            if strcmp(plane, 'coronal')
+                title(['Original - ARA level (cor.): ', num2str(this_slice_ARA)]); % Allen Reference Atlas level
+            else
+                title(['Original - ARA level (sag.): ', num2str(this_slice_ARA)]); % Allen Reference Atlas level
+            end
+        elseif iChunk == numberOfChunks
+            title([num2str(this_slice_ARA)]);
+        else
+            title([num2str(this_slice_ARA)]);
+        end
+
+        clearvars binnedArrayPixelSmooth_orig binnedArrayPixel_orig
+
+    end
 
 end
 
 
-% set x and ylims
+% set x and ylims for both figures
 xlims_region = nan(numberOfChunks, 2);
 ylims_region = nan(numberOfChunks, 2);
+
+% Get limits from thresholded figure
+figure(figProjection);
 for iChunk = 1:numberOfChunks
     subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk)
     xlims_region(iChunk, :) = xlim;
@@ -404,31 +574,35 @@ end
 
 diff_xlims_region = diff(xlims_region');
 diff_ylims_region = diff(ylims_region');
-for iChunk = 1:numberOfChunks
-    for iGroup = 1:nGroups
-        subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk)
 
-        xlims_here = (max(diff_xlims_region) - diff_xlims_region(iChunk)) ./ 2;
-        xlim([xlims_region(iChunk, 1) - xlims_here, xlims_region(iChunk, 2) + xlims_here])
+% Apply limits to both figures
+for figHandle = [figProjection, figOriginal]
+    figure(figHandle);
+    for iChunk = 1:numberOfChunks
+        for iGroup = 1:nGroups
+            subplot(nGroups, numberOfChunks, (iGroup - 1)*numberOfChunks+iChunk)
 
-        ylims_here = (max(diff_ylims_region) - diff_ylims_region(iChunk)) ./ 2;
-        ylim([ylims_region(iChunk, 1) - ylims_here, ylims_region(iChunk, 2) + ylims_here])
+            xlims_here = (max(diff_xlims_region) - diff_xlims_region(iChunk)) ./ 2;
+            xlim([xlims_region(iChunk, 1) - xlims_here, xlims_region(iChunk, 2) + xlims_here])
 
-        shrink_factor_x = diff(xlims_region(iChunk, :)) ./ (diff(xlims_region(iChunk, :)) + xlims_here * 2);
-        %shrink_factor_y = diff(ylims_region(iChunk, :)) ./ (diff(ylims_region(iChunk, :)) + ylims_here*2);
-        if iChunk == 1 && iGroup == 1
-            axis_length_mm = 1;
-            one_pixel_x = (diff(projection_view_bins{iChunk}{1}(2:3)));
-            one_pixel_x_um = one_pixel_x / 2.5 / shrink_factor_x; % QQ why 2.5 here
-            % one_pixel_y = (diff(projection_view_bins{iChunk}{2}(2:3)));
-            % one_pixel_y_um = one_pixel_y;
-            axis_length_atlas_units_x = (axis_length_mm * 1000) / (one_pixel_x_um);
-            % axis_length_atlas_units_y = (axis_length_mm * 1000) / (one_pixel_y_um);
-            prettify_addScaleBars(axis_length_atlas_units_x, 0, ...
-                [num2str(axis_length_mm), 'mm'], '', 'topLeft', '', '')
+            ylims_here = (max(diff_ylims_region) - diff_ylims_region(iChunk)) ./ 2;
+            ylim([ylims_region(iChunk, 1) - ylims_here, ylims_region(iChunk, 2) + ylims_here])
+
+            shrink_factor_x = diff(xlims_region(iChunk, :)) ./ (diff(xlims_region(iChunk, :)) + xlims_here * 2);
+            %shrink_factor_y = diff(ylims_region(iChunk, :)) ./ (diff(ylims_region(iChunk, :)) + ylims_here*2);
+            if iChunk == 1 && iGroup == 1 && figHandle == figProjection
+                axis_length_mm = 1;
+                one_pixel_x = (diff(projection_view_bins{iChunk}{1}(2:3)));
+                one_pixel_x_um = one_pixel_x / 2.5 / shrink_factor_x; % QQ why 2.5 here
+                % one_pixel_y = (diff(projection_view_bins{iChunk}{2}(2:3)));
+                % one_pixel_y_um = one_pixel_y;
+                axis_length_atlas_units_x = (axis_length_mm * 1000) / (one_pixel_x_um);
+                % axis_length_atlas_units_y = (axis_length_mm * 1000) / (one_pixel_y_um);
+                prettify_addScaleBars(axis_length_atlas_units_x, 0, ...
+                    [num2str(axis_length_mm), 'mm'], '', 'topLeft', '', '')
+            end
         end
     end
-
 end
 if nGroups == 1
     projectionMatrix_array = zeros(size(projectionMatrix{1},1), size(projectionMatrix{1},2), size(projectionMatrix,2));
