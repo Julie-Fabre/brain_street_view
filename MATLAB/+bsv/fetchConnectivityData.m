@@ -89,7 +89,36 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     end
     close(progressBarHandle);
 
+    %% Display experiment information
+    % Filter for current experiments
+    expInfo = allenAtlasProjection_info(ismember(allenAtlasProjection_info.id, experimentIDs), :);
     
+    fprintf('\n=== EXPERIMENT INFORMATION ===\n');
+    fprintf('(1) Total number of experiments used & plotted: %d\n', length(experimentIDs));
+    
+    % (2) Breakdown by genotype
+    fprintf('\n(2) Experiments by mouse genotype:\n');
+    genotypes = expInfo.transgenic_line;
+    
+    % Handle empty genotypes
+    genotypes(cellfun(@isempty, genotypes)) = {'Wild-type'};
+    genotypes(strcmp(genotypes, '""') | strcmp(genotypes, '')) = {'Wild-type'};
+    
+    [uniqueGenotypes, ~, genotypeIdx] = unique(genotypes);
+    for i = 1:length(uniqueGenotypes)
+        count = sum(genotypeIdx == i);
+        fprintf('   %s: %d experiments\n', uniqueGenotypes{i}, count);
+    end
+    
+    % (3) Breakdown by subregion
+    fprintf('\n(3) Experiments by subregion:\n');
+    regions = expInfo.structure_abbrev;
+    [uniqueRegions, ~, regionIdx] = unique(regions);
+    for i = 1:length(uniqueRegions)
+        count = sum(regionIdx == i);
+        fprintf('   %s: %d experiments\n', uniqueRegions{i}, count);
+    end
+    fprintf('===============================\n\n');
 
     % % grouping method 
     if strcmp(groupingMethod, 'brainRegion')
