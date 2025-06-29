@@ -89,15 +89,15 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     end
     close(progressBarHandle);
 
-    %% Display experiment information
+    %% Display experiment summary
     % Filter for current experiments
     expInfo = allenAtlasProjection_info(ismember(allenAtlasProjection_info.id, experimentIDs), :);
     
-    fprintf('\n=== EXPERIMENT INFORMATION ===\n');
-    fprintf('(1) Total number of experiments used & plotted: %d\n', length(experimentIDs));
+    fprintf('\n📊 EXPERIMENT SUMMARY\n');
+    fprintf('Total experiments loaded: %d\n', length(experimentIDs));
     
-    % (2) Breakdown by genotype
-    fprintf('\n(2) Experiments by mouse genotype:\n');
+    % Mouse genotype distribution
+    fprintf('\n🧬 Mouse genotype distribution:\n');
     genotypes = expInfo.transgenic_line;
     
     % Handle empty genotypes
@@ -107,18 +107,18 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName)
     [uniqueGenotypes, ~, genotypeIdx] = unique(genotypes);
     for i = 1:length(uniqueGenotypes)
         count = sum(genotypeIdx == i);
-        fprintf('   %s: %d experiments\n', uniqueGenotypes{i}, count);
+        fprintf('  • %s: %d experiments\n', uniqueGenotypes{i}, count);
     end
     
-    % (3) Breakdown by subregion
-    fprintf('\n(3) Experiments by subregion:\n');
+    % Brain region distribution
+    fprintf('\n🧠 Brain region distribution:\n');
     regions = expInfo.structure_abbrev;
     [uniqueRegions, ~, regionIdx] = unique(regions);
     for i = 1:length(uniqueRegions)
         count = sum(regionIdx == i);
-        fprintf('   %s: %d experiments\n', uniqueRegions{i}, count);
+        fprintf('  • %s: %d experiments\n', uniqueRegions{i}, count);
     end
-    fprintf('===============================\n\n');
+    fprintf('─────────────────────────────────\n\n');
 
     % % grouping method 
     if strcmp(groupingMethod, 'brainRegion')
