@@ -462,16 +462,22 @@ for iChunk = 1:numberOfChunks
         if iChunk == numberOfChunks && iGroup == nGroups
             cb = colorbar('eastoutside');
             
-            % Create informative label based on normalization
+            % Create informative label based on normalization (same as plotConnectivity)
             switch lower(dataFetchNormalization)
                 case 'injectionvolume'
-                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nvolume');
+                    labelText = ['Projection intensity' newline '(norm. by injection' newline 'volume)'];
                 case 'injectionintensity'
-                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nintensity');
+                    labelText = ['Projection intensity' newline '(norm. by injection' newline 'intensity)'];
                 case 'none'
-                    labelText = sprintf('Raw projection\nintensity (a.u.)');
+                    labelText = 'Raw projection intensity';
                 otherwise
-                    labelText = sprintf('Projection intensity (a.u.)\n(normalized)');
+                    % Auto-detect based on data range
+                    dataMax = max(experimentData(:));
+                    if dataMax <= 1.1 && dataMax > 0.1
+                        labelText = ['Projection intensity' newline '(normalized)'];
+                    else
+                        labelText = 'Projection intensity';
+                    end
             end
             
             cb.Label.String = labelText;
@@ -583,16 +589,22 @@ for iChunk = 1:numberOfChunks
         if iChunk == numberOfChunks && iGroup == nGroups
             cb = colorbar('eastoutside');
             
-            % Create informative label based on normalization
+            % Create informative label based on normalization (same as plotConnectivity)
             switch lower(dataFetchNormalization)
                 case 'injectionvolume'
-                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nvolume');
+                    labelText = ['Projection intensity' newline '(norm. by injection' newline 'volume)'];
                 case 'injectionintensity'
-                    labelText = sprintf('Projection intensity (a.u.)\nnormalized by injection\nintensity');
+                    labelText = ['Projection intensity' newline '(norm. by injection' newline 'intensity)'];
                 case 'none'
-                    labelText = sprintf('Raw projection\nintensity (a.u.)');
+                    labelText = 'Raw projection intensity';
                 otherwise
-                    labelText = sprintf('Projection intensity (a.u.)\n(normalized)');
+                    % Auto-detect based on data range
+                    dataMax = max(experimentData(:));
+                    if dataMax <= 1.1 && dataMax > 0.1
+                        labelText = ['Projection intensity' newline '(normalized)'];
+                    else
+                        labelText = 'Projection intensity';
+                    end
             end
             
             cb.Label.String = labelText;
