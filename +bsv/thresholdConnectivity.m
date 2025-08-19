@@ -288,46 +288,80 @@ fprintf('\n🔧 PROCESSING PARAMETERS\n');
 fprintf('Threshold method: %s\n', thresholdMethod);
 fprintf('Normalization method: %s\n', normalizationMethod);
 
-% Apply normalization first
+% STEP 1: MANDATORY 0-1 normalization before thresholding
+fprintf('Applying mandatory 0-1 normalization before thresholding...\n');
+
+% Find global min and max across all data for consistent 0-1 scaling
+globalMin = inf;
+globalMax = -inf;
 for iChunk = 1:numberOfChunks
     for iGroup = 1:size(experimentData, 4)
         currentChunk = projectionMatrix{iChunk}(:, :, iGroup);
-        
-        switch lower(normalizationMethod)
-            case 'region'
-                % Scale to [0,1] independently
-                minVal = min(currentChunk(:));
-                maxVal = max(currentChunk(:));
-                if maxVal > minVal
-                    currentChunk = (currentChunk - minVal) / (maxVal - minVal);
-                end
-                
-            case 'zscore'
-                % Z-score normalization
-                meanVal = mean(currentChunk(:), 'omitnan');
-                stdVal = std(currentChunk(:), 'omitnan');
-                if stdVal > 0
-                    currentChunk = (currentChunk - meanVal) / stdVal;
-                end
-                
-            case 'robust'
-                % Robust scaling using median and IQR
-                medianVal = median(currentChunk(:), 'omitnan');
-                q75 = prctile(currentChunk(:), 75);
-                q25 = prctile(currentChunk(:), 25);
-                iqr = q75 - q25;
-                if iqr > 0
-                    currentChunk = (currentChunk - medianVal) / iqr;
-                end
-                
-            case 'none'
-                % No additional normalization
-                
-            otherwise
-                warning('Unknown normalization method: %s. Using none.', normalizationMethod);
+        validData = currentChunk(~isnan(currentChunk));
+        if ~isempty(validData)
+            globalMin = min(globalMin, min(validData));
+            globalMax = max(globalMax, max(validData));
         end
-        
-        projectionMatrix{iChunk}(:, :, iGroup) = currentChunk;
+    end
+end
+
+fprintf('Global data range: %.6f to %.6f\n', globalMin, globalMax);
+
+% Apply global 0-1 normalization
+if globalMax > globalMin
+    for iChunk = 1:numberOfChunks
+        for iGroup = 1:size(experimentData, 4)
+            currentChunk = projectionMatrix{iChunk}(:, :, iGroup);
+            currentChunk = (currentChunk - globalMin) / (globalMax - globalMin);
+            projectionMatrix{iChunk}(:, :, iGroup) = currentChunk;
+        end
+    end
+    fprintf('Data normalized to [0,1] range\n');
+else
+    fprintf('Warning: Data has no range (min=max), skipping normalization\n');
+end
+
+% STEP 2: Apply additional normalization if requested (after 0-1 scaling)
+if ~strcmp(lower(normalizationMethod), 'none')
+    fprintf('Applying additional %s normalization...\n', normalizationMethod);
+    
+    for iChunk = 1:numberOfChunks
+        for iGroup = 1:size(experimentData, 4)
+            currentChunk = projectionMatrix{iChunk}(:, :, iGroup);
+            
+            switch lower(normalizationMethod)
+                case 'region'
+                    % Scale each region to [0,1] independently (after global scaling)
+                    minVal = min(currentChunk(:));
+                    maxVal = max(currentChunk(:));
+                    if maxVal > minVal
+                        currentChunk = (currentChunk - minVal) / (maxVal - minVal);
+                    end
+                    
+                case 'zscore'
+                    % Z-score normalization
+                    meanVal = mean(currentChunk(:), 'omitnan');
+                    stdVal = std(currentChunk(:), 'omitnan');
+                    if stdVal > 0
+                        currentChunk = (currentChunk - meanVal) / stdVal;
+                    end
+                    
+                case 'robust'
+                    % Robust scaling using median and IQR
+                    medianVal = median(currentChunk(:), 'omitnan');
+                    q75 = prctile(currentChunk(:), 75);
+                    q25 = prctile(currentChunk(:), 25);
+                    iqr = q75 - q25;
+                    if iqr > 0
+                        currentChunk = (currentChunk - medianVal) / iqr;
+                    end
+                    
+                otherwise
+                    warning('Unknown normalization method: %s. Skipping additional normalization.', normalizationMethod);
+            end
+            
+            projectionMatrix{iChunk}(:, :, iGroup) = currentChunk;
+        end
     end
 end
 

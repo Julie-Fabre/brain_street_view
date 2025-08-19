@@ -39,6 +39,7 @@ url = 'http://connectivity.brain-map.org/api/v2/data/ProjectionStructureUnionize
 
 % Get projection data
 status = true;
+page = '';
 try
     page = urlread(sprintf(url, experimentID));
 
@@ -50,20 +51,48 @@ end
 injectionInfo = struct;
 % parse the JSON data
 if ~isempty(page)
-       
-    tmp = jsondecode(page);
-    
-    if tmp.success
-        % load just the injection data 
-        injectionInfo = tmp.msg([tmp.msg.is_injection] == 1);
-    else
-        warning('Failed to jsondecode data for ID %d\n', experimentID)
+    try
+        tmp = jsondecode(page);
+        
+        if tmp.success
+            % load just the injection data 
+            injectionInfo = tmp.msg([tmp.msg.is_injection] == 1);
+            
+            % Check if we got any injection data
+            if isempty(injectionInfo)
+                status = false;
+                warning('No injection data found for experiment ID %d', experimentID);
+                return;
+            end
+        else
+            status = false;
+            warning('API returned failure for experiment ID %d', experimentID);
+            return;
+        end
+    catch ME
+        status = false;
+        warning('Failed to parse JSON data for ID %d: %s', experimentID, ME.message);
+        return;
     end
+else
+    % page is empty, status was already set to false
+    return;
 end
 
 [injectionInfo.experimentID] = deal(experimentID);% store information about the experiment ID
 
+% Create directory if it doesn't exist (including parent directories)
+if ~exist(saveFilePath, 'dir')
+    [status, msg] = mkdir(saveFilePath);
+    if ~status
+        error('Failed to create directory %s: %s', saveFilePath, msg);
+    end
+end
+
 % save results
 save([saveFilePath, filesep, 'injectionSummary_all.mat'], 'injectionInfo')
+
+% Return status
+% status is already set earlier in the function
 
 end

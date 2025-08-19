@@ -49,7 +49,7 @@ for iRegion = 1:size(regions,2)
         if isfield(result.msg, 'id')
             experimentIDs = [experimentIDs, result.msg(iID).id];
         else
-            fprintf('Query empty!\n');
+            %fprintf('Query empty!\n');
         end
     end
     fprintf('Found %d experiments in %s \n', length(result.msg), regions{iRegion})
