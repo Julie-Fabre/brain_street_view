@@ -451,7 +451,6 @@ if normalizeByGroup && size(projectionMatrix{1}, 3) > 1
             maxVal = max(maxVal, max(groupData(:)));
         end
         groupMaxValues(iGroup) = maxVal;
-        fprintf('Group %d max value: %.6f\n', iGroup, maxVal);
     end
     
     % Normalize each group to 0-1 range
