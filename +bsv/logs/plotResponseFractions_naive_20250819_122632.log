@@ -1,0 +1,127 @@
+========================================================================
+plotResponseFractions LOG START: 19-Aug-2025 12:26:32
+========================================================================
+LOG FILE LOCATION: /home/jf5479/Dropbox/MATLAB/onPaths/brain_street_view/+bsv/logs/plotResponseFractions_naive_20250819_122632.log
+Function called with:
+  load_type: naive
+  keep_type: 2
+  loadVids: 0
+  Working directory: /home/jf5479/Dropbox/MATLAB/onPaths/brain_street_view/+bsv
+========================================================================
+
+[LOG] cl_myPaths completed successfully
+[LOG] Loading target info...
+Loading existing target files...
+[LOG] Target info loaded successfully. nSessions = 292
+
+==== Analysis Information ====
+Total number of sessions: n = 292 sessions
+Load type: naive, Keep type: 2, Load videos: 0
+Note: Detailed neuron, session, and mouse counts will be displayed after analysis.
+[LOG] Cache directory: /home/jf5479/Dropbox/PhD_summary/curr/analysis_cache
+[LOG] Cache file path: /home/jf5479/Dropbox/PhD_summary/curr/analysis_cache/visual_responses_naive_2_0_new.mat
+[LOG] No cache found - will generate new data
+[LOG] Processing 288 datasets
+[LOG] Processing dataset 1/288
+[LOG]   Animal: AP083, Date: 2020-12-05, Site: 1, Exp: 1, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.36 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 195 good units out of 234 total units
+[LOG]   Processing 234 units
+     1
+
+[LOG] Processing dataset 2/288
+[LOG]   Animal: AP083, Date: 2020-12-05, Site: 2, Exp: 4, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.75 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 342 good units out of 398 total units
+[LOG]   Processing 398 units
+     2
+
+[LOG] Processing dataset 3/288
+[LOG]   Animal: AP083, Date: 2020-12-06, Site: 1, Exp: 2, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.92 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 277 good units out of 344 total units
+[LOG]   Processing 344 units
+     3
+
+[LOG] Processing dataset 4/288
+[LOG]   Animal: AP083, Date: 2020-12-06, Site: 2, Exp: 5, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.46 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 396 good units out of 413 total units
+[LOG]   Processing 413 units
+     4
+
+[LOG] Processing dataset 5/288
+[LOG]   Animal: AP083, Date: 2020-12-06, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 24.93 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 406 good units out of 458 total units
+[LOG]   Processing 458 units
+     5
+
+[LOG] Processing dataset 6/288
+[LOG]   Animal: AP083, Date: 2020-12-07, Site: 1, Exp: 1, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 14.50 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 219 good units out of 246 total units
+[LOG]   Processing 246 units
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('readNPY', '/home/jf5479/Dropbox/MATLAB/onPaths/UnitMatch/MATLAB/DataPreparation/readNPY.m', 23)" style="font-weight:bold">readNPY</a> (<a href="matlab: opentoline('/home/jf5479/Dropbox/MATLAB/onPaths/UnitMatch/MATLAB/DataPreparation/readNPY.m',23,0)">line 23</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('paper.get_subregions', '/home/jf5479/Dropbox/MATLAB/onPaths/JF_Scripts_CortexLab/+paper/get_subregions.m', 14)" style="font-weight:bold">paper.get_subregions</a> (<a href="matlab: opentoline('/home/jf5479/Dropbox/MATLAB/onPaths/JF_Scripts_CortexLab/+paper/get_subregions.m',14,0)">line 14</a>)
+annotated_atlas = readNPY([allenAtlasPath, '_v2' filesep, 'annotation_volume_v2_20um_by_index.npy']);
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Fabre_2024.plot.plotResponseFractions', '/home/jf5479/Dropbox/MATLAB/onPaths/Fabre_et_al_2024/+Fabre_2024/+plot/plotResponseFractions.m', 237)" style="font-weight:bold">Fabre_2024.plot.plotResponseFractions</a> (<a href="matlab: opentoline('/home/jf5479/Dropbox/MATLAB/onPaths/Fabre_et_al_2024/+Fabre_2024/+plot/plotResponseFractions.m',237,0)">line 237</a>)
+                [~, unitClassification] = paper.get_subregions(unitProps.unitProperties.anatomy.coords, unit_region);
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+for iExperimentType = 2:4%:4
+    load_type = load_types_all{iExperimentType};
+    keep_type = keep_types_all(iExperimentType);
+    Fabre_2024.plot.plotResponseFractions(load_type, keep_type, loadVids, reload); 
+end

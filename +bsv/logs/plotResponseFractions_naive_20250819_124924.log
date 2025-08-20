@@ -1,0 +1,3567 @@
+========================================================================
+plotResponseFractions LOG START: 19-Aug-2025 12:49:24
+========================================================================
+LOG FILE LOCATION: /home/jf5479/Dropbox/MATLAB/onPaths/brain_street_view/+bsv/logs/plotResponseFractions_naive_20250819_124924.log
+Function called with:
+  load_type: naive
+  keep_type: 4
+  loadVids: 0
+  Working directory: /home/jf5479/Dropbox/MATLAB/onPaths/brain_street_view/+bsv
+========================================================================
+
+[LOG] cl_myPaths completed successfully
+[LOG] Loading target info...
+Loading existing target files...
+[LOG] Target info loaded successfully. nSessions = 296
+
+==== Analysis Information ====
+Total number of sessions: n = 296 sessions
+Load type: naive, Keep type: 4, Load videos: 0
+Note: Detailed neuron, session, and mouse counts will be displayed after analysis.
+[LOG] Cache directory: /home/jf5479/Dropbox/PhD_summary/curr/analysis_cache
+[LOG] Cache file path: /home/jf5479/Dropbox/PhD_summary/curr/analysis_cache/visual_responses_naive_4_0_new2.mat
+[LOG] No cache found - will generate new data
+[LOG] Processing 292 datasets
+[LOG] Processing dataset 1/292
+[LOG]   Animal: AP082, Date: 2020-10-12, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 38.83 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 440 good units out of 479 total units
+[LOG]   Processing 479 units
+     1
+
+[LOG] Processing dataset 2/292
+[LOG]   Animal: AP083, Date: 2020-12-05, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 23.34 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 195 good units out of 234 total units
+[LOG]   Processing 234 units
+     2
+
+[LOG] Processing dataset 3/292
+[LOG]   Animal: AP083, Date: 2020-12-05, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 37.45 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 342 good units out of 398 total units
+[LOG]   Processing 398 units
+     3
+
+[LOG] Processing dataset 4/292
+[LOG]   Animal: AP083, Date: 2020-12-06, Site: 1, Exp: 4, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 36.88 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 277 good units out of 344 total units
+[LOG]   Processing 344 units
+     4
+
+[LOG] Processing dataset 5/292
+[LOG]   Animal: AP083, Date: 2020-12-06, Site: 3, Exp: 11, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 41.43 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 406 good units out of 458 total units
+[LOG]   Processing 458 units
+     5
+
+[LOG] Processing dataset 6/292
+[LOG]   Animal: AP083, Date: 2020-12-07, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 23.80 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 219 good units out of 246 total units
+[LOG]   Processing 246 units
+     6
+
+[LOG] Processing dataset 7/292
+[LOG]   Animal: AP083, Date: 2020-12-07, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG] Processing dataset 8/292
+[LOG]   Animal: AP083, Date: 2020-12-07, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG] Processing dataset 9/292
+[LOG]   Animal: AP084, Date: 2020-12-09, Site: 1, Exp: 4, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 95 good units out of 116 total units
+[LOG]   Processing 116 units
+     9
+
+[LOG] Processing dataset 10/292
+[LOG]   Animal: AP084, Date: 2020-12-09, Site: 3, Exp: 10, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 54 good units out of 64 total units
+[LOG]   Processing 64 units
+[ERROR] Dataset 10 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 11/292
+[LOG]   Animal: AP084, Date: 2020-12-10, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.82 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 52 good units out of 62 total units
+[LOG]   Processing 62 units
+    11
+
+[LOG] Processing dataset 12/292
+[LOG]   Animal: AP084, Date: 2020-12-10, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.36 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 107 good units out of 120 total units
+[LOG]   Processing 120 units
+    12
+
+[LOG] Processing dataset 13/292
+[LOG]   Animal: AP084, Date: 2020-12-10, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.52 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 72 good units out of 96 total units
+[LOG]   Processing 96 units
+    13
+
+[LOG] Processing dataset 14/292
+[LOG]   Animal: AP084, Date: 2020-12-11, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 15.93 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 197 good units out of 288 total units
+[LOG]   Processing 288 units
+    14
+
+[LOG] Processing dataset 15/292
+[LOG]   Animal: JF017, Date: 2020-10-21, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 48.37 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 820 good units out of 887 total units
+[LOG]   Processing 887 units
+    15
+
+[LOG] Processing dataset 16/292
+[LOG]   Animal: JF017, Date: 2020-10-21, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 62.40 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 607 good units out of 651 total units
+[LOG]   Processing 651 units
+    16
+
+[LOG] Processing dataset 17/292
+[LOG]   Animal: JF019, Date: 2020-11-13, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 18.64 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 337 good units out of 356 total units
+[LOG]   Processing 356 units
+    17
+
+[LOG] Processing dataset 18/292
+[LOG]   Animal: JF019, Date: 2020-11-13, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 192 good units out of 243 total units
+[LOG]   Processing 243 units
+    18
+
+[LOG] Processing dataset 19/292
+[LOG]   Animal: JF019, Date: 2020-11-13, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.24 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 39 good units out of 55 total units
+[LOG]   Processing 55 units
+    19
+
+[LOG] Processing dataset 20/292
+[LOG]   Animal: JF019, Date: 2020-11-14, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 15.85 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 306 good units out of 356 total units
+[LOG]   Processing 356 units
+[ERROR] Dataset 20 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 21/292
+[LOG]   Animal: JF019, Date: 2020-11-14, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.47 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 263 good units out of 308 total units
+[LOG]   Processing 308 units
+    21
+
+[LOG] Processing dataset 22/292
+[LOG]   Animal: JF019, Date: 2020-11-14, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 11.21 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 144 good units out of 221 total units
+[LOG]   Processing 221 units
+    22
+
+[LOG] Processing dataset 23/292
+[LOG]   Animal: JF019, Date: 2020-11-15, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 20.09 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 360 good units out of 427 total units
+[LOG]   Processing 427 units
+    23
+
+[LOG] Processing dataset 24/292
+[LOG]   Animal: JF019, Date: 2020-11-15, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 29.02 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 560 good units out of 652 total units
+[LOG]   Processing 652 units
+    24
+
+[LOG] Processing dataset 25/292
+[LOG]   Animal: JF019, Date: 2020-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 23.49 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 645 good units out of 680 total units
+[LOG]   Processing 680 units
+    25
+
+[LOG] Processing dataset 26/292
+[LOG]   Animal: JF019, Date: 2020-11-16, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 34.96 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 661 good units out of 695 total units
+[LOG]   Processing 695 units
+    26
+
+[LOG] Processing dataset 27/292
+[LOG]   Animal: JF020, Date: 2020-11-18, Site: 1, Exp: 4, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 12.03 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 311 good units out of 356 total units
+[LOG]   Processing 356 units
+    27
+
+[LOG] Processing dataset 28/292
+[LOG]   Animal: JF020, Date: 2020-11-19, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.59 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 37 good units out of 48 total units
+[LOG]   Processing 48 units
+    28
+
+[LOG] Processing dataset 29/292
+[LOG]   Animal: JF020, Date: 2020-11-19, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.82 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 63 good units out of 83 total units
+[LOG]   Processing 83 units
+    29
+
+[LOG] Processing dataset 30/292
+[LOG]   Animal: JF022, Date: 2020-12-13, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 14.21 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 181 good units out of 212 total units
+[LOG]   Processing 212 units
+[ERROR] Dataset 30 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 31/292
+[LOG]   Animal: JF022, Date: 2020-12-13, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG] Processing dataset 32/292
+[LOG]   Animal: JF022, Date: 2020-12-13, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 19.23 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 278 good units out of 329 total units
+[LOG]   Processing 329 units
+    32
+
+[LOG] Processing dataset 33/292
+[LOG]   Animal: JF022, Date: 2020-12-13, Site: 4, Exp: 12, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.10 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 263 good units out of 325 total units
+[LOG]   Processing 325 units
+    33
+
+[LOG] Processing dataset 34/292
+[LOG]   Animal: JF022, Date: 2020-12-14, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 18.54 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 277 good units out of 347 total units
+[LOG]   Processing 347 units
+    34
+
+[LOG] Processing dataset 35/292
+[LOG]   Animal: JF022, Date: 2020-12-14, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 11.95 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 190 good units out of 228 total units
+[LOG]   Processing 228 units
+    35
+
+[LOG] Processing dataset 36/292
+[LOG]   Animal: JF022, Date: 2020-12-14, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 12.13 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 207 good units out of 241 total units
+[LOG]   Processing 241 units
+    36
+
+[LOG] Processing dataset 37/292
+[LOG]   Animal: JF023, Date: 2021-01-22, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG] Processing dataset 38/292
+[LOG]   Animal: JF023, Date: 2021-01-23, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG] Processing dataset 39/292
+[LOG]   Animal: JF023, Date: 2021-01-23, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 18.79 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 347 good units out of 389 total units
+[LOG]   Processing 389 units
+    39
+
+[LOG] Processing dataset 40/292
+[LOG]   Animal: JF023, Date: 2021-01-24, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.75 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 172 good units out of 204 total units
+[LOG]   Processing 204 units
+[ERROR] Dataset 40 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 41/292
+[LOG]   Animal: JF024, Date: 2021-01-27, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 23.29 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 391 good units out of 449 total units
+[LOG]   Processing 449 units
+    41
+
+[LOG] Processing dataset 42/292
+[LOG]   Animal: JF024, Date: 2021-01-28, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 25.74 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 397 good units out of 479 total units
+[LOG]   Processing 479 units
+    42
+
+[LOG] Processing dataset 43/292
+[LOG]   Animal: JF024, Date: 2021-01-28, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 33.64 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 592 good units out of 660 total units
+[LOG]   Processing 660 units
+    43
+
+[LOG] Processing dataset 44/292
+[LOG]   Animal: JF024, Date: 2021-01-28, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.99 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 390 good units out of 454 total units
+[LOG]   Processing 454 units
+    44
+
+[LOG] Processing dataset 45/292
+[LOG]   Animal: JF024, Date: 2021-01-29, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.30 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 158 good units out of 179 total units
+[LOG]   Processing 179 units
+    45
+
+[LOG] Processing dataset 46/292
+[LOG]   Animal: JF024, Date: 2021-01-29, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 15.91 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 238 good units out of 294 total units
+[LOG]   Processing 294 units
+    46
+
+[LOG] Processing dataset 47/292
+[LOG]   Animal: JF024, Date: 2021-01-29, Site: 3, Exp: 9, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 23.40 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 487 good units out of 527 total units
+[LOG]   Processing 527 units
+    47
+
+[LOG] Processing dataset 48/292
+[LOG]   Animal: JF024, Date: 2021-01-30, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 16.53 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 340 good units out of 380 total units
+[LOG]   Processing 380 units
+    48
+
+[LOG] Processing dataset 49/292
+[LOG]   Animal: JF024, Date: 2021-01-30, Site: 2, Exp: 6, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 26.61 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 480 good units out of 523 total units
+[LOG]   Processing 523 units
+    49
+
+[LOG] Processing dataset 50/292
+[LOG]   Animal: JF045, Date: 2021-06-16, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.38 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 302 good units out of 375 total units
+[LOG]   Processing 375 units
+[ERROR] Dataset 50 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 51/292
+[LOG]   Animal: JF045, Date: 2021-06-16, Site: 2, Exp: 7, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.22 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 308 good units out of 399 total units
+[LOG]   Processing 399 units
+    51
+
+[LOG] Processing dataset 52/292
+[LOG]   Animal: JF058, Date: 2021-11-01, Site: 1, Exp: 1, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.18 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 65 good units out of 84 total units
+[LOG]   Processing 84 units
+    52
+
+[LOG] Processing dataset 53/292
+[LOG]   Animal: JF058, Date: 2021-11-01, Site: 1, Exp: 1, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.01 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 45 good units out of 52 total units
+[LOG]   Processing 52 units
+    53
+
+[LOG] Processing dataset 54/292
+[LOG]   Animal: JF058, Date: 2021-11-01, Site: 1, Exp: 1, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.35 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 59 good units out of 71 total units
+[LOG]   Processing 71 units
+    54
+
+[LOG] Processing dataset 55/292
+[LOG]   Animal: JF058, Date: 2021-11-01, Site: 1, Exp: 1, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.51 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 44 good units out of 47 total units
+[LOG]   Processing 47 units
+    55
+
+[LOG] Processing dataset 56/292
+[LOG]   Animal: JF059, Date: 2022-01-13, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.46 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 143 good units out of 215 total units
+[LOG]   Processing 215 units
+    56
+
+[LOG] Processing dataset 57/292
+[LOG]   Animal: JF059, Date: 2022-01-13, Site: 2, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.38 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 195 good units out of 223 total units
+[LOG]   Processing 223 units
+    57
+
+[LOG] Processing dataset 58/292
+[LOG]   Animal: JF059, Date: 2022-01-14, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 12.58 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 183 good units out of 295 total units
+[LOG]   Processing 295 units
+    58
+
+[LOG] Processing dataset 59/292
+[LOG]   Animal: JF059, Date: 2022-01-14, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 60/292
+[LOG]   Animal: JF059, Date: 2022-01-14, Site: 2, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.37 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 161 good units out of 215 total units
+[LOG]   Processing 215 units
+[ERROR] Dataset 60 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 61/292
+[LOG]   Animal: JF059, Date: 2022-01-14, Site: 2, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 62/292
+[LOG]   Animal: JF059, Date: 2022-01-15, Site: 1, Exp: 4, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[ERROR] Could not load data for session rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN: Unable to find file or directory '/home/jf5479/Dropbox/PhD_summary/curr/JF059/2022-01-15/rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN_response_analysis.mat'.
+[ERROR] Stack trace:
+  plotResponseFractions (line 179)
+[Warning: Could not load data for session rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN: Unable to find file or directory
+'/home/jf5479/Dropbox/PhD_summary/curr/JF059/2022-01-15/rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN_response_analysis.mat'.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Fabre_2024.plot.plotResponseFractions', '/home/jf5479/Dropbox/MATLAB/onPaths/Fabre_et_al_2024/+Fabre_2024/+plot/plotResponseFractions.m', 217)" style="font-weight:bold">Fabre_2024.plot.plotResponseFractions</a> (<a href="matlab: opentoline('/home/jf5479/Dropbox/MATLAB/onPaths/Fabre_et_al_2024/+Fabre_2024/+plot/plotResponseFractions.m',217,0)">line 217</a>)] 
+[LOG] Processing dataset 63/292
+[LOG]   Animal: JF059, Date: 2022-01-15, Site: 1, Exp: 4, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[ERROR] Could not load data for session rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN: Unable to find file or directory '/home/jf5479/Dropbox/PhD_summary/curr/JF059/2022-01-15/rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN_response_analysis.mat'.
+[ERROR] Stack trace:
+  plotResponseFractions (line 179)
+[Warning: Could not load data for session rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN: Unable to find file or directory
+'/home/jf5479/Dropbox/PhD_summary/curr/JF059/2022-01-15/rasters_JF059_2022-01-15_site1_exp4_recNaN_shankNaN_response_analysis.mat'.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Fabre_2024.plot.plotResponseFractions', '/home/jf5479/Dropbox/MATLAB/onPaths/Fabre_et_al_2024/+Fabre_2024/+plot/plotResponseFractions.m', 217)" style="font-weight:bold">Fabre_2024.plot.plotResponseFractions</a> (<a href="matlab: opentoline('/home/jf5479/Dropbox/MATLAB/onPaths/Fabre_et_al_2024/+Fabre_2024/+plot/plotResponseFractions.m',217,0)">line 217</a>)] 
+[LOG] Processing dataset 64/292
+[LOG]   Animal: JF059, Date: 2022-01-15, Site: 2, Exp: 8, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.75 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 142 good units out of 179 total units
+[LOG]   Processing 179 units
+    64
+
+[LOG] Processing dataset 65/292
+[LOG]   Animal: JF059, Date: 2022-01-15, Site: 3, Exp: 12, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.42 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 85 good units out of 96 total units
+[LOG]   Processing 96 units
+    65
+
+[LOG] Processing dataset 66/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.31 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 151 good units out of 160 total units
+[LOG]   Processing 160 units
+    66
+
+[LOG] Processing dataset 67/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.56 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 130 good units out of 137 total units
+[LOG]   Processing 137 units
+    67
+
+[LOG] Processing dataset 68/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.79 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 77 good units out of 90 total units
+[LOG]   Processing 90 units
+    68
+
+[LOG] Processing dataset 69/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.84 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 54 good units out of 65 total units
+[LOG]   Processing 65 units
+    69
+
+[LOG] Processing dataset 70/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 2, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.96 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 27 good units out of 66 total units
+[LOG]   Processing 66 units
+[ERROR] Dataset 70 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 71/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 2, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.90 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 7 good units out of 8 total units
+[LOG]   Processing 8 units
+    71
+
+[LOG] Processing dataset 72/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 2, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.64 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 8 good units out of 8 total units
+[LOG]   Processing 8 units
+    72
+
+[LOG] Processing dataset 73/292
+[LOG]   Animal: JF062, Date: 2021-11-05, Site: 2, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 74/292
+[LOG]   Animal: JF062, Date: 2021-11-06, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.34 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 66 good units out of 71 total units
+[LOG]   Processing 71 units
+    74
+
+[LOG] Processing dataset 75/292
+[LOG]   Animal: JF062, Date: 2021-11-06, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.11 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 76 good units out of 78 total units
+[LOG]   Processing 78 units
+    75
+
+[LOG] Processing dataset 76/292
+[LOG]   Animal: JF062, Date: 2021-11-06, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.80 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 75 good units out of 80 total units
+[LOG]   Processing 80 units
+    76
+
+[LOG] Processing dataset 77/292
+[LOG]   Animal: JF062, Date: 2021-11-06, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.64 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 70 good units out of 75 total units
+[LOG]   Processing 75 units
+    77
+
+[LOG] Processing dataset 78/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 1, Exp: 4, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.98 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 28 good units out of 33 total units
+[LOG]   Processing 33 units
+    78
+
+[LOG] Processing dataset 79/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 1, Exp: 4, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.19 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 33 good units out of 33 total units
+[LOG]   Processing 33 units
+    79
+
+[LOG] Processing dataset 80/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 1, Exp: 4, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.91 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 45 good units out of 53 total units
+[LOG]   Processing 53 units
+[ERROR] Dataset 80 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 81/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 1, Exp: 4, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.44 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 44 good units out of 50 total units
+[LOG]   Processing 50 units
+    81
+
+[LOG] Processing dataset 82/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 2, Exp: 4, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.19 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 161 good units out of 202 total units
+[LOG]   Processing 202 units
+    82
+
+[LOG] Processing dataset 83/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 2, Exp: 4, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 84/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 2, Exp: 4, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 85/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 2, Exp: 4, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 86/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 3, Exp: 8, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.25 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 44 good units out of 51 total units
+[LOG]   Processing 51 units
+    86
+
+[LOG] Processing dataset 87/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 3, Exp: 8, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.13 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 58 good units out of 71 total units
+[LOG]   Processing 71 units
+    87
+
+[LOG] Processing dataset 88/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 3, Exp: 8, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.46 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 34 good units out of 37 total units
+[LOG]   Processing 37 units
+    88
+
+[LOG] Processing dataset 89/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 3, Exp: 8, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.23 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 48 good units out of 56 total units
+[LOG]   Processing 56 units
+    89
+
+[LOG] Processing dataset 90/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 4, Exp: 8, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 12.58 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 244 good units out of 270 total units
+[LOG]   Processing 270 units
+[ERROR] Dataset 90 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 91/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 4, Exp: 8, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 92/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 4, Exp: 8, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 93/292
+[LOG]   Animal: JF062, Date: 2021-11-07, Site: 4, Exp: 8, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 94/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.62 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 117 good units out of 148 total units
+[LOG]   Processing 148 units
+    94
+
+[LOG] Processing dataset 95/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.66 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 112 good units out of 135 total units
+[LOG]   Processing 135 units
+    95
+
+[LOG] Processing dataset 96/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.52 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 111 good units out of 161 total units
+[LOG]   Processing 161 units
+    96
+
+[LOG] Processing dataset 97/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.60 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 92 good units out of 154 total units
+[LOG]   Processing 154 units
+    97
+
+[LOG] Processing dataset 98/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 2, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.62 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 30 good units out of 32 total units
+[LOG]   Processing 32 units
+    98
+
+[LOG] Processing dataset 99/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 2, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.34 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 14 good units out of 17 total units
+[LOG]   Processing 17 units
+    99
+
+[LOG] Processing dataset 100/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 2, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.12 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 2 good units out of 2 total units
+[LOG]   Processing 2 units
+[ERROR] Dataset 100 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 101/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 2, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.57 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 8 good units out of 12 total units
+[LOG]   Processing 12 units
+   101
+
+[LOG] Processing dataset 102/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 3, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.17 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 64 good units out of 66 total units
+[LOG]   Processing 66 units
+   102
+
+[LOG] Processing dataset 103/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 3, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.12 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 130 good units out of 165 total units
+[LOG]   Processing 165 units
+   103
+
+[LOG] Processing dataset 104/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 3, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.76 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 127 good units out of 178 total units
+[LOG]   Processing 178 units
+   104
+
+[LOG] Processing dataset 105/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 3, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.44 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 75 good units out of 90 total units
+[LOG]   Processing 90 units
+   105
+
+[LOG] Processing dataset 106/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 4, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.24 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 27 good units out of 31 total units
+[LOG]   Processing 31 units
+   106
+
+[LOG] Processing dataset 107/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 4, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.84 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 10 good units out of 10 total units
+[LOG]   Processing 10 units
+   107
+
+[LOG] Processing dataset 108/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 4, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.42 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 13 good units out of 14 total units
+[LOG]   Processing 14 units
+   108
+
+[LOG] Processing dataset 109/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 4, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.16 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 0 good units out of 3 total units
+[LOG]   Processing 3 units
+   109
+
+[LOG] Processing dataset 110/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 5, Exp: 11, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.01 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 87 good units out of 102 total units
+[LOG]   Processing 102 units
+[ERROR] Dataset 110 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 111/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 5, Exp: 11, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.56 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 81 good units out of 125 total units
+[LOG]   Processing 125 units
+   111
+
+[LOG] Processing dataset 112/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 5, Exp: 11, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.94 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 73 good units out of 112 total units
+[LOG]   Processing 112 units
+   112
+
+[LOG] Processing dataset 113/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 5, Exp: 11, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.89 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 47 good units out of 61 total units
+[LOG]   Processing 61 units
+   113
+
+[LOG] Processing dataset 114/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 6, Exp: 11, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.63 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 37 good units out of 54 total units
+[LOG]   Processing 54 units
+   114
+
+[LOG] Processing dataset 115/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 6, Exp: 11, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.89 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 31 good units out of 38 total units
+[LOG]   Processing 38 units
+   115
+
+[LOG] Processing dataset 116/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 6, Exp: 11, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.79 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 13 good units out of 14 total units
+[LOG]   Processing 14 units
+   116
+
+[LOG] Processing dataset 117/292
+[LOG]   Animal: JF063, Date: 2021-11-09, Site: 6, Exp: 11, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.38 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 4 good units out of 9 total units
+[LOG]   Processing 9 units
+   117
+
+[LOG] Processing dataset 118/292
+[LOG]   Animal: JF063, Date: 2021-11-10, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.49 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 72 good units out of 86 total units
+[LOG]   Processing 86 units
+   118
+
+[LOG] Processing dataset 119/292
+[LOG]   Animal: JF063, Date: 2021-11-10, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.06 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 58 good units out of 78 total units
+[LOG]   Processing 78 units
+   119
+
+[LOG] Processing dataset 120/292
+[LOG]   Animal: JF063, Date: 2021-11-10, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.30 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 73 good units out of 94 total units
+[LOG]   Processing 94 units
+[ERROR] Dataset 120 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 121/292
+[LOG]   Animal: JF063, Date: 2021-11-10, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.28 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 60 good units out of 67 total units
+[LOG]   Processing 67 units
+   121
+
+[LOG] Processing dataset 122/292
+[LOG]   Animal: JF063, Date: 2021-11-10, Site: 3, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.27 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 68 good units out of 89 total units
+[LOG]   Processing 89 units
+   123
+
+[LOG] Processing dataset 123/292
+[LOG]   Animal: JF063, Date: 2021-11-10, Site: 3, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.14 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 30 good units out of 42 total units
+[LOG]   Processing 42 units
+   124
+
+[LOG] Processing dataset 124/292
+[LOG]   Animal: JF063, Date: 2021-11-10, Site: 3, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.20 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 34 good units out of 53 total units
+[LOG]   Processing 53 units
+   125
+
+[LOG] Processing dataset 125/292
+[LOG]   Animal: JF065, Date: 2022-01-18, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.53 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 63 good units out of 68 total units
+[LOG]   Processing 68 units
+   126
+
+[LOG] Processing dataset 126/292
+[LOG]   Animal: JF065, Date: 2022-01-18, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.77 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 114 good units out of 135 total units
+[LOG]   Processing 135 units
+   127
+
+[LOG] Processing dataset 127/292
+[LOG]   Animal: JF065, Date: 2022-01-18, Site: 2, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.70 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 128 good units out of 195 total units
+[LOG]   Processing 195 units
+   128
+
+[LOG] Processing dataset 128/292
+[LOG]   Animal: JF065, Date: 2022-01-18, Site: 2, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.62 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 144 good units out of 209 total units
+[LOG]   Processing 209 units
+   129
+
+[LOG] Processing dataset 129/292
+[LOG]   Animal: JF065, Date: 2022-01-19, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.22 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 71 good units out of 82 total units
+[LOG]   Processing 82 units
+   130
+
+[LOG] Processing dataset 130/292
+[LOG]   Animal: JF065, Date: 2022-01-19, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.17 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 79 good units out of 83 total units
+[LOG]   Processing 83 units
+[ERROR] Dataset 131 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 131/292
+[LOG]   Animal: JF065, Date: 2022-01-19, Site: 2, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.19 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 47 good units out of 50 total units
+[LOG]   Processing 50 units
+   132
+
+[LOG] Processing dataset 132/292
+[LOG]   Animal: JF065, Date: 2022-01-19, Site: 2, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 2.17 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 35 good units out of 39 total units
+[LOG]   Processing 39 units
+   133
+
+[LOG] Processing dataset 133/292
+[LOG]   Animal: JF065, Date: 2022-01-20, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.45 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 6 good units out of 8 total units
+[LOG]   Processing 8 units
+   134
+
+[LOG] Processing dataset 134/292
+[LOG]   Animal: JF065, Date: 2022-01-20, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.10 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 77 good units out of 89 total units
+[LOG]   Processing 89 units
+   135
+
+[LOG] Processing dataset 135/292
+[LOG]   Animal: JF065, Date: 2022-01-20, Site: 3, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.66 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 21 good units out of 22 total units
+[LOG]   Processing 22 units
+   136
+
+[LOG] Processing dataset 136/292
+[LOG]   Animal: JF065, Date: 2022-01-20, Site: 3, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.27 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 73 good units out of 80 total units
+[LOG]   Processing 80 units
+   137
+
+[LOG] Processing dataset 137/292
+[LOG]   Animal: JF065, Date: 2022-01-20, Site: 4, Exp: 11, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.11 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 60 good units out of 74 total units
+[LOG]   Processing 74 units
+   138
+
+[LOG] Processing dataset 138/292
+[LOG]   Animal: JF065, Date: 2022-01-20, Site: 4, Exp: 11, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.25 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 54 good units out of 60 total units
+[LOG]   Processing 60 units
+   139
+
+[LOG] Processing dataset 139/292
+[LOG]   Animal: JF088, Date: 2022-11-29, Site: 1, Exp: 5, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.21 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 50 good units out of 61 total units
+[LOG]   Processing 61 units
+   140
+
+[LOG] Processing dataset 140/292
+[LOG]   Animal: JF088, Date: 2022-11-29, Site: 1, Exp: 5, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.80 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 64 good units out of 82 total units
+[LOG]   Processing 82 units
+[ERROR] Dataset 141 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 141/292
+[LOG]   Animal: JF088, Date: 2022-11-29, Site: 1, Exp: 5, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.42 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 27 good units out of 39 total units
+[LOG]   Processing 39 units
+   142
+
+[LOG] Processing dataset 142/292
+[LOG]   Animal: JF088, Date: 2022-11-29, Site: 1, Exp: 5, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.88 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 40 good units out of 57 total units
+[LOG]   Processing 57 units
+   143
+
+[LOG] Processing dataset 143/292
+[LOG]   Animal: JF088, Date: 2022-11-30, Site: 1, Exp: 4, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.32 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 32 good units out of 35 total units
+[LOG]   Processing 35 units
+   144
+
+[LOG] Processing dataset 144/292
+[LOG]   Animal: JF088, Date: 2022-11-30, Site: 1, Exp: 4, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 12.18 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 67 good units out of 73 total units
+[LOG]   Processing 73 units
+   145
+
+[LOG] Processing dataset 145/292
+[LOG]   Animal: JF088, Date: 2022-11-30, Site: 1, Exp: 4, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.18 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 29 good units out of 39 total units
+[LOG]   Processing 39 units
+   146
+
+[LOG] Processing dataset 146/292
+[LOG]   Animal: JF089, Date: 2022-11-15, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 147/292
+[LOG]   Animal: JF089, Date: 2022-11-15, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.11 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 1 good units out of 1 total units
+[LOG]   Processing 1 units
+   149
+
+[LOG] Processing dataset 148/292
+[LOG]   Animal: JF089, Date: 2022-11-15, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 14.03 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 94 good units out of 123 total units
+[LOG]   Processing 123 units
+   150
+
+[LOG] Processing dataset 149/292
+[LOG]   Animal: JF089, Date: 2022-11-15, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 20.30 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 103 good units out of 163 total units
+[LOG]   Processing 163 units
+   151
+
+[LOG] Processing dataset 150/292
+[LOG]   Animal: JF089, Date: 2022-11-15, Site: 2, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 151/292
+[LOG]   Animal: JF089, Date: 2022-11-15, Site: 2, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 152/292
+[LOG]   Animal: JF089, Date: 2022-11-15, Site: 2, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.74 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 149 good units out of 178 total units
+[LOG]   Processing 178 units
+   155
+
+[LOG] Processing dataset 153/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.26 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 144 good units out of 169 total units
+[LOG]   Processing 169 units
+   156
+
+[LOG] Processing dataset 154/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 155/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 156/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   No histology data - skipping session
+[LOG] Processing dataset 157/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 2, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.41 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 23 good units out of 53 total units
+[LOG]   Processing 53 units
+   160
+
+[LOG] Processing dataset 158/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 2, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.86 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 31 good units out of 67 total units
+[LOG]   Processing 67 units
+   161
+
+[LOG] Processing dataset 159/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 2, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.64 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 33 good units out of 55 total units
+[LOG]   Processing 55 units
+   162
+
+[LOG] Processing dataset 160/292
+[LOG]   Animal: JF089, Date: 2022-11-16, Site: 2, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.20 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 33 good units out of 60 total units
+[LOG]   Processing 60 units
+[ERROR] Dataset 163 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 161/292
+[LOG]   Animal: JF089, Date: 2022-11-17, Site: 2, Exp: 11, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 22.90 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 187 good units out of 212 total units
+[LOG]   Processing 212 units
+   164
+
+[LOG] Processing dataset 162/292
+[LOG]   Animal: JF089, Date: 2022-11-17, Site: 2, Exp: 11, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 21.94 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 182 good units out of 208 total units
+[LOG]   Processing 208 units
+   165
+
+[LOG] Processing dataset 163/292
+[LOG]   Animal: JF089, Date: 2022-11-17, Site: 2, Exp: 11, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 19.31 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 175 good units out of 190 total units
+[LOG]   Processing 190 units
+   166
+
+[LOG] Processing dataset 164/292
+[LOG]   Animal: JF089, Date: 2022-11-17, Site: 2, Exp: 11, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 14.43 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 127 good units out of 137 total units
+[LOG]   Processing 137 units
+   167
+
+[LOG] Processing dataset 165/292
+[LOG]   Animal: JF090, Date: 2022-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.86 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 20 good units out of 21 total units
+[LOG]   Processing 21 units
+   168
+
+[LOG] Processing dataset 166/292
+[LOG]   Animal: JF090, Date: 2022-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.74 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 21 good units out of 24 total units
+[LOG]   Processing 24 units
+   169
+
+[LOG] Processing dataset 167/292
+[LOG]   Animal: JF090, Date: 2022-11-16, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.03 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 28 good units out of 30 total units
+[LOG]   Processing 30 units
+   171
+
+[LOG] Processing dataset 168/292
+[LOG]   Animal: JF090, Date: 2022-11-17, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.58 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 17 good units out of 18 total units
+[LOG]   Processing 18 units
+   172
+
+[LOG] Processing dataset 169/292
+[LOG]   Animal: JF090, Date: 2022-11-17, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 12.99 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 38 good units out of 43 total units
+[LOG]   Processing 43 units
+   173
+
+[LOG] Processing dataset 170/292
+[LOG]   Animal: JF090, Date: 2022-11-17, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.12 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 42 good units out of 45 total units
+[LOG]   Processing 45 units
+[ERROR] Dataset 174 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 171/292
+[LOG]   Animal: JF090, Date: 2022-11-17, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.99 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 29 good units out of 32 total units
+[LOG]   Processing 32 units
+   175
+
+[LOG] Processing dataset 172/292
+[LOG]   Animal: JF101, Date: 2023-04-12, Site: 1, Exp: 4, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 34.83 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 344 good units out of 390 total units
+[LOG]   Processing 390 units
+   176
+
+[LOG] Processing dataset 173/292
+[LOG]   Animal: JF101, Date: 2023-04-12, Site: 4, Exp: 8, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 57.46 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 473 good units out of 568 total units
+[LOG]   Processing 568 units
+   177
+
+[LOG] Processing dataset 174/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 1, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.73 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 37 good units out of 42 total units
+[LOG]   Processing 42 units
+   178
+
+[LOG] Processing dataset 175/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 1, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.02 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 60 good units out of 76 total units
+[LOG]   Processing 76 units
+   179
+
+[LOG] Processing dataset 176/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 1, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.88 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 48 good units out of 60 total units
+[LOG]   Processing 60 units
+   180
+
+[LOG] Processing dataset 177/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 1, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.39 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 1 good units out of 5 total units
+[LOG]   Processing 5 units
+   181
+
+[LOG] Processing dataset 178/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 2, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.54 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 65 good units out of 76 total units
+[LOG]   Processing 76 units
+   182
+
+[LOG] Processing dataset 179/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 2, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.82 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 29 good units out of 36 total units
+[LOG]   Processing 36 units
+   183
+
+[LOG] Processing dataset 180/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 2, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.59 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 13 good units out of 13 total units
+[LOG]   Processing 13 units
+[ERROR] Dataset 184 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 181/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 2, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.94 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 40 good units out of 45 total units
+[LOG]   Processing 45 units
+   185
+
+[LOG] Processing dataset 182/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 3, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.30 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 58 good units out of 71 total units
+[LOG]   Processing 71 units
+   186
+
+[LOG] Processing dataset 183/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 3, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.42 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 60 good units out of 72 total units
+[LOG]   Processing 72 units
+   187
+
+[LOG] Processing dataset 184/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 3, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.86 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 69 good units out of 79 total units
+[LOG]   Processing 79 units
+   188
+
+[LOG] Processing dataset 185/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 3, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.54 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 61 good units out of 72 total units
+[LOG]   Processing 72 units
+   189
+
+[LOG] Processing dataset 186/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 4, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.52 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 14 good units out of 15 total units
+[LOG]   Processing 15 units
+   190
+
+[LOG] Processing dataset 187/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 4, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.65 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 55 good units out of 59 total units
+[LOG]   Processing 59 units
+   191
+
+[LOG] Processing dataset 188/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 4, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.59 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 58 good units out of 63 total units
+[LOG]   Processing 63 units
+   192
+
+[LOG] Processing dataset 189/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 4, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.21 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 54 good units out of 63 total units
+[LOG]   Processing 63 units
+   193
+
+[LOG] Processing dataset 190/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 6, Exp: 11, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.23 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 35 good units out of 45 total units
+[LOG]   Processing 45 units
+[ERROR] Dataset 194 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 191/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 6, Exp: 11, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.16 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 40 good units out of 49 total units
+[LOG]   Processing 49 units
+   195
+
+[LOG] Processing dataset 192/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 6, Exp: 11, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.39 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 35 good units out of 49 total units
+[LOG]   Processing 49 units
+   196
+
+[LOG] Processing dataset 193/292
+[LOG]   Animal: JF101, Date: 2023-04-13, Site: 6, Exp: 11, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.24 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 36 good units out of 46 total units
+[LOG]   Processing 46 units
+   197
+
+[LOG] Processing dataset 194/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 1, Exp: 4, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 18.95 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 172 good units out of 220 total units
+[LOG]   Processing 220 units
+   198
+
+[LOG] Processing dataset 195/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 1, Exp: 4, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 16.26 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 132 good units out of 173 total units
+[LOG]   Processing 173 units
+   199
+
+[LOG] Processing dataset 196/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 1, Exp: 4, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 18.59 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 127 good units out of 200 total units
+[LOG]   Processing 200 units
+   200
+
+[LOG] Processing dataset 197/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 1, Exp: 4, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.18 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 79 good units out of 111 total units
+[LOG]   Processing 111 units
+   201
+
+[LOG] Processing dataset 198/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 2, Exp: 4, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 20.75 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 186 good units out of 205 total units
+[LOG]   Processing 205 units
+   202
+
+[LOG] Processing dataset 199/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 2, Exp: 4, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 20.74 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 180 good units out of 219 total units
+[LOG]   Processing 219 units
+   203
+
+[LOG] Processing dataset 200/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 2, Exp: 4, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 15.75 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 145 good units out of 166 total units
+[LOG]   Processing 166 units
+[ERROR] Dataset 204 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 201/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 2, Exp: 4, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 20.56 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 189 good units out of 213 total units
+[LOG]   Processing 213 units
+   205
+
+[LOG] Processing dataset 202/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 3, Exp: 8, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 14.79 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 160 good units out of 188 total units
+[LOG]   Processing 188 units
+   206
+
+[LOG] Processing dataset 203/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 3, Exp: 8, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 17.64 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 195 good units out of 221 total units
+[LOG]   Processing 221 units
+   207
+
+[LOG] Processing dataset 204/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 3, Exp: 8, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.97 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 156 good units out of 179 total units
+[LOG]   Processing 179 units
+   208
+
+[LOG] Processing dataset 205/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 3, Exp: 8, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 16.18 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 184 good units out of 207 total units
+[LOG]   Processing 207 units
+   209
+
+[LOG] Processing dataset 206/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 4, Exp: 8, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 5.32 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 53 good units out of 53 total units
+[LOG]   Processing 53 units
+   210
+
+[LOG] Processing dataset 207/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 4, Exp: 8, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.39 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 50 good units out of 51 total units
+[LOG]   Processing 51 units
+   211
+
+[LOG] Processing dataset 208/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 4, Exp: 8, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.55 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 80 good units out of 82 total units
+[LOG]   Processing 82 units
+   212
+
+[LOG] Processing dataset 209/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 4, Exp: 8, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 11.04 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 125 good units out of 127 total units
+[LOG]   Processing 127 units
+   213
+
+[LOG] Processing dataset 210/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 5, Exp: 12, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.33 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 93 good units out of 110 total units
+[LOG]   Processing 110 units
+[ERROR] Dataset 214 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 211/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 5, Exp: 12, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.00 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 130 good units out of 156 total units
+[LOG]   Processing 156 units
+   215
+
+[LOG] Processing dataset 212/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 5, Exp: 12, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.02 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 136 good units out of 162 total units
+[LOG]   Processing 162 units
+   216
+
+[LOG] Processing dataset 213/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 5, Exp: 12, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 12.74 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 133 good units out of 158 total units
+[LOG]   Processing 158 units
+   217
+
+[LOG] Processing dataset 214/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 6, Exp: 12, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.07 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 4 good units out of 7 total units
+[LOG]   Processing 7 units
+   218
+
+[LOG] Processing dataset 215/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 6, Exp: 12, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 0.10 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 1 good units out of 1 total units
+[LOG]   Processing 1 units
+   219
+
+[LOG] Processing dataset 216/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 6, Exp: 12, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 1.90 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 9 good units out of 21 total units
+[LOG]   Processing 21 units
+   220
+
+[LOG] Processing dataset 217/292
+[LOG]   Animal: JF108, Date: 2023-05-01, Site: 6, Exp: 12, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.02 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 34 good units out of 44 total units
+[LOG]   Processing 44 units
+   221
+
+[LOG] Processing dataset 218/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 1, Exp: 7, Rec: 2, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 4.85 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 51 good units out of 60 total units
+[LOG]   Processing 60 units
+   222
+
+[LOG] Processing dataset 219/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 2, Exp: 7, Rec: 2, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 19.36 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 205 good units out of 254 total units
+[LOG]   Processing 254 units
+   223
+
+[LOG] Processing dataset 220/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 3, Exp: 7, Rec: 2, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.75 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 140 good units out of 143 total units
+[LOG]   Processing 143 units
+[ERROR] Dataset 224 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 221/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 3, Exp: 7, Rec: 2, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 16.42 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 162 good units out of 170 total units
+[LOG]   Processing 170 units
+   225
+
+[LOG] Processing dataset 222/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 3, Exp: 7, Rec: 2, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 14.98 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 137 good units out of 155 total units
+[LOG]   Processing 155 units
+   226
+
+[LOG] Processing dataset 223/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 3, Exp: 7, Rec: 2, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 13.77 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 124 good units out of 134 total units
+[LOG]   Processing 134 units
+   227
+
+[LOG] Processing dataset 224/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 4, Exp: 10, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 30.06 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 303 good units out of 386 total units
+[LOG]   Processing 386 units
+   228
+
+[LOG] Processing dataset 225/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 5, Exp: 10, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 63.80 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 673 good units out of 815 total units
+[LOG]   Processing 815 units
+   229
+
+[LOG] Processing dataset 226/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 6, Exp: 10, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 10.22 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 114 good units out of 117 total units
+[LOG]   Processing 117 units
+   230
+
+[LOG] Processing dataset 227/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 6, Exp: 10, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 3.78 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 40 good units out of 41 total units
+[LOG]   Processing 41 units
+   231
+
+[LOG] Processing dataset 228/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 6, Exp: 10, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 6.25 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 66 good units out of 66 total units
+[LOG]   Processing 66 units
+   232
+
+[LOG] Processing dataset 229/292
+[LOG]   Animal: JF108, Date: 2023-05-02, Site: 6, Exp: 10, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.86 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 80 good units out of 82 total units
+[LOG]   Processing 82 units
+   233
+
+[LOG] Processing dataset 230/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 34.53 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 359 good units out of 412 total units
+[LOG]   Processing 412 units
+[ERROR] Dataset 234 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 231/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 2, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 60.85 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 688 good units out of 756 total units
+[LOG]   Processing 756 units
+   235
+
+[LOG] Processing dataset 232/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 3, Exp: 3, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.95 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 84 good units out of 96 total units
+[LOG]   Processing 96 units
+   236
+
+[LOG] Processing dataset 233/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 3, Exp: 3, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 11.05 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 114 good units out of 119 total units
+[LOG]   Processing 119 units
+   237
+
+[LOG] Processing dataset 234/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 3, Exp: 3, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 9.29 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 84 good units out of 93 total units
+[LOG]   Processing 93 units
+   238
+
+[LOG] Processing dataset 235/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 3, Exp: 3, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.39 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 87 good units out of 95 total units
+[LOG]   Processing 95 units
+   239
+
+[LOG] Processing dataset 236/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 4, Exp: 7, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 54.29 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 552 good units out of 596 total units
+[LOG]   Processing 596 units
+   240
+
+[LOG] Processing dataset 237/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 5, Exp: 7, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 49.47 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 530 good units out of 592 total units
+[LOG]   Processing 592 units
+   241
+
+[LOG] Processing dataset 238/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 6, Exp: 7, Rec: NaN, Shank: 1
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.50 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 70 good units out of 72 total units
+[LOG]   Processing 72 units
+   242
+
+[LOG] Processing dataset 239/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 6, Exp: 7, Rec: NaN, Shank: 2
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 7.18 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 73 good units out of 73 total units
+[LOG]   Processing 73 units
+   243
+
+[LOG] Processing dataset 240/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 6, Exp: 7, Rec: NaN, Shank: 3
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.08 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 85 good units out of 87 total units
+[LOG]   Processing 87 units
+[ERROR] Dataset 244 failed: Function MEMORY is not available on this platform.
+[ERROR] Stack trace:
+  plotResponseFractions (line 341)
+[LOG] Processing dataset 241/292
+[LOG]   Animal: JF108, Date: 2023-05-03, Site: 6, Exp: 7, Rec: NaN, Shank: 4
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 8.65 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 89 good units out of 89 total units
+[LOG]   Processing 89 units
+   245
+
+[LOG] Processing dataset 242/292
+[LOG]   Animal: JF109, Date: 2023-05-02, Site: 1, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 68.51 MB
+[LOG]   Rasters loaded successfully
+[LOG]   Loading session info...
+[LOG]   Session info loaded successfully
+[LOG]   Found 746 good units out of 841 total units
+[LOG]   Processing 841 units
+   246
+
+[LOG] Processing dataset 243/292
+[LOG]   Animal: JF109, Date: 2023-05-02, Site: 2, Exp: 3, Rec: NaN, Shank: NaN
+[LOG]   Loading unit properties...
+[LOG]   Unit properties loaded successfully
+[LOG]   Loading analysis results...
+[LOG]   Analysis results loaded successfully
+[LOG]   Loading rasters (this may take time)...
+[LOG]   Raster file size: 68.02 MB

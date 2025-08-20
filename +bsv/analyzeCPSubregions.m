@@ -1,5 +1,5 @@
-function [subregionResults, globalResults] = analyzeCPSubregions(projectionMatrix_array, projectionMatrixCoordinates_ARA, allenAtlasPath_v2, outputSlices, inputRegions, regionGroups)
-% analyzeCPSubregions - Calculate mean fluorescence intensity per CP subregion
+function [subregionResults, globalResults] = analyzeCPSubregions(projectionMatrix_array, projectionMatrixCoordinates_ARA, allenAtlasPath_v2, outputSlices, inputRegions, regionGroups, saveCsvPath)
+% analyzeCPSubregions - Calculate mean fluorescence intensity per CP and NAc subregion
 %
 % INPUTS:
 %   projectionMatrix_array - 3D array from plotConnectivity [pixels x pixels x slices]  
@@ -8,6 +8,7 @@ function [subregionResults, globalResults] = analyzeCPSubregions(projectionMatri
 %   outputSlices - Optional: specific slices to analyze (default: all)
 %   inputRegions - Optional: cell array of input region names for plot titles
 %   regionGroups - Optional: numeric array indicating region grouping
+%   saveCsvPath - Optional: path to save CSV summary (default: no CSV export)
 %
 % OUTPUTS:
 %   subregionResults - Structure with per-slice results
@@ -22,9 +23,12 @@ end
 if nargin < 6 || isempty(regionGroups)
     regionGroups = [];
 end
+if nargin < 7 || isempty(saveCsvPath)
+    saveCsvPath = '';
+end
 
-fprintf('\n=== CP SUBREGION ANALYSIS ===\n');
-fprintf('Analyzing CP subregions using v2 atlas...\n');
+fprintf('\n=== CP AND NAc SUBREGION ANALYSIS ===\n');
+fprintf('Analyzing CP and NAc subregions using v2 atlas...\n');
 
 %% Load v2 atlas files
 fprintf('Loading v2 atlas files...\n');
@@ -46,27 +50,46 @@ ontology_v2 = readtable(ontology_v2_file);
 fprintf('Atlas dimensions: %s\n', mat2str(size(av_v2)));
 fprintf('Ontology entries: %d\n', height(ontology_v2));
 
-%% Find CP subregions in ontology
-fprintf('Finding CP subregions in ontology...\n');
+%% Find CP and NAc subregions in ontology
+fprintf('Finding CP and NAc subregions in ontology...\n');
 
 % Find all caudoputamen entries
 cp_mask = contains(ontology_v2.name, 'Caudoputamen', 'IgnoreCase', true) | ...
           contains(ontology_v2.acronym, 'CP', 'IgnoreCase', true);
 
-cp_subregions = ontology_v2(cp_mask, :);
-fprintf('Found %d CP subregions:\n', height(cp_subregions));
+% Find all nucleus accumbens entries
+nac_mask = contains(ontology_v2.name, 'Nucleus accumbens', 'IgnoreCase', true) | ...
+           contains(ontology_v2.name, 'accumbens', 'IgnoreCase', true) | ...
+           contains(ontology_v2.acronym, 'ACB', 'IgnoreCase', true) | ...
+           contains(ontology_v2.acronym, 'NAc', 'IgnoreCase', true);
 
+% Combine masks
+striatum_mask = cp_mask | nac_mask;
+
+striatum_subregions = ontology_v2(striatum_mask, :);
+fprintf('Found %d striatum subregions (CP + NAc):\n', height(striatum_subregions));
+
+% Separate CP and NAc for reporting
+cp_subregions = ontology_v2(cp_mask, :);
+nac_subregions = ontology_v2(nac_mask, :);
+
+fprintf('\nCP subregions (%d):\n', height(cp_subregions));
 for i = 1:height(cp_subregions)
     fprintf('  %d: %s (%s)\n', cp_subregions.id(i), cp_subregions.name{i}, cp_subregions.acronym{i});
 end
 
+fprintf('\nNAc subregions (%d):\n', height(nac_subregions));
+for i = 1:height(nac_subregions)
+    fprintf('  %d: %s (%s)\n', nac_subregions.id(i), nac_subregions.name{i}, nac_subregions.acronym{i});
+end
+
 %% Initialize results structures (will update after determining data structure)
-nSubregions = height(cp_subregions);
+nSubregions = height(striatum_subregions);
 
 globalResults = struct();
-globalResults.subregion_ids = cp_subregions.id;
-globalResults.subregion_names = cp_subregions.name;
-globalResults.subregion_acronyms = cp_subregions.acronym;
+globalResults.subregion_ids = striatum_subregions.id;
+globalResults.subregion_names = striatum_subregions.name;
+globalResults.subregion_acronyms = striatum_subregions.acronym;
 globalResults.mean_intensities = NaN(nSubregions, 1);
 globalResults.total_voxel_counts = zeros(nSubregions, 1);
 
@@ -143,9 +166,9 @@ fprintf('Processing %d slices with %d groups: %s\n', nSlices, nGroups, mat2str(o
 %% Initialize results structures with correct dimensions
 subregionResults = struct();
 subregionResults.slice_numbers = outputSlices;
-subregionResults.subregion_ids = cp_subregions.id;
-subregionResults.subregion_names = cp_subregions.name;
-subregionResults.subregion_acronyms = cp_subregions.acronym;
+subregionResults.subregion_ids = striatum_subregions.id;
+subregionResults.subregion_names = striatum_subregions.name;
+subregionResults.subregion_acronyms = striatum_subregions.acronym;
 subregionResults.nGroups = nGroups;
 % Results matrix: [subregions x (groups * slices)]
 subregionResults.mean_intensities = NaN(nSubregions, nGroups * nSlices);
@@ -231,7 +254,7 @@ if ~isempty(coords)
                         y_coords_20um = y_coords / resolution_factor;
                         
                         % Process each subregion for this group
-                        fprintf('      Checking %d CP subregions in atlas slice...\n', nSubregions);
+                        fprintf('      Checking %d striatum subregions in atlas slice...\n', nSubregions);
                         
                         % Check what subregion IDs are actually in this atlas slice
                         unique_ids_in_slice = unique(atlas_slice(:));
@@ -240,12 +263,12 @@ if ~isempty(coords)
                         % Show some example IDs in the slice
                         fprintf('      First 10 IDs in slice: %s\n', mat2str(unique_ids_in_slice(1:min(10,end))));
                         
-                        % Show some CP subregion IDs we're looking for
-                        fprintf('      Looking for CP IDs: %s\n', mat2str(cp_subregions.id(1:min(5,end))')');
+                        % Show some striatum subregion IDs we're looking for
+                        fprintf('      Looking for striatum IDs: %s\n', mat2str(striatum_subregions.id(1:min(5,end))')');
                         
                         nSubregionsWithVoxels = 0;
                         for iSubregion = 1:nSubregions
-                            subregion_id = cp_subregions.id(iSubregion);
+                            subregion_id = striatum_subregions.id(iSubregion);
                             
                             % Find voxels belonging to this subregion in 20um atlas
                             subregion_mask = (atlas_slice == subregion_id);
@@ -254,7 +277,7 @@ if ~isempty(coords)
                                 nSubregionsWithVoxels = nSubregionsWithVoxels + 1;
                                 if nSubregionsWithVoxels <= 5  % Debug first 5 subregions
                                     fprintf('      Found %d voxels for subregion %s (ID: %d)\n', ...
-                                        sum(subregion_mask(:)), cp_subregions.acronym{iSubregion}, subregion_id);
+                                        sum(subregion_mask(:)), striatum_subregions.acronym{iSubregion}, subregion_id);
                                 end
                                 
                                 % Get subregion voxel coordinates in atlas space
@@ -331,7 +354,7 @@ if ~isempty(coords)
                                     global_voxel_counts(iSubregion) = global_voxel_counts(iSubregion) + voxel_count;
                                     
                                     fprintf('        %s (group %d): mean=%.4f, voxels=%d\n', ...
-                                        cp_subregions.acronym{iSubregion}, iGroup, mean_intensity, voxel_count);
+                                        striatum_subregions.acronym{iSubregion}, iGroup, mean_intensity, voxel_count);
                                 end
                             end
                         end
@@ -359,7 +382,7 @@ for iSubregion = 1:nSubregions
         globalResults.total_voxel_counts(iSubregion) = global_voxel_counts(iSubregion);
         
         fprintf('  %s (global): mean=%.4f, total_voxels=%d\n', ...
-            cp_subregions.acronym{iSubregion}, global_mean, global_voxel_counts(iSubregion));
+            striatum_subregions.acronym{iSubregion}, global_mean, global_voxel_counts(iSubregion));
     end
 end
 
@@ -378,7 +401,7 @@ if any(subregions_with_data)
     [~, sort_idx] = sort(globalResults.mean_intensities, 'descend', 'MissingPlacement', 'last');
     for i = 1:min(5, sum(~isnan(globalResults.mean_intensities)))
         idx = sort_idx(i);
-        fprintf('  %d. %s: %.4f\n', i, cp_subregions.acronym{idx}, globalResults.mean_intensities(idx));
+        fprintf('  %d. %s: %.4f\n', i, striatum_subregions.acronym{idx}, globalResults.mean_intensities(idx));
     end
 end
 
@@ -391,7 +414,7 @@ nSubregionsWithData = length(subregions_with_data_idx);
 
 if nSubregionsWithData > 0
     % Create figure
-    fig = figure('Name', 'CP Subregion Analysis by Group', 'Position', [100, 100, 1200, 800]);
+    fig = figure('Name', 'CP and NAc Subregion Analysis by Group', 'Position', [100, 100, 1200, 800]);
     
     % Calculate subplot layout
     nCols = min(3, nGroups); % Max 3 columns
@@ -449,7 +472,7 @@ if nSubregionsWithData > 0
             % Customize plot
             title(group_title, 'FontWeight', 'bold', 'FontSize', 12);
             ylabel('Mean Fluorescence Intensity', 'FontSize', 10);
-            xlabel('CP Subregions', 'FontSize', 10);
+            xlabel('Striatum Subregions', 'FontSize', 10);
             
             % Set x-axis labels
             set(gca, 'XTick', 1:length(plot_names));
@@ -495,7 +518,7 @@ if nSubregionsWithData > 0
     end
     
     % Add overall title
-    sgtitle('Mean Fluorescence Intensity per CP Subregion by Group', ...
+    sgtitle('Mean Fluorescence Intensity per Striatum (CP + NAc) Subregion by Group', ...
         'FontSize', 14, 'FontWeight', 'bold');
     
     % Adjust subplot spacing
@@ -504,6 +527,98 @@ if nSubregionsWithData > 0
     fprintf('Bar plot created with %d groups and %d subregions with data\n', nGroups, nSubregionsWithData);
 else
     fprintf('No subregions with data found - skipping plot creation\n');
+end
+
+%% Export results to CSV if requested
+if ~isempty(saveCsvPath)
+    fprintf('\nExporting results to CSV...\n');
+    
+    try
+        % Create summary table
+        summaryTable = table();
+        
+        % Add subregion information
+        summaryTable.SubregionID = globalResults.subregion_ids;
+        summaryTable.SubregionName = globalResults.subregion_names;
+        summaryTable.SubregionAcronym = globalResults.subregion_acronyms;
+        
+        % Add global mean intensities
+        summaryTable.GlobalMeanIntensity = globalResults.mean_intensities;
+        summaryTable.TotalVoxelCount = globalResults.total_voxel_counts;
+        
+        % Add per-group data if available
+        if nGroups > 1
+            for iGroup = 1:nGroups
+                % Get group name
+                if ~isempty(inputRegions) && ~isempty(regionGroups)
+                    uniqueGroups = unique(regionGroups);
+                    if length(uniqueGroups) >= iGroup
+                        currentGroupNum = uniqueGroups(iGroup);
+                        regionsInGroup = find(regionGroups == currentGroupNum);
+                        if ~isempty(regionsInGroup)
+                            regionNames = inputRegions(regionsInGroup);
+                            if length(regionNames) == 1
+                                groupName = regionNames{1};
+                            else
+                                groupName = strjoin(regionNames, '+');
+                            end
+                        else
+                            groupName = sprintf('Group%d', iGroup);
+                        end
+                    else
+                        groupName = sprintf('Group%d', iGroup);
+                    end
+                else
+                    groupName = sprintf('Group%d', iGroup);
+                end
+                
+                % Add mean intensity for this group
+                if nActualSlices == 1
+                    group_data = subregionResults.mean_intensities(:, iGroup);
+                else
+                    % For multiple slices, take mean across slices for this group
+                    group_cols = ((iGroup-1)*nSlices + 1):(iGroup*nSlices);
+                    group_data = nanmean(subregionResults.mean_intensities(:, group_cols), 2);
+                end
+                
+                % Create safe column name
+                colName = matlab.lang.makeValidName(['MeanIntensity_' groupName]);
+                summaryTable.(colName) = group_data;
+                
+                % Add voxel count for this group
+                if nActualSlices == 1
+                    group_voxels = subregionResults.voxel_counts(:, iGroup);
+                else
+                    group_cols = ((iGroup-1)*nSlices + 1):(iGroup*nSlices);
+                    group_voxels = sum(subregionResults.voxel_counts(:, group_cols), 2);
+                end
+                
+                voxelColName = matlab.lang.makeValidName(['VoxelCount_' groupName]);
+                summaryTable.(voxelColName) = group_voxels;
+            end
+        end
+        
+        % Sort by global mean intensity (descending)
+        [~, sortIdx] = sort(globalResults.mean_intensities, 'descend', 'MissingPlacement', 'last');
+        summaryTable = summaryTable(sortIdx, :);
+        
+        % Write to CSV
+        writetable(summaryTable, saveCsvPath);
+        fprintf('Results exported to: %s\n', saveCsvPath);
+        
+        % Also create a simplified version with only non-zero subregions
+        nonZeroIdx = ~isnan(summaryTable.GlobalMeanIntensity) & summaryTable.GlobalMeanIntensity > 0;
+        if any(nonZeroIdx)
+            simplifiedTable = summaryTable(nonZeroIdx, :);
+            [csvDir, csvName, csvExt] = fileparts(saveCsvPath);
+            simplifiedPath = fullfile(csvDir, [csvName '_nonzero' csvExt]);
+            writetable(simplifiedTable, simplifiedPath);
+            fprintf('Non-zero results exported to: %s\n', simplifiedPath);
+        end
+        
+    catch ME
+        fprintf('Warning: Failed to export CSV: %s\n', ME.message);
+    end
 end
 
 fprintf('Analysis complete!\n\n');

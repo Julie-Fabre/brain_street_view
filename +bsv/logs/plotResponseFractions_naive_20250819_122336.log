@@ -1,0 +1,194 @@
+========================================================================
+plotResponseFractions LOG START: 19-Aug-2025 12:23:36
+========================================================================
+LOG FILE LOCATION: /home/jf5479/Dropbox/MATLAB/onPaths/brain_street_view/+bsv/logs/plotResponseFractions_naive_20250819_122336.log
+Function called with:
+  load_type: naive
+  keep_type: 3
+  loadVids: 0
+  Working directory: /home/jf5479/Dropbox/MATLAB/onPaths/brain_street_view/+bsv
+========================================================================
+
+[LOG] cl_myPaths completed successfully
+[LOG] Loading target info...
+Loading existing target files...
+[LOG] Target info loaded successfully. nSessions = 297
+
+==== Analysis Information ====
+Total number of sessions: n = 297 sessions
+Load type: naive, Keep type: 3, Load videos: 0
+Note: Detailed neuron, session, and mouse counts will be displayed after analysis.
+[LOG] Cache directory: /home/jf5479/Dropbox/PhD_summary/curr/analysis_cache
+[LOG] Cache file path: /home/jf5479/Dropbox/PhD_summary/curr/analysis_cache/visual_responses_naive_3_0_new.mat
+[LOG] Loading cached results from /home/jf5479/Dropbox/PhD_summary/curr/analysis_cache/visual_responses_naive_3_0_new.mat
+[LOG] Cache loaded successfully
+
+================================================================================
+                        COMPREHENSIVE ANALYSIS SUMMARY
+================================================================================
+
+📊 Str (Region 1):
+   • Total neurons: 10729
+   • Good neurons (type 1): 1812 (16.9%)
+   • MUA neurons (type 2): 6718 (62.6%)
+   • Non-somatic neurons (type 3): 484 (4.5%)
+   • Noise neurons (type 4): 1715 (16.0%)
+   • Visual area neurons: 2232 (20.8%)
+   • Good visual neurons: 361 (3.4%)
+   • MUA visual neurons: 1453 (13.5%)
+   • Non-somatic visual neurons: 66 (0.6%)
+   • Noise visual neurons: 0 (0.0%)
+   • Sessions: 57
+   • Mice: 11
+   • Responsive (increase): 573 (5.3%)
+   • Responsive (decrease): 50 (0.5%)
+   • Total responsive: 623 (5.8%)
+
+📊 GPe (Region 2):
+   • Total neurons: 1610
+   • Good neurons (type 1): 511 (31.7%)
+   • MUA neurons (type 2): 782 (48.6%)
+   • Non-somatic neurons (type 3): 129 (8.0%)
+   • Noise neurons (type 4): 188 (11.7%)
+   • Visual area neurons: 587 (36.5%)
+   • Good visual neurons: 190 (11.8%)
+   • MUA visual neurons: 298 (18.5%)
+   • Non-somatic visual neurons: 38 (2.4%)
+   • Noise visual neurons: 0 (0.0%)
+   • Sessions: 31
+   • Mice: 9
+   • Responsive (increase): 62 (3.9%)
+   • Responsive (decrease): 33 (2.0%)
+   • Total responsive: 95 (5.9%)
+
+📊 SNr (Region 3):
+   • Total neurons: 708
+   • Good neurons (type 1): 256 (36.2%)
+   • MUA neurons (type 2): 351 (49.6%)
+   • Non-somatic neurons (type 3): 32 (4.5%)
+   • Noise neurons (type 4): 69 (9.7%)
+   • Visual area neurons: 408 (57.6%)
+   • Good visual neurons: 150 (21.2%)
+   • MUA visual neurons: 198 (28.0%)
+   • Non-somatic visual neurons: 14 (2.0%)
+   • Noise visual neurons: 0 (0.0%)
+   • Sessions: 30
+   • Mice: 8
+   • Responsive (increase): 13 (1.8%)
+   • Responsive (decrease): 13 (1.8%)
+   • Total responsive: 26 (3.7%)
+
+📈 GLOBAL SUMMARY:
+   ======================================
+   🧠 TOTAL NEURONS: 13047
+   ✅ GOOD NEURONS (type 1): 2579 (19.8%)
+   🔴 MUA NEURONS (type 2): 7851 (60.2%)
+   🟡 NON-SOMATIC NEURONS (type 3): 645 (4.9%)
+   ❌ NOISE NEURONS (type 4): 1972 (15.1%)
+   👁️ VISUAL AREA NEURONS: 3227 (24.7%)
+   ✅👁️ GOOD VISUAL NEURONS: 701 (5.4%)
+   🔴👁️ MUA VISUAL NEURONS: 1949 (14.9%)
+   🟡👁️ NON-SOMATIC VISUAL NEURONS: 118 (0.9%)
+   ❌👁️ NOISE VISUAL NEURONS: 0 (0.0%)
+   📋 TOTAL SESSIONS: 109
+   🐭 TOTAL MICE: 16
+   ======================================
+   • Load type: naive
+   • Keep type: 3
+   • Load videos:  
+
+🔬 ANALYSIS PARAMETERS:
+   • Z-score threshold for increase: >= 0.25
+   • Z-score threshold for decrease: <= -0.25
+   • Stimulus window: 50-130ms post-stimulus onset
+   • Baseline window: -200-0ms pre-stimulus
+
+================================================================================
+                            END SUMMARY
+================================================================================
+
+
+[LOG] Starting figure creation...
+[LOG] Creating figures for region 1 (Str)
+[LOG]   Creating figure for region Str
+[LOG]   Creating subplot 1: All cells PSTH heatmap
+[LOG]   PSTH data size: 361 x 1000
+
+---- Within-Region Comparison for Str (n = 31 sessions analyzed for this region) ----
+Sessions contributing data to Str: 31 out of 297 total sessions (10.4%)
+Increase vs. Decrease: Wilcoxon signed-rank test, p = 0.0001 ***
+Effect size (Cohen's d): 1.03 (large)
+Mean Inc/Dec Ratio: 0.89
+Overall Inc/Dec Ratio: 19.50
+[LOG] Creating figures for region 2 (GPe)
+[LOG]   Creating figure for region GPe
+[LOG]   Creating subplot 1: All cells PSTH heatmap
+[LOG]   PSTH data size: 190 x 1000
+
+---- Within-Region Comparison for GPe (n = 18 sessions analyzed for this region) ----
+Sessions contributing data to GPe: 18 out of 297 total sessions (6.1%)
+Increase vs. Decrease: Wilcoxon signed-rank test, p = 0.1289 
+Effect size (Cohen's d): 0.63 (medium)
+Mean Inc/Dec Ratio: 0.44
+Overall Inc/Dec Ratio: 1.58
+[LOG] Creating figures for region 3 (SNr)
+[LOG]   Creating figure for region SNr
+[LOG]   Creating subplot 1: All cells PSTH heatmap
+[LOG]   PSTH data size: 150 x 1000
+
+---- Within-Region Comparison for SNr (n = 24 sessions analyzed for this region) ----
+Sessions contributing data to SNr: 24 out of 297 total sessions (8.1%)
+Increase vs. Decrease: Wilcoxon signed-rank test, p = 0.9766 
+Effect size (Cohen's d): 0.03 (negligible)
+Mean Inc/Dec Ratio: -0.11
+Overall Inc/Dec Ratio: 0.67
+
+==== Summary Statistics (n = 297 total sessions loaded) ====
+Region Increase (mean±SE)   Decrease (mean±SE)   Total (mean±SE)      Cell Count Sessions   Inc/Dec Ratio (mean±SE)
+Str    0.18 ± 0.04 (n=361, 31 sess, 8 mice) 0.00 ± 0.00 (n=361, 31 sess, 8 mice) 0.18 ± 0.04 (n=361, 31 sess, 8 mice) 361        31         0.89 ± 0.10         
+GPe    0.10 ± 0.03 (n=190, 18 sess, 8 mice) 0.03 ± 0.02 (n=190, 18 sess, 8 mice) 0.13 ± 0.03 (n=190, 18 sess, 8 mice) 190        18         0.44 ± 0.26         
+SNr    0.04 ± 0.02 (n=150, 24 sess, 6 mice) 0.04 ± 0.02 (n=150, 24 sess, 6 mice) 0.07 ± 0.02 (n=150, 24 sess, 6 mice) 150        24         -0.11 ± 0.35        
+
+Chi-square test for distribution of increases vs decreases across regions: p = 0.0000
+Sessions per region: Str: 31 sessions, GPe: 18 sessions, SNr: 24 sessions, 
+Pairwise comparisons between regions:
+Regions Str vs GPe: p = 0.0005 ***
+Regions Str vs SNr: p = 0.0000 ***
+Regions GPe vs SNr: p = 0.2165 
+
+==== Statistical Comparison Between Regions ====
+Total sessions loaded: 297
+Sessions per region: Str: 31 sessions, GPe: 18 sessions, SNr: 24 sessions, 
+Kruskal-Wallis test for increased responses: p = 0.0034
+Kruskal-Wallis test for decreased responses: p = 0.1723
+
+Pairwise Mann-Whitney U tests for increased responses:
+Str vs GPe: p = 0.2685 
+Str vs SNr: p = 0.0009 ***
+GPe vs SNr: p = 0.0335 *
+
+Pairwise Mann-Whitney U tests for decreased responses:
+Str vs GPe: p = 0.0904 
+Str vs SNr: p = 0.0948 
+GPe vs SNr: p = 0.9859 
+
+================================================================================
+                      SAMPLE SIZE SUMMARY
+================================================================================
+Analysis: naive (keep_type: 3)
+
+Sample sizes per region:
+  Str: n=361 neurons, 31 sessions, 8 mice
+  GPe: n=190 neurons, 18 sessions, 8 mice
+  SNr: n=150 neurons, 24 sessions, 6 mice
+
+Overall totals:
+  Total neurons analyzed: 701
+  Total sessions: 31
+  Total mice: 22
+================================================================================
+
+========================================================================
+plotResponseFractions LOG END: 19-Aug-2025 12:23:44
+Function completed successfully
+========================================================================

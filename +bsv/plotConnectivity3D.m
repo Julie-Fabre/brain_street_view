@@ -1,8 +1,34 @@
-function plotConnectivity3D(injectionSummary, allenAtlasPath, regionToPlot, color, plotPatch)
+function plotConnectivity3D(injectionSummary, allenAtlasPath, regionToPlot, color, plotPatch, atlasType, atlasResolution)
+
+% Handle optional atlas parameters
+if nargin < 6 || isempty(atlasType)
+    atlasType = 'allen'; % Default to Allen atlas
+end
+if nargin < 7 || isempty(atlasResolution)
+    atlasResolution = 10; % Default to 10um resolution
+end
+
+% Construct atlas filenames based on type and resolution
+switch lower(atlasType)
+    case 'allen'
+        if atlasResolution == 10
+            annotationFile = 'annotation_volume_10um_by_index.npy';
+            structureFile = 'structure_tree_safe_2017.csv';
+        elseif atlasResolution == 20
+            annotationFile = 'annotation_volume_v2_20um_by_index.npy';
+            structureFile = 'UnifiedAtlas_Label_ontology_v2.csv';
+        else
+            error('Unsupported Allen atlas resolution: %d. Supported resolutions are 10 and 20 um.', atlasResolution);
+        end
+    otherwise
+        % For custom atlases, construct filename from type and resolution
+        annotationFile = sprintf('%s_annotation_%dum.npy', atlasType, atlasResolution);
+        structureFile = sprintf('%s_structure_tree.csv', atlasType);
+end
 
 % load atlas 
-av = readNPY([allenAtlasPath, filesep, 'annotation_volume_10um_by_index.npy']); % the number at each pixel labels the area, see note below
-st = loadStructureTree([allenAtlasPath, filesep, 'structure_tree_safe_2017.csv']); % a table of what all the labels mean
+av = readNPY([allenAtlasPath, filesep, annotationFile]); % the number at each pixel labels the area, see note below
+st = loadStructureTree([allenAtlasPath, filesep, structureFile]); % a table of what all the labels mean
 
 % plot brain outline/volume 
 if plotPatch
@@ -15,7 +41,7 @@ hold on;
 % plot region 
 curr_plot_structure_idx = find(contains(st.acronym, regionToPlot));
 region_to_plot_structure_color = hex2dec(reshape(st.color_hex_triplet{curr_plot_structure_idx(1)}, 2, [])') ./ 255;
-slice_spacing = 10;
+slice_spacing = atlasResolution;
 structure_3d = isosurface(permute(ismember(av(1:slice_spacing:end, ...
     1:slice_spacing:end, 1:slice_spacing:end), curr_plot_structure_idx), [3, 1, 2]), 0);
 structure_alpha = 0.3;
@@ -28,9 +54,9 @@ patch('Vertices', structure_3d.vertices*slice_spacing, ...
 iView = 1;
 axis equal
 
-max_voxel_x = injectionSummary.max_voxel_x / 10;
-max_voxel_y = injectionSummary.max_voxel_y / 10;
-max_voxel_z = injectionSummary.max_voxel_z / 10;
+max_voxel_x = injectionSummary.max_voxel_x / atlasResolution;
+max_voxel_y = injectionSummary.max_voxel_y / atlasResolution;
+max_voxel_z = injectionSummary.max_voxel_z / atlasResolution;
 
 % remove any missing data 
 keepMe = max_voxel_x ~= 0;

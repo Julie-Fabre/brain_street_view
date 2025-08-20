@@ -1,5 +1,5 @@
 function [combinedProjection, combinedInjectionInfo, individualProjections, experimentRegionInfo] = fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
-    normalizationMethod, subtractOtherHemisphere, groupingMethod, allenAtlasPath, loadAll, inputRegions, regionGroups, exportMetadata, reload)
+    normalizationMethod, subtractOtherHemisphere, groupingMethod, allenAtlasPath, loadAll, inputRegions, regionGroups, exportMetadata, reload, atlasType, atlasResolution)
 
 if nargin < 6 || isempty(groupingMethod) || nargin < 7 || isempty(allenAtlasPath) % group experiments by brain region (groupingMethod = 'region') or not
     groupingMethod = 'NaN';
@@ -22,6 +22,30 @@ end
 if nargin < 12 || isempty(reload)
     reload = false;
 end
+if nargin < 13 || isempty(atlasType)
+    atlasType = 'allen'; % Default to Allen atlas
+end
+if nargin < 14 || isempty(atlasResolution)
+    atlasResolution = 10; % Default to 10um resolution
+end
+
+%% Construct atlas filenames based on type and resolution
+switch lower(atlasType)
+    case 'allen'
+        if atlasResolution == 10
+            annotationFile = 'annotation_volume_10um_by_index.npy';
+            structureFile = 'structure_tree_safe_2017.csv';
+        elseif atlasResolution == 20
+            annotationFile = 'annotation_volume_v2_20um_by_index.npy';
+            structureFile = 'UnifiedAtlas_Label_ontology_v2.csv';
+        else
+            error('Unsupported Allen atlas resolution: %d. Supported resolutions are 10 and 20 um.', atlasResolution);
+        end
+    otherwise
+        % For custom atlases, construct filename from type and resolution
+        annotationFile = sprintf('%s_annotation_%dum.npy', atlasType, atlasResolution);
+        structureFile = sprintf('%s_structure_tree.csv', atlasType);
+end
 
 %% fetch data
 
@@ -37,9 +61,10 @@ if ~exist(saveLocation, 'dir')
     end
 end
 
-% filepaths
-filePath_imgs = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), '.mat'];
-filePath_injectionSummary = [saveLocation, filesep, fileName, '_injectionSummary.mat'];
+% filepaths - include atlas info in filename
+atlasStr = sprintf('_%s_%dum', atlasType, atlasResolution);
+filePath_imgs = [saveLocation, filesep, fileName, '_', normalizationMethod, '_sub', num2str(subtractOtherHemisphere), atlasStr, '.mat'];
+filePath_injectionSummary = [saveLocation, filesep, fileName, '_injectionSummary', atlasStr, '.mat'];
 
 % load summary from the Allen
 currentFileLocation =  which(mfilename('fullpath'));
@@ -55,7 +80,7 @@ primaryStructure_ID = zeros(nExpIDs, 1);
 primaryStructure_abbreviation = cell(nExpIDs, 1);
 
 
-if ~exist(filePath_imgs, 'file') || isempty(fileName) || reload
+
     combinedInjectionInfo = table;
     
     % display progress
@@ -205,13 +230,14 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName) || reload
         
         % Map each experiment to its region group
         regionBasedGroupID = zeros(nExpIDs, 1);
+        unmatchedExperiments = {};
         for iExpID = 1:nExpIDs
             regionAbbrev = primaryStructure_abbreviation{iExpID};
             
             % Find which input region this experiment corresponds to
             regionIdx = 0;
             for iRegion = 1:length(inputRegions)
-                if strcmp(regionAbbrev, inputRegions{iRegion}) || contains(regionAbbrev, inputRegions{iRegion})
+                if strcmp(regionAbbrev, inputRegions{iRegion}) || startsWith(regionAbbrev, inputRegions{iRegion})
                     regionIdx = iRegion;
                     break;
                 end
@@ -225,6 +251,20 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName) || reload
                         break;
                     end
                 end
+            else
+                % Log unmatched experiments
+                unmatchedExperiments{end+1} = sprintf('Exp %d: %s', experimentIDs(iExpID), regionAbbrev);
+            end
+        end
+        
+        % Report unmatched experiments
+        if ~isempty(unmatchedExperiments)
+            fprintf('\nWarning: %d experiments did not match any input region:\n', length(unmatchedExperiments));
+            for i = 1:min(10, length(unmatchedExperiments))
+                fprintf('  %s\n', unmatchedExperiments{i});
+            end
+            if length(unmatchedExperiments) > 10
+                fprintf('  ... and %d more\n', length(unmatchedExperiments) - 10);
             end
         end
         
@@ -251,6 +291,11 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName) || reload
 
         currGroup = groupID_original_order(iExpID);
         currExpID = experimentIDs(iExpID);
+        
+        % Skip experiments that don't belong to any group
+        if currGroup == 0
+            continue;
+        end
 
         % raw data
         rawFilePath = fullfile(saveLocation, num2str(currExpID), 'density.raw');
@@ -440,153 +485,5 @@ if ~exist(filePath_imgs, 'file') || isempty(fileName) || reload
         writetable(metadataTable, csvFileName);
         fprintf('Metadata exported to: %s\n', csvFileName);
     end
-    
-    % save files
-    if ~isempty(fileName)
-        disp('Saving combined results...');
-        save(filePath_imgs, 'combinedProjection')
-        save(filePath_injectionSummary, 'combinedInjectionInfo')
-        save([saveLocation, filesep, fileName, '_experimentRegionInfo.mat'], 'experimentRegionInfo')
-    end
-else
-    disp('Loading existing data...');
-    load(filePath_imgs, 'combinedProjection')
-    combinedInjectionInfo = load(filePath_injectionSummary);
-    combinedInjectionInfo = combinedInjectionInfo.combinedInjectionInfo;
-    
-    % Initialize individualProjections when loading from cache
-    if loadAll
-        % When loading from cache, we don't have individual projections stored
-        % so we'll initialize with empty array
-        individualProjections = [];
-        warning('Individual projections not available when loading from cache. Re-run without cache to get individual projections.');
-    else
-        individualProjections = '';
-    end
-    
-    % Load experiment region info if it exists
-    experimentRegionInfoPath = [saveLocation, filesep, fileName, '_experimentRegionInfo.mat'];
-    if exist(experimentRegionInfoPath, 'file')
-        load(experimentRegionInfoPath, 'experimentRegionInfo')
-    else
-        % Create from Allen atlas info if cached data doesn't have it
-        experimentRegionInfo.experimentIDs = experimentIDs;
-        nExpIDs = length(experimentIDs);
-        experimentRegionInfo.primaryStructure_ID = zeros(nExpIDs, 1);
-        experimentRegionInfo.primaryStructure_abbreviation = cell(nExpIDs, 1);
-        
-        % Load allen atlas info
-        currentFileLocation =  which(mfilename('fullpath'));
-        currentFileLocation_Pa = fileparts(fileparts(currentFileLocation));
-        allenAtlasProjection_info = readtable(fullfile(currentFileLocation_Pa, 'docs', 'allenAtlasProjection_info.csv'), 'VariableNamingRule','modify');
-        
-        for iExpID = 1:nExpIDs
-            currExpID = experimentIDs(iExpID);
-            experimentRegionInfo.primaryStructure_ID(iExpID) = allenAtlasProjection_info.structure_id(allenAtlasProjection_info.id == currExpID);
-            experimentRegionInfo.primaryStructure_abbreviation{iExpID} = allenAtlasProjection_info.structure_abbrev{allenAtlasProjection_info.id == currExpID};
-        end
-    end
-    
-    % Export metadata to CSV if requested (for loaded data)
-    if exportMetadata
-        % Use default filename if none provided
-        csvFileName_base = fileName;
-        if isempty(csvFileName_base) || strcmp(csvFileName_base, '')
-            csvFileName_base = 'connectivity_data';
-            fprintf('No filename provided for metadata export, using default: %s\n', csvFileName_base);
-        end
-        
-        csvFileName = [saveLocation, filesep, csvFileName_base, '_metadata.csv'];
-        
-        % Check if CSV already exists
-        if exist(csvFileName, 'file')
-            fprintf('Metadata CSV already exists: %s\n', csvFileName);
-        else
-            fprintf('Exporting experiment metadata to CSV (from loaded data)...\n');
-            
-            % Create metadata table from loaded data
-            metadataTable = table();
-            metadataTable.ExperimentID = experimentIDs(:);
-            
-            % Get experiment info from Allen Atlas data
-            expInfo = allenAtlasProjection_info(ismember(allenAtlasProjection_info.id, experimentIDs), :);
-            [~, idx] = ismember(experimentIDs, expInfo.id);
-            expInfo = expInfo(idx, :);
-            
-            % Mouse line/genotype
-            metadataTable.MouseLine = expInfo.transgenic_line;
-            emptyIdx = cellfun(@isempty, metadataTable.MouseLine) | strcmp(metadataTable.MouseLine, '""') | strcmp(metadataTable.MouseLine, '');
-            metadataTable.MouseLine(emptyIdx) = {'Wild-type'};
-            
-            % Injection region info
-            if isfield(experimentRegionInfo, 'primaryStructure_abbreviation')
-                metadataTable.InjectionRegion = experimentRegionInfo.primaryStructure_abbreviation(:);
-            else
-                metadataTable.InjectionRegion = repmat({'Unknown'}, length(experimentIDs), 1);
-            end
-            
-            if isfield(experimentRegionInfo, 'primaryStructure_ID')
-                metadataTable.InjectionRegionID = experimentRegionInfo.primaryStructure_ID(:);
-            else
-                metadataTable.InjectionRegionID = zeros(length(experimentIDs), 1);
-            end
-            
-            % Injection coordinates (if available)
-            if isfield(experimentRegionInfo, 'primaryStructure_AP')
-                metadataTable.InjectionAP = experimentRegionInfo.primaryStructure_AP(:);
-                metadataTable.InjectionDV = experimentRegionInfo.primaryStructure_DV(:);
-                metadataTable.InjectionML = experimentRegionInfo.primaryStructure_ML(:);
-            else
-                metadataTable.InjectionAP = zeros(length(experimentIDs), 1);
-                metadataTable.InjectionDV = zeros(length(experimentIDs), 1);
-                metadataTable.InjectionML = zeros(length(experimentIDs), 1);
-            end
-            
-            % Get injection volume and intensity from loaded combinedInjectionInfo
-            injectionVolumes = zeros(length(experimentIDs), 1);
-            injectionIntensities = zeros(length(experimentIDs), 1);
-            
-            for iExp = 1:length(experimentIDs)
-                expID = experimentIDs(iExp);
-                
-                % Find injection data for this experiment
-                expIdx = combinedInjectionInfo.experimentID == expID;
-                structIdx = combinedInjectionInfo.structure_id == 997;
-                hemIdx = combinedInjectionInfo.hemisphere_id == 3;
-                injIdx = expIdx & structIdx & hemIdx;
-                
-                if any(injIdx)
-                    % Handle multiple entries by taking the first/max value
-                    volumes = combinedInjectionInfo.projection_volume(injIdx);
-                    intensities = combinedInjectionInfo.sum_pixel_intensity(injIdx);
-                    
-                    if length(volumes) > 1
-                        fprintf('Warning: Multiple injection entries found for experiment %d, using max values\n', expID);
-                        injectionVolumes(iExp) = max(volumes);
-                        injectionIntensities(iExp) = max(intensities);
-                    else
-                        injectionVolumes(iExp) = volumes;
-                        injectionIntensities(iExp) = intensities;
-                    end
-                end
-            end
-            
-            metadataTable.InjectionVolume = injectionVolumes;
-            metadataTable.InjectionIntensity = injectionIntensities;
-            
-            % Sex and age if available
-            if ismember('sex', expInfo.Properties.VariableNames)
-                metadataTable.Sex = expInfo.sex;
-            end
-            if ismember('age', expInfo.Properties.VariableNames)
-                metadataTable.Age = expInfo.age;
-            end
-            
-            % Save CSV file
-            writetable(metadataTable, csvFileName);
-            fprintf('Metadata exported to: %s\n', csvFileName);
-        end
-    end
-end
 disp('Data processing complete.');
 end

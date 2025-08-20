@@ -1,13 +1,39 @@
-function plotInjectionsCombined(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color, normalizationMethod, experimentRegionInfo)
+function plotInjectionsCombined(experimentImgs, allenAtlasPath, inputRegions, numberOfSlices, numberOfPixels, plane, regionOnly, smoothing, colorLimits, color, normalizationMethod, experimentRegionInfo, atlasType, atlasResolution)
 % plotInjectionsCombined - Plot injection sites for multiple regions in ONE figure
 %
 % Creates a single figure with one row per input region showing injection sites
 % This function builds the plot manually without calling plotConnectivity
 
-%% Load Allen atlas
-av = readNPY([allenAtlasPath, filesep, 'annotation_volume_10um_by_index.npy']);
-st = loadStructureTree([allenAtlasPath, filesep, 'structure_tree_safe_2017.csv']);
-atlas_slice_spacing = 10; % 10 um/slice
+% Handle optional atlas parameters
+if nargin < 13 || isempty(atlasType)
+    atlasType = 'allen'; % Default to Allen atlas
+end
+if nargin < 14 || isempty(atlasResolution)
+    atlasResolution = 10; % Default to 10um resolution
+end
+
+%% Construct atlas filenames based on type and resolution
+switch lower(atlasType)
+    case 'allen'
+        if atlasResolution == 10
+            annotationFile = 'annotation_volume_10um_by_index.npy';
+            structureFile = 'structure_tree_safe_2017.csv';
+        elseif atlasResolution == 20
+            annotationFile = 'annotation_volume_v2_20um_by_index.npy';
+            structureFile = 'UnifiedAtlas_Label_ontology_v2.csv';
+        else
+            error('Unsupported Allen atlas resolution: %d. Supported resolutions are 10 and 20 um.', atlasResolution);
+        end
+    otherwise
+        % For custom atlases, construct filename from type and resolution
+        annotationFile = sprintf('%s_annotation_%dum.npy', atlasType, atlasResolution);
+        structureFile = sprintf('%s_structure_tree.csv', atlasType);
+end
+
+%% Load atlas
+av = readNPY([allenAtlasPath, filesep, annotationFile]);
+st = loadStructureTree([allenAtlasPath, filesep, structureFile]);
+atlas_slice_spacing = atlasResolution; % Use the provided resolution
 
 %% Create single combined figure
 mainFig = figure('Name', 'Combined Injection Sites - All Regions', 'Color', 'w');

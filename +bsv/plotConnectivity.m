@@ -1,7 +1,7 @@
 function [projectionMatrix_array, projectionMatrixCoordinates_ARA] = plotConnectivity(experimentData, allenAtlasPath, outputRegion,...
     numberOfChunks, numberOfPixels, plane,...
     regionOnly, smoothing, colorLimits, color, normalizationInfo,...
-    inputRegions, regionGroups, experimentRegionInfo, normalizeByGroup, customSlices, sliceAveraging)
+    inputRegions, regionGroups, experimentRegionInfo, normalizeByGroup, customSlices, sliceAveraging, atlasType, atlasResolution)
 % plotConnectivity - Plot brain connectivity data with optional region grouping
 %
 % Parameters:
@@ -58,10 +58,36 @@ if nargin < 17 || isempty(sliceAveraging)
     sliceAveraging = 0; % No averaging by default
 end
 
-%% load Allen atlas
-av = readNPY([allenAtlasPath, filesep, 'annotation_volume_10um_by_index.npy']); % the number at each pixel labels the area, see note below
-st = loadStructureTree([allenAtlasPath, filesep, 'structure_tree_safe_2017.csv']); % a table of what all the labels mean
-atlas_slice_spacing = 10; % 10 um/ slice
+% Handle optional atlas parameters
+if nargin < 18 || isempty(atlasType)
+    atlasType = 'allen'; % Default to Allen atlas
+end
+if nargin < 19 || isempty(atlasResolution)
+    atlasResolution = 10; % Default to 10um resolution
+end
+
+%% Construct atlas filenames based on type and resolution
+switch lower(atlasType)
+    case 'allen'
+        if atlasResolution == 10
+            annotationFile = 'annotation_volume_10um_by_index.npy';
+            structureFile = 'structure_tree_safe_2017.csv';
+        elseif atlasResolution == 20
+            annotationFile = 'annotation_volume_v2_20um_by_index.npy';
+            structureFile = 'UnifiedAtlas_Label_ontology_v2.csv';
+        else
+            error('Unsupported Allen atlas resolution: %d. Supported resolutions are 10 and 20 um.', atlasResolution);
+        end
+    otherwise
+        % For custom atlases, construct filename from type and resolution
+        annotationFile = sprintf('%s_annotation_%dum.npy', atlasType, atlasResolution);
+        structureFile = sprintf('%s_structure_tree.csv', atlasType);
+end
+
+%% load atlas
+av = readNPY([allenAtlasPath, filesep, annotationFile]); % the number at each pixel labels the area, see note below
+st = loadStructureTree([allenAtlasPath, filesep, structureFile]); % a table of what all the labels mean
+atlas_slice_spacing = atlasResolution; % Use the provided resolution
 
 %% Handle output region (target region for visualization)
 if ischar(outputRegion) || isstring(outputRegion)
