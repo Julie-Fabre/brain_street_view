@@ -2,7 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from IPython.display import HTML
+try:
+    from IPython.display import HTML
+except ImportError:
+    HTML = None
 
 from .atlas_utils import load_atlas, find_structure_indices, get_structure_color
 
@@ -88,7 +91,9 @@ def plot_connectivity_3d(injection_summary, allen_atlas_path, region_to_plot,
         anim = FuncAnimation(fig, _rotate, frames=np.arange(0, 360, 2),
                               interval=50, blit=False)
         plt.close(fig)
-        return HTML(anim.to_jshtml())
+        if HTML is not None:
+            return HTML(anim.to_jshtml())
+        return anim
     else:
         plt.tight_layout()
         plt.show(block=False)
