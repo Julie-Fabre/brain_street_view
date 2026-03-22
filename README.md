@@ -1,8 +1,16 @@
 
 # Brain Street View <img src="./images/bsv.png" width="20%" title="bsv" alt="bsv" align="left" vspace = "20">
+
+[![PyPI version](https://img.shields.io/pypi/v/brain-street-view.svg)](https://pypi.org/project/brain-street-view/)
+[![Tests](https://github.com/Julie-Fabre/brain_street_view/actions/workflows/tests.yml/badge.svg)](https://github.com/Julie-Fabre/brain_street_view/actions/workflows/tests.yml)
+[![Documentation](https://readthedocs.org/projects/brain-street-view/badge/?version=latest)](https://brain-street-view.readthedocs.io/en/latest/?badge=latest)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Python versions](https://img.shields.io/pypi/pyversions/brain-street-view.svg)](https://pypi.org/project/brain-street-view/)
+[![DOI](https://img.shields.io/badge/DOI-pending-yellow.svg)]()
+
 Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](https://doi.org/10.1038/nature13186))
 
-Available in both **MATLAB** and **Python**.
+Available in both **MATLAB** and **Python**. **[Documentation](https://brain-street-view.readthedocs.io)**
 
 ### 🏁 Quick start
 

@@ -24,8 +24,27 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest"]
 
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+keywords = ["neuroscience", "connectomics", "Allen Brain Atlas", "mouse brain", "striatum", "visualization"]
+
 [project.urls]
 Homepage = "https://github.com/Julie-Fabre/brain_street_view"
+Documentation = "https://brain-street-view.readthedocs.io"
+Repository = "https://github.com/Julie-Fabre/brain_street_view"
+Issues = "https://github.com/Julie-Fabre/brain_street_view/issues"
+Changelog = "https://github.com/Julie-Fabre/brain_street_view/releases"
 
 [tool.setuptools.packages.find]
 include = ["bsv*"]
