@@ -7,7 +7,23 @@ PROJECTION_GRID_SIZE = (132, 80, 114)
 
 
 def fetch_connectivity_images(experiment_id, save_file_path):
-    """Download density.raw for an experiment. Returns True on success."""
+    """Download the projection density grid for a single experiment.
+
+    Downloads ``density.raw`` from the Allen API and extracts it into
+    *save_file_path*. Skips the download if the file already exists.
+
+    Parameters
+    ----------
+    experiment_id : int
+        Allen experiment ID.
+    save_file_path : str
+        Local directory to save the extracted file.
+
+    Returns
+    -------
+    bool
+        True on success, False on failure.
+    """
     os.makedirs(save_file_path, exist_ok=True)
 
     raw_path = os.path.join(save_file_path, 'density.raw')

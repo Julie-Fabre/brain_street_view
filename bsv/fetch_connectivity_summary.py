@@ -4,6 +4,20 @@ import requests
 
 
 def fetch_connectivity_summary(experiment_id, save_file_path):
+    """Download injection summary JSON for a single experiment.
+
+    Parameters
+    ----------
+    experiment_id : int
+        Allen experiment ID.
+    save_file_path : str
+        Local directory to save ``injectionSummary_all.json``.
+
+    Returns
+    -------
+    bool
+        True on success, False on failure.
+    """
     url = f'http://connectivity.brain-map.org/api/v2/data/ProjectionStructureUnionize/query.json?criteria=[section_data_set_id$eq{experiment_id}]&num_rows=all'
 
     try:
@@ -41,5 +55,17 @@ def fetch_connectivity_summary(experiment_id, save_file_path):
 
 
 def load_injection_summary(save_file_path):
+    """Load a previously saved injection summary from disk.
+
+    Parameters
+    ----------
+    save_file_path : str
+        Directory containing ``injectionSummary_all.json``.
+
+    Returns
+    -------
+    list of dict
+        Injection metadata entries.
+    """
     with open(os.path.join(save_file_path, 'injectionSummary_all.json'), 'r') as f:
         return json.load(f)

@@ -12,6 +12,56 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                       input_regions=None, region_groups=None, experiment_region_info=None,
                       normalize_by_group=False, custom_slices=None, slice_averaging=0,
                       atlas_type='allen', atlas_resolution=10):
+    """Plot 2D projection density slices for a target brain region.
+
+    Parameters
+    ----------
+    experiment_data : numpy.ndarray
+        Projection density array from :func:`fetch_connectivity_data`.
+    allen_atlas_path : str
+        Path to the Allen CCF atlas directory.
+    output_region : str
+        Target region acronym to visualize (e.g. ``'CP'``).
+    number_of_chunks : int
+        Number of evenly spaced slices to display.
+    number_of_pixels : int
+        Pixel resolution per slice panel.
+    plane : str
+        ``'coronal'`` or ``'sagittal'``.
+    region_only : bool
+        Mask the display to the target region boundary.
+    smoothing : float
+        Gaussian smoothing sigma in pixels (0 for none).
+    color_limits : str or list
+        ``'global'``, ``'per_slice'``, or ``[min, max]``.
+    color : list or None
+        RGB colour(s) for region groups, or None for default.
+    normalization_info : str, optional
+        Label for the normalization used during data fetch.
+    input_regions : list of str, optional
+        Source region acronyms for grouped display.
+    region_groups : list of int, optional
+        Group assignment per input region.
+    experiment_region_info : dict, optional
+        Per-experiment metadata from :func:`fetch_connectivity_data`.
+    normalize_by_group : bool, optional
+        Normalize each group independently.
+    custom_slices : list of int, optional
+        Specific slice indices instead of evenly spaced.
+    slice_averaging : int, optional
+        Number of adjacent slices to average around each custom slice.
+    atlas_type : str, optional
+        Atlas type (default ``'allen'``).
+    atlas_resolution : int, optional
+        Atlas resolution in micrometres (10 or 20).
+
+    Returns
+    -------
+    proj_array : numpy.ndarray
+        Projection matrix for each slice.
+    proj_coords : list
+        Coordinate information for each slice.
+    """
     if input_regions is None:
         input_regions = []
     if region_groups is None:

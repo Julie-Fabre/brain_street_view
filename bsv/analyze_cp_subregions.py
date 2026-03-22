@@ -7,6 +7,37 @@ import matplotlib.pyplot as plt
 def analyze_cp_subregions(projection_matrix_array, projection_matrix_coordinates_ara,
                            allen_atlas_path_v2, output_slices=None, input_regions=None,
                            region_groups=None, save_csv_path=''):
+    """Decompose projection density by striatum subregions (CP and NAc).
+
+    Uses the Allen v2 atlas to assign projection signal to anatomical
+    subdivisions of the caudate putamen and nucleus accumbens.
+
+    Parameters
+    ----------
+    projection_matrix_array : numpy.ndarray
+        Projection data from :func:`plot_connectivity`.
+    projection_matrix_coordinates_ara : list
+        Coordinate info from :func:`plot_connectivity`.
+    allen_atlas_path_v2 : str
+        Path to directory containing the Allen v2 atlas files
+        (``annotation_volume_v2_20um_by_index.npy`` and
+        ``UnifiedAtlas_Label_ontology_v2.csv``).
+    output_slices : list of int, optional
+        Subset of slice indices to analyse. Default is all slices.
+    input_regions : list of str, optional
+        Source region acronyms (for labelling).
+    region_groups : list of int, optional
+        Group assignment per input region.
+    save_csv_path : str, optional
+        Path to write summary CSV. ``''`` to skip export.
+
+    Returns
+    -------
+    subregion_results : dict
+        Per-slice mean intensities and voxel counts by subregion.
+    global_results : dict
+        Global (across-slice) mean intensities by subregion.
+    """
     if input_regions is None:
         input_regions = []
     if region_groups is None:

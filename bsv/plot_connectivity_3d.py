@@ -13,6 +13,32 @@ from .atlas_utils import load_atlas, find_structure_indices, get_structure_color
 def plot_connectivity_3d(injection_summary, allen_atlas_path, region_to_plot,
                          color=None, plot_patch=True, animate=True,
                          atlas_type='allen', atlas_resolution=10):
+    """Render injection sites and a target region as a 3D isosurface.
+
+    Parameters
+    ----------
+    injection_summary : dict
+        Injection metadata from :func:`fetch_connectivity_data`.
+    allen_atlas_path : str
+        Path to the Allen CCF atlas directory.
+    region_to_plot : str
+        Target region acronym (e.g. ``'CP'``).
+    color : list, optional
+        RGB colour(s) for injection dots.
+    plot_patch : bool, optional
+        Render the region as a solid isosurface (True) or grid (False).
+    animate : bool, optional
+        Create a rotating animation.
+    atlas_type : str, optional
+        Atlas type (default ``'allen'``).
+    atlas_resolution : int, optional
+        Atlas resolution in micrometres (10 or 20).
+
+    Returns
+    -------
+    matplotlib.animation.FuncAnimation or matplotlib.figure.Figure
+        Animation object if *animate* is True, otherwise the figure.
+    """
     av, st = load_atlas(allen_atlas_path, atlas_type, atlas_resolution)
 
     curr_idx = find_structure_indices(st, region_to_plot)

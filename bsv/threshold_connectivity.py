@@ -13,6 +13,51 @@ def threshold_connectivity(experiment_data, allen_atlas_path, input_region,
                            threshold, threshold_method='absolute',
                            normalization_method='none', data_fetch_normalization='unknown',
                            atlas_type='allen', atlas_resolution=10):
+    """Threshold projection density and visualize significant signals.
+
+    Parameters
+    ----------
+    experiment_data : numpy.ndarray
+        Projection density array from :func:`fetch_connectivity_data`.
+    allen_atlas_path : str
+        Path to the Allen CCF atlas directory.
+    input_region : str
+        Target region acronym (e.g. ``'CP'``).
+    number_of_chunks : int
+        Number of slices.
+    number_of_pixels : int
+        Pixel resolution per slice panel.
+    plane : str
+        ``'coronal'`` or ``'sagittal'``.
+    region_only : bool
+        Mask to the target region boundary.
+    smoothing : float
+        Gaussian smoothing sigma in pixels.
+    color_limits : str or list
+        Colour scale specification.
+    color : list or None
+        RGB colour(s).
+    threshold : float
+        Threshold value (interpretation depends on *threshold_method*).
+    threshold_method : str, optional
+        ``'absolute'``, ``'percentile'``, ``'zscore'``, or ``'relative'``.
+    normalization_method : str, optional
+        Additional normalization: ``'none'``, ``'region'``, ``'zscore'``,
+        or ``'robust'``.
+    data_fetch_normalization : str, optional
+        Label for the normalization applied during data fetch.
+    atlas_type : str, optional
+        Atlas type (default ``'allen'``).
+    atlas_resolution : int, optional
+        Atlas resolution in micrometres (10 or 20).
+
+    Returns
+    -------
+    proj_array : numpy.ndarray
+        Thresholded binary projection matrix.
+    proj_coords : list
+        Coordinate information for each slice.
+    """
     av, st = load_atlas(allen_atlas_path, atlas_type, atlas_resolution)
     atlas_slice_spacing = atlas_resolution
 

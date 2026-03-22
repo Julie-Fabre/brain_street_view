@@ -14,6 +14,51 @@ def fetch_connectivity_data(experiment_ids, save_location, file_name,
                             load_all=False, input_regions=None, region_groups=None,
                             export_metadata=True, reload=False,
                             atlas_type='allen', atlas_resolution=10):
+    """Download and cache projection density maps for a set of experiments.
+
+    Parameters
+    ----------
+    experiment_ids : list of int
+        Experiment IDs returned by :func:`find_connectivity_experiments`.
+    save_location : str
+        Local directory for cached downloads.
+    file_name : str
+        Base name for the cached metadata CSV. ``''`` to skip caching.
+    normalization_method : str
+        ``'none'`` or ``'injectionIntensity'`` (divide by injection volume).
+    subtract_other_hemisphere : bool
+        Subtract the contralateral hemisphere signal.
+    grouping_method : str, optional
+        Group experiments by ``'AP'``, ``'ML'``, ``'DV'``, or ``''`` (no
+        grouping).
+    allen_atlas_path : str, optional
+        Path to the Allen CCF atlas directory.
+    load_all : bool, optional
+        If True, also return individual (non-averaged) projection volumes.
+    input_regions : list of str, optional
+        Region acronyms for region-based grouping.
+    region_groups : list of int, optional
+        Group assignment per region (same length as *input_regions*).
+    export_metadata : bool, optional
+        Write a per-experiment metadata CSV.
+    reload : bool, optional
+        Re-download even if cached files exist.
+    atlas_type : str, optional
+        Atlas type (default ``'allen'``).
+    atlas_resolution : int, optional
+        Atlas resolution in micrometres (10 or 20).
+
+    Returns
+    -------
+    combined_projection : numpy.ndarray
+        Averaged projection density array (AP x DV x ML x groups).
+    combined_injection_info : dict
+        Aggregated injection metadata across experiments.
+    individual_projections : numpy.ndarray or None
+        Per-experiment volumes when *load_all* is True, else None.
+    experiment_region_info : dict
+        Per-experiment region metadata.
+    """
     if not grouping_method:
         grouping_method = 'NaN'
     if input_regions is None:
