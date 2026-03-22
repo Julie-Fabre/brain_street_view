@@ -1,6 +1,11 @@
 # Compare regions
 
-Plot projections to multiple target regions side by side.
+Plot projections to multiple target regions side by side, or group source regions for comparison.
+
+```{image} ../images/docs/plot_grouped_VIS_CP.png
+:width: 100%
+```
+*Projections to caudate putamen from grouped visual areas: VISp (top), VISl+VISal (middle), VISam+VISpl+VISpm+VISli+VISpor (bottom).*
 
 ## Python
 

@@ -1,6 +1,11 @@
 # Threshold projections
 
-Identify significant projection signals by applying thresholds to density maps. Several thresholding methods are available.
+Identify significant projection signals by applying thresholds to density maps.
+
+```{image} ../images/docs/threshold_VISam_CP.png
+:width: 100%
+```
+*VISam projections to CP thresholded at the 90th percentile. Red dots mark voxels above threshold.*
 
 ## Python
 
@@ -13,11 +18,11 @@ bsv.threshold_connectivity(
     10, 15, 'coronal', True, 2, 'global', color,
     threshold=0.5, threshold_method='absolute')
 
-# Percentile threshold (e.g. top 5% of voxels)
+# Percentile threshold (e.g. top 10% of voxels)
 bsv.threshold_connectivity(
     experiment_imgs, '/path/to/allenCCF', 'CP',
     10, 15, 'coronal', True, 2, 'global', color,
-    threshold=95, threshold_method='percentile')
+    threshold=90, threshold_method='percentile')
 
 # Z-score threshold
 bsv.threshold_connectivity(

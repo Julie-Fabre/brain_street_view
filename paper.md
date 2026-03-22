@@ -55,6 +55,8 @@ BSV is organized as a four-step pipeline:
 
 All functions accept extensive configuration through keyword arguments, allowing users to customize atlas resolution, normalization method, colormap, threshold strategy, and output format. Data downloaded from the Allen API is cached locally to avoid redundant network requests.
 
+![Example BSV outputs. **A.** 2D coronal slices showing projection density from antero-medial visual cortex (VISam) to the caudate putamen (CP). **B.** Grouped comparison of projections to CP from visual cortical areas: VISp (top), VISl+VISal (middle), and remaining visual areas (bottom). **C.** 3D rendering of VISam injection sites overlaid on the brain and CP volume.\label{fig:overview}](images/docs/fig_paper.png)
+
 # Research impact statement
 
 BSV has been used in published neuroscience research to visualize and analyze projection data from the Allen Connectivity Atlas. It was used in Pan-Vazquez et al. [@PanVazquez2025] to characterize dopaminergic projections from the ventral tegmental area to the striatum, in Song and Peters [@Song2025] to examine prefrontal cortex projections to the striatum during cross-modal sensorimotor learning, and in Piantadosi et al. [@Piantadosi2025] to visualize amygdala connectivity patterns in the context of risk-based decision making.

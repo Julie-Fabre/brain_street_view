@@ -2,10 +2,10 @@
 
 Visualize projection density as 2D coronal or sagittal slices, masked to a target region of interest.
 
-```{image} ../images/ex_VIS_to_CP.png
+```{image} ../images/docs/plot_2d_VISam_CP.png
 :width: 100%
 ```
-*Projections from visual cortices (VIS) to caudate putamen (CP).*
+*Projections from antero-medial visual cortex (VISam) to caudate putamen (CP), shown across 10 evenly spaced coronal slices.*
 
 ## Python
 

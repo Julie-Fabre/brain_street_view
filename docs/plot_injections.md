@@ -2,15 +2,10 @@
 
 Visualize where viral injections were placed, either one region at a time or all regions together.
 
-```{image} ../images/ex_VISp.png
+```{image} ../images/docs/plot_injections_VISam.png
 :width: 100%
 ```
-*Example injections in primary visual cortex (VISp).*
-
-```{image} ../images/ex_VISal.png
-:width: 100%
-```
-*Example injections in antero-lateral visual cortex (VISal).*
+*Injection sites in antero-medial visual cortex (VISam), shown across coronal slices.*
 
 ## Plot injections by region
 

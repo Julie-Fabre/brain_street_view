@@ -2,10 +2,11 @@
 
 Render injection sites and projection targets as 3D isosurfaces overlaid on atlas anatomy.
 
-```{image} ../images/visualInjections.gif
-:width: 50%
+```{image} ../images/docs/plot_3d_VISam_CP.png
+:width: 60%
+:align: center
 ```
-*Projections from visual cortices to striatum, rendered in 3D.*
+*3D rendering of VISam injection sites (dots) and caudate putamen (transparent volume).*
 
 ## Python
 
