@@ -229,7 +229,8 @@ def analyze_cp_subregions(projection_matrix_array, projection_matrix_coordinates
                 ax.set_xticklabels(names, rotation=45, ha='right')
                 for j, v in enumerate(vals):
                     if v > 0:
-                        ax.text(j, v + y_max * 0.02, f'{v:.3f}', ha='center', fontsize=8)
+                        label = f'{v:.3f}' if v >= 0.001 else f'{v:.2e}'
+                        ax.text(j, v + y_max * 0.02, label, ha='center', fontsize=8)
                 ax.set_ylim(0, y_max)
 
             # Title
