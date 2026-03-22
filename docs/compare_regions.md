@@ -13,24 +13,47 @@ Plot projections from grouped source regions, or to multiple target regions side
 grouped_regions = ['VISp', 'VISl', 'VISal', 'VISam', 'VISpl', 'VISpm', 'VISli', 'VISpor']
 region_groups = [1, 2, 2, 3, 3, 3, 3, 3]
 
-experiment_ids = bsv.find_connectivity_experiments(grouped_regions)
+experiment_ids = bsv.find_connectivity_experiments(regions=grouped_regions)
 experiment_imgs, _, _, region_info = bsv.fetch_connectivity_data(
-    experiment_ids, '/path/to/cache', '',
-    'injectionIntensity', False,
+    experiment_ids=experiment_ids,
+    save_location='/path/to/cache',
+    file_name='',
+    normalization_method='injectionIntensity',
+    subtract_other_hemisphere=False,
     allen_atlas_path='/path/to/allenCCF',
-    input_regions=grouped_regions, region_groups=region_groups)
+    input_regions=grouped_regions,
+    region_groups=region_groups)
 
-# Plot — one row per group
+# Plot - one row per group
 bsv.plot_connectivity(
-    experiment_imgs, '/path/to/allenCCF', 'CP',
-    10, 15, 'coronal', True, 2, 'global', None, 'injectionIntensity',
-    input_regions=grouped_regions, region_groups=region_groups,
+    experiment_data=experiment_imgs,
+    allen_atlas_path='/path/to/allenCCF',
+    output_region='CP',
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=None,
+    normalization_info='injectionIntensity',
+    input_regions=grouped_regions,
+    region_groups=region_groups,
     experiment_region_info=region_info)
 
 # Compare multiple target regions side by side
 bsv.plot_connectivity_multi_region(
-    experiment_imgs, '/path/to/allenCCF', ['CP', 'ACB'],
-    10, 15, 'coronal', True, 2, 'global', color, 'injectionIntensity')
+    experiment_data=experiment_imgs,
+    allen_atlas_path='/path/to/allenCCF',
+    output_regions=['CP', 'ACB'],
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=color,
+    normalization_info='injectionIntensity')
 ```
 
 **MATLAB:**

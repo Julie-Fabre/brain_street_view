@@ -11,10 +11,12 @@ Render injection sites and target regions as 3D isosurfaces overlaid on atlas an
 **Python:**
 ```python
 bsv.plot_connectivity_3d(
-    injection_summary, '/path/to/allenCCF', 'CP',
+    injection_summary=injection_summary,
+    allen_atlas_path='/path/to/allenCCF',
+    region_to_plot='CP',
     color=[[0.543, 0, 0], [0, 0.746, 1]],
-    plot_patch=True,   # True = solid volume, False = grid points
-    animate=True)      # rotating animation (Python only)
+    plot_patch=True,
+    animate=True)
 ```
 
 **MATLAB:**

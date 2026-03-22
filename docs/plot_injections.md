@@ -11,15 +11,24 @@ Visualize where viral injections were placed, either one region at a time or com
 ```python
 # Plot each region's injections separately
 bsv.plot_multi_region_injections(
-    experiment_imgs, '/path/to/allenCCF',
-    ['VISp', 'VISl', 'VISal'],
-    10, 15, 'coronal', True, 2, 'global',
-    color, 'injectionIntensity')
+    experiment_imgs=experiment_imgs,
+    allen_atlas_path='/path/to/allenCCF',
+    input_regions=['VISp', 'VISl', 'VISal'],
+    number_of_slices=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=color,
+    normalization_method='injectionIntensity')
 
 # Or show all regions overlaid
 bsv.plot_injections_combined(
-    experiment_imgs, '/path/to/allenCCF',
-    input_regions, color)
+    experiment_imgs=experiment_imgs,
+    allen_atlas_path='/path/to/allenCCF',
+    input_regions=input_regions,
+    color=color)
 ```
 
 **MATLAB:**

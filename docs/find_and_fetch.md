@@ -8,17 +8,17 @@ import bsv
 
 # Find experiments with injections in visual cortex
 experiment_ids = bsv.find_connectivity_experiments(
-    ['VISp', 'VISl', 'VISal', 'VISam'],
+    regions=['VISp', 'VISl', 'VISal', 'VISam'],
     mouse_line='',           # '' = all lines, '0' = wild-type only
     primary_injection=True)  # only primary injection sites
 
 # Download and cache projection data
 experiment_imgs, injection_summary, _, _ = bsv.fetch_connectivity_data(
-    experiment_ids,
-    '/path/to/cache',        # local directory for cached files
-    'my_query',              # cache name ('' = don't cache)
-    'injectionIntensity',    # normalization: 'none' or 'injectionIntensity'
-    False,                   # subtract contralateral hemisphere
+    experiment_ids=experiment_ids,
+    save_location='/path/to/cache',
+    file_name='my_query',
+    normalization_method='injectionIntensity',
+    subtract_other_hemisphere=False,
     allen_atlas_path='/path/to/allenCCF')
 ```
 

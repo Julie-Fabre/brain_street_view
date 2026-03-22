@@ -59,22 +59,38 @@ MATLAB dependencies:
 import bsv
 
 # 1. Find experiments
-experiment_ids = bsv.find_connectivity_experiments(['VISp', 'VISl'])
+experiment_ids = bsv.find_connectivity_experiments(
+    regions=['VISp', 'VISl'])
 
 # 2. Fetch data
 imgs, inj_summary, _, _ = bsv.fetch_connectivity_data(
-    experiment_ids, '/path/to/cache', '',
-    'injectionIntensity', False,
+    experiment_ids=experiment_ids,
+    save_location='/path/to/cache',
+    file_name='',
+    normalization_method='injectionIntensity',
+    subtract_other_hemisphere=False,
     allen_atlas_path='/path/to/allenCCF')
 
 # 3. Plot projections to striatum
-bsv.plot_connectivity(imgs, '/path/to/allenCCF', 'CP',
-                       10, 15, 'coronal', True, 2, 'global', None,
-                       'injectionIntensity')
+bsv.plot_connectivity(
+    experiment_data=imgs,
+    allen_atlas_path='/path/to/allenCCF',
+    output_region='CP',
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=None,
+    normalization_info='injectionIntensity')
 
 # 4. 3D visualization
-bsv.plot_connectivity_3d(inj_summary, '/path/to/allenCCF', 'CP',
-                          plot_patch=True)
+bsv.plot_connectivity_3d(
+    injection_summary=inj_summary,
+    allen_atlas_path='/path/to/allenCCF',
+    region_to_plot='CP',
+    plot_patch=True)
 ```
 
 See `example.ipynb` for the full workflow including region grouping, thresholding, and CP subregion analysis.

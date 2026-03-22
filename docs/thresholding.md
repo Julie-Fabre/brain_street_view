@@ -9,16 +9,25 @@ Identify significant projection signals using absolute, percentile, z-score, or 
 
 **Python:**
 ```python
-# Percentile — keep top 10% of voxels
+# Percentile - keep top 10% of voxels
 bsv.threshold_connectivity(
-    experiment_imgs, '/path/to/allenCCF', 'CP',
-    10, 15, 'coronal', True, 2, 'global', color,
-    threshold=90, threshold_method='percentile')
+    experiment_data=experiment_imgs,
+    allen_atlas_path='/path/to/allenCCF',
+    input_region='CP',
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=color,
+    threshold=90,
+    threshold_method='percentile')
 
 # Other methods:
-#   threshold_method='absolute'  — raw density cutoff
-#   threshold_method='zscore'    — z-score cutoff
-#   threshold_method='relative'  — fraction of max (0–1)
+#   threshold_method='absolute'  - raw density cutoff
+#   threshold_method='zscore'    - z-score cutoff
+#   threshold_method='relative'  - fraction of max (0-1)
 ```
 
 **MATLAB:**

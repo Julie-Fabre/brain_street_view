@@ -10,15 +10,17 @@ Visualize projection density as 2D coronal or sagittal slices, masked to a targe
 **Python:**
 ```python
 proj_array, proj_coords = bsv.plot_connectivity(
-    experiment_imgs, '/path/to/allenCCF', 'CP',
-    10,           # number of slices
-    15,           # pixels per slice
-    'coronal',    # 'coronal' or 'sagittal'
-    True,         # mask to target region only
-    2,            # smoothing in pixels (0 = none)
-    'global',     # color scale: 'global', 'per_slice', or [min, max]
-    None,         # color (None = default)
-    'injectionIntensity')
+    experiment_data=experiment_imgs,
+    allen_atlas_path='/path/to/allenCCF',
+    output_region='CP',
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=None,
+    normalization_info='injectionIntensity')
 ```
 
 **MATLAB:**
