@@ -8,7 +8,7 @@ Available in both **MATLAB** and **Python**.
 
 **Python** (recommended):
 ```bash
-pip install -e .
+pip install brain-street-view
 ```
 Then open `example.ipynb` or run `example.py`. The first run downloads images from the Allen API and caches them locally. Subsequent runs load from cache.
 
@@ -20,16 +20,13 @@ See the script `gettingStarted.mlx`. Requires MATLAB>=2019a.
 #### Python
 
 ```bash
-# clone and install
-git clone https://github.com/Julie-Fabre/brain_street_view.git
-cd brain_street_view
-pip install -e .
+pip install brain-street-view
 ```
 
-Or with conda:
+Or from source:
 ```bash
-conda create -n bsv python=3.12 -y
-conda activate bsv
+git clone https://github.com/Julie-Fabre/brain_street_view.git
+cd brain_street_view
 pip install -e .
 ```
 
