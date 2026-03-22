@@ -55,7 +55,11 @@ BSV is organized as a four-step pipeline:
 
 All functions accept extensive configuration through keyword arguments, allowing users to customize atlas resolution, normalization method, colormap, threshold strategy, and output format. Data downloaded from the Allen API is cached locally to avoid redundant network requests.
 
-![Example BSV outputs. **A.** 2D coronal slices showing projection density from antero-medial visual cortex (VISam) to the caudate putamen (CP). **B.** Grouped comparison of projections to CP from visual cortical areas: VISp (top), VISl+VISal (middle), and remaining visual areas (bottom). **C.** 3D rendering of VISam injection sites overlaid on the brain and CP volume.\label{fig:overview}](images/docs/fig_paper.png)
+![2D coronal slices showing projection density from antero-medial visual cortex (VISam) to the caudate putamen (CP), across 10 evenly spaced anterior-posterior levels. Each panel shows the mean projection density within the CP boundary (blue outline), with darker values indicating stronger projections.\label{fig:plot2d}](images/docs/plot_2d_VISam_CP.png)
+
+![Grouped comparison of projections to caudate putamen from visual cortical areas. Top row: primary visual cortex (VISp). Middle row: lateral and antero-lateral visual areas (VISl + VISal). Bottom row: remaining visual areas (VISam + VISpl + VISpm + VISli + VISpor). Each row shows the mean projection density across all experiments from that group.\label{fig:grouped}](images/docs/plot_grouped_VIS_CP.png)
+
+![3D rendering of VISam injection sites (teal dots) overlaid on a transparent volume of the mouse brain, with the caudate putamen highlighted. Dot size reflects injection volume.\label{fig:plot3d}](images/docs/plot_3d_VISam_CP.png)
 
 # Research impact statement
 
