@@ -11,7 +11,7 @@ Available in both **Python** and **MATLAB**.
 
 ## Installation
 
-### Python
+**Python:**
 
 ```bash
 pip install brain-street-view
@@ -25,36 +25,21 @@ cd brain_street_view
 pip install -e .
 ```
 
-### MATLAB
+**MATLAB:** Clone the [repository](https://github.com/Julie-Fabre/brain_street_view) and add it to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html). Requires MATLAB >= 2019a. Also needs [npy-matlab](https://github.com/kwikteam/npy-matlab), [brewermap](https://github.com/DrosteEffect/BrewerMap), and [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab).
 
-Clone the [repository](https://github.com/Julie-Fabre/brain_street_view) and add it to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html). Requires MATLAB >= 2019a.
-
-MATLAB dependencies:
-- [npy-matlab](https://github.com/kwikteam/npy-matlab)
-- [brewermap](https://github.com/DrosteEffect/BrewerMap)
-- [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab)
-
-### Both
-
-You need the [Allen CCF atlas files](https://github.com/cortex-lab/allenCCF) on your path / accessible locally.
+**Both:** You need the [Allen CCF atlas files](https://github.com/cortex-lab/allenCCF) accessible locally.
 
 ```{toctree}
-:maxdepth: 2
-:caption: Usage
+:maxdepth: 1
+:caption: Contents
 
-find_experiments
+find_and_fetch
 plot_2d
 plot_3d
 plot_injections
 compare_regions
 thresholding
 striatum_analysis
-```
-
-```{toctree}
-:maxdepth: 2
-:caption: More
-
 examples
 contributing
 ```
