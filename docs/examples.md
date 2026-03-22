@@ -14,22 +14,37 @@ Pan-Vazquez et al. (2025) used BSV to map and visualize projection patterns from
 import bsv
 
 # Find VTA injection experiments
-experiment_ids = bsv.find_connectivity_experiments(['VTA'])
+experiment_ids = bsv.find_connectivity_experiments(regions=['VTA'])
 
 # Fetch and normalize by injection intensity
 experiment_imgs, injection_summary, _, _ = bsv.fetch_connectivity_data(
-    experiment_ids, save_location, '',
-    'injectionIntensity', False,
+    experiment_ids=experiment_ids,
+    save_location=save_location,
+    file_name='',
+    normalization_method='injectionIntensity',
+    subtract_other_hemisphere=False,
     allen_atlas_path=allen_atlas_path)
 
 # Visualize projections to caudate putamen
-bsv.plot_connectivity(experiment_imgs, allen_atlas_path, 'CP',
-                       10, 15, 'coronal', True, 2, 'global', None,
-                       'injectionIntensity')
+bsv.plot_connectivity(
+    experiment_data=experiment_imgs,
+    allen_atlas_path=allen_atlas_path,
+    output_region='CP',
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=None,
+    normalization_info='injectionIntensity')
 
 # 3D rendering
-bsv.plot_connectivity_3d(injection_summary, allen_atlas_path, 'CP',
-                          plot_patch=True)
+bsv.plot_connectivity_3d(
+    injection_summary=injection_summary,
+    allen_atlas_path=allen_atlas_path,
+    region_to_plot='CP',
+    plot_patch=True)
 ```
 
 ---
@@ -44,17 +59,30 @@ Song & Peters (2025) used BSV to examine how prefrontal cortex projects to the s
 import bsv
 
 # Find prefrontal cortex injection experiments
-experiment_ids = bsv.find_connectivity_experiments(['PL', 'ILA', 'ACAd', 'ACAv'])
+experiment_ids = bsv.find_connectivity_experiments(
+    regions=['PL', 'ILA', 'ACAd', 'ACAv'])
 
 experiment_imgs, injection_summary, _, _ = bsv.fetch_connectivity_data(
-    experiment_ids, save_location, '',
-    'injectionIntensity', False,
+    experiment_ids=experiment_ids,
+    save_location=save_location,
+    file_name='',
+    normalization_method='injectionIntensity',
+    subtract_other_hemisphere=False,
     allen_atlas_path=allen_atlas_path)
 
 # Compare projections to striatum across prefrontal regions
-bsv.plot_connectivity(experiment_imgs, allen_atlas_path, 'CP',
-                       10, 15, 'coronal', True, 2, 'global', None,
-                       'injectionIntensity')
+bsv.plot_connectivity(
+    experiment_data=experiment_imgs,
+    allen_atlas_path=allen_atlas_path,
+    output_region='CP',
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=None,
+    normalization_info='injectionIntensity')
 ```
 
 ---
@@ -69,17 +97,29 @@ Piantadosi et al. (2025) used BSV to visualize amygdala projection patterns to u
 import bsv
 
 # Find basolateral amygdala injection experiments
-experiment_ids = bsv.find_connectivity_experiments(['BLA'])
+experiment_ids = bsv.find_connectivity_experiments(regions=['BLA'])
 
 experiment_imgs, injection_summary, _, _ = bsv.fetch_connectivity_data(
-    experiment_ids, save_location, '',
-    'injectionIntensity', False,
+    experiment_ids=experiment_ids,
+    save_location=save_location,
+    file_name='',
+    normalization_method='injectionIntensity',
+    subtract_other_hemisphere=False,
     allen_atlas_path=allen_atlas_path)
 
 # Visualize amygdala projections
-bsv.plot_connectivity(experiment_imgs, allen_atlas_path, 'CP',
-                       10, 15, 'coronal', True, 2, 'global', None,
-                       'injectionIntensity')
+bsv.plot_connectivity(
+    experiment_data=experiment_imgs,
+    allen_atlas_path=allen_atlas_path,
+    output_region='CP',
+    number_of_chunks=10,
+    number_of_pixels=15,
+    plane='coronal',
+    region_only=True,
+    smoothing=2,
+    color_limits='global',
+    color=None,
+    normalization_info='injectionIntensity')
 ```
 
 ---

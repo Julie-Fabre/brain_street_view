@@ -3,6 +3,24 @@ import requests
 
 
 def find_connectivity_experiments(regions, mouse_line='', primary_injection=True):
+    """Query the Allen API for connectivity experiments by injection region.
+
+    Parameters
+    ----------
+    regions : list of str
+        Brain region acronyms to search for (e.g. ``['VISp', 'VISl']``).
+    mouse_line : str, optional
+        Transgenic mouse line filter. ``''`` for all lines, ``'0'`` for
+        wild-type only.
+    primary_injection : bool, optional
+        If True, only return experiments where the region is the primary
+        injection site.
+
+    Returns
+    -------
+    list of int
+        Experiment IDs matching the query.
+    """
     experiment_ids = []
     primary = 'true' if primary_injection else 'false'
 
