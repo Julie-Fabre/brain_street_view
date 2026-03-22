@@ -176,43 +176,38 @@ subregionResults.voxel_counts = zeros(nSubregions, nGroups * nSlices);
 subregionResults.coordinates_ARA = projectionMatrixCoordinates_ARA;
 
 %% Process each slice
-if nGroups > 1 && nActualSlices == 1
-    % Special case: Groups in 3rd dimension, only 1 slice
-    fprintf('\nProcessing 1 slice with %d groups...\n', nGroups);
-    
-    % Use coordinates from slice 1
-    coords = projectionMatrixCoordinates_ARA{1};
-    fprintf('  Using coordinates from set 1\n');
-elseif nGroups > nActualSlices
-    % Special case: More groups than slices (groups sharing coordinates)
-    fprintf('\nProcessing %d slices with %d groups (groups sharing coordinates)...\n', nActualSlices, nGroups);
-    
-    % For now, use coordinates from slice 1 and process all groups
-    coords = projectionMatrixCoordinates_ARA{1};
-    fprintf('  Using coordinates from set 1 for all groups\n');
-    % Set nActualSlices to 1 to simplify processing
-    nActualSlices = 1;
-    nSlices = 1;
+fprintf('\nProcessing slices...\n');
+
+% Determine coordinate structure
+if length(projectionMatrixCoordinates_ARA) == 1 && nActualSlices > 1
+    % Single coordinate set for multiple data slices - likely groups in 3rd dimension
+    fprintf('Using single coordinate set for all %d groups\n', nGroups);
+    useSharedCoordinates = true;
 else
-    % Normal case: Multiple slices, possibly multiple groups per slice
-    for iSlice = 1:nSlices
-        sliceIdx = outputSlices(iSlice);
-        fprintf('\nProcessing slice %d/%d (data slice %d)...\n', iSlice, nSlices, sliceIdx);
-        
-        % Get coordinate information for this slice
-        if length(projectionMatrixCoordinates_ARA) >= sliceIdx && ~isempty(projectionMatrixCoordinates_ARA{sliceIdx})
-            coords = projectionMatrixCoordinates_ARA{sliceIdx};
-            fprintf('  Found coordinates for slice %d\n', sliceIdx);
-        else
-            fprintf('  Warning: No coordinate information for slice %d\n', sliceIdx);
-            continue;
-        end
-    end
+    % Multiple coordinate sets - one per slice
+    fprintf('Found %d coordinate sets for %d slices\n', length(projectionMatrixCoordinates_ARA), nActualSlices);
+    useSharedCoordinates = false;
 end
 
-% Process the coordinate information
-if ~isempty(coords)
-    fprintf('  Processing coordinates...\n');
+% Process all slices
+for iSlice = 1:nSlices
+    sliceIdx = outputSlices(iSlice);
+    fprintf('\nProcessing slice %d/%d (data slice %d)...\n', iSlice, nSlices, sliceIdx);
+    
+    % Get coordinate information for this slice
+    if useSharedCoordinates
+        coords = projectionMatrixCoordinates_ARA{1};
+    elseif length(projectionMatrixCoordinates_ARA) >= sliceIdx && ~isempty(projectionMatrixCoordinates_ARA{sliceIdx})
+        coords = projectionMatrixCoordinates_ARA{sliceIdx};
+        fprintf('  Found coordinates for slice %d\n', sliceIdx);
+    else
+        fprintf('  Warning: No coordinate information for slice %d, skipping\n', sliceIdx);
+        continue;
+    end
+    
+    % Process the coordinate information
+    if ~isempty(coords)
+        fprintf('  Processing coordinates...\n');
         
         if length(coords) >= 3 && ~isempty(coords{3})
             ara_coordinate = coords{3}; % ARA level (this is already a slice number)
@@ -240,10 +235,13 @@ if ~isempty(coords)
                             slice_data = projectionMatrix_array(:, :, iGroup);
                         elseif ndims(projectionMatrix_array) == 4
                             % 4D array: [pixels, pixels, groups, slices]
-                            slice_data = projectionMatrix_array(:, :, iGroup, 1); % Use slice 1 for now
-                        else
+                            slice_data = projectionMatrix_array(:, :, iGroup, sliceIdx);
+                        elseif nGroups == 1 && ndims(projectionMatrix_array) == 3
                             % 3D array with slices in 3rd dimension
-                            slice_data = projectionMatrix_array(:, :, 1); % Use slice 1 for now
+                            slice_data = projectionMatrix_array(:, :, sliceIdx);
+                        else
+                            % Default case
+                            slice_data = projectionMatrix_array(:, :, sliceIdx);
                         end
                         
                         fprintf('      Slice data size: %s, range: %.6f to %.6f\n', ...
@@ -335,13 +333,13 @@ if ~isempty(coords)
                                     mean_intensity = mean(subregion_intensities);
                                     voxel_count = length(subregion_intensities);
                                     
-                                    % Store results (using linear indexing for group combination)
+                                    % Store results (using linear indexing for group+slice combination)
                                     if nGroups > 1 && nActualSlices == 1
                                         % Groups in 3rd dimension: use group index directly
                                         result_idx = iGroup;
                                     else
                                         % Normal case: use group+slice combination
-                                        result_idx = (iGroup-1)*nSlices + 1; % Use slice 1 for now
+                                        result_idx = (iGroup-1)*nSlices + iSlice;
                                     end
                                     
                                     if result_idx <= size(subregionResults.mean_intensities, 2)
@@ -368,9 +366,10 @@ if ~isempty(coords)
         else
             fprintf('  Warning: Missing ARA coordinate\n');
         end
-else
-    fprintf('  Warning: No coordinate information available\n');
-end
+    else
+        fprintf('  Warning: No coordinate information available\n');
+    end
+end  % End of slice loop
 
 %% Calculate global averages
 fprintf('\nCalculating global averages...\n');
@@ -423,13 +422,26 @@ if nSubregionsWithData > 0
     for iGroup = 1:nGroups
         subplot(nRows, nCols, iGroup);
         
-        % Extract data for this group (assuming single slice for now)
-        if nActualSlices == 1
+        % Extract data for this group
+        if nGroups > 1 && nActualSlices == 1
+            % Groups in 3rd dimension, single slice
             group_data = subregionResults.mean_intensities(subregions_with_data_idx, iGroup);
         else
-            % For multiple slices, take mean across slices for this group
+            % For multiple slices, accumulate intensity across all slices for this group
             group_cols = ((iGroup-1)*nSlices + 1):(iGroup*nSlices);
-            group_data = nanmean(subregionResults.mean_intensities(subregions_with_data_idx, group_cols), 2);
+            
+            % Calculate total intensity by summing weighted means (mean * voxel_count)
+            group_intensities = subregionResults.mean_intensities(subregions_with_data_idx, group_cols);
+            group_voxels = subregionResults.voxel_counts(subregions_with_data_idx, group_cols);
+            
+            % Calculate weighted average across slices
+            total_intensity = nansum(group_intensities .* group_voxels, 2);
+            total_voxels = nansum(group_voxels, 2);
+            
+            % Avoid division by zero
+            group_data = zeros(size(total_intensity));
+            valid_idx = total_voxels > 0;
+            group_data(valid_idx) = total_intensity(valid_idx) ./ total_voxels(valid_idx);
         end
         
         % Get subregion names for plotting
@@ -573,12 +585,23 @@ if ~isempty(saveCsvPath)
                 end
                 
                 % Add mean intensity for this group
-                if nActualSlices == 1
+                if nGroups > 1 && nActualSlices == 1
                     group_data = subregionResults.mean_intensities(:, iGroup);
                 else
-                    % For multiple slices, take mean across slices for this group
+                    % For multiple slices, calculate weighted average across slices
                     group_cols = ((iGroup-1)*nSlices + 1):(iGroup*nSlices);
-                    group_data = nanmean(subregionResults.mean_intensities(:, group_cols), 2);
+                    
+                    % Calculate total intensity by summing weighted means
+                    group_intensities = subregionResults.mean_intensities(:, group_cols);
+                    group_voxels = subregionResults.voxel_counts(:, group_cols);
+                    
+                    total_intensity = nansum(group_intensities .* group_voxels, 2);
+                    total_voxels = nansum(group_voxels, 2);
+                    
+                    % Calculate weighted average
+                    group_data = NaN(size(total_intensity));
+                    valid_idx = total_voxels > 0;
+                    group_data(valid_idx) = total_intensity(valid_idx) ./ total_voxels(valid_idx);
                 end
                 
                 % Create safe column name
@@ -586,7 +609,7 @@ if ~isempty(saveCsvPath)
                 summaryTable.(colName) = group_data;
                 
                 % Add voxel count for this group
-                if nActualSlices == 1
+                if nGroups > 1 && nActualSlices == 1
                     group_voxels = subregionResults.voxel_counts(:, iGroup);
                 else
                     group_cols = ((iGroup-1)*nSlices + 1):(iGroup*nSlices);

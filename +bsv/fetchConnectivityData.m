@@ -17,7 +17,7 @@ if nargin < 10 || isempty(regionGroups)
     regionGroups = [];
 end
 if nargin < 11 || isempty(exportMetadata)
-    exportMetadata = false;
+    exportMetadata = true;
 end
 if nargin < 12 || isempty(reload)
     reload = false;
