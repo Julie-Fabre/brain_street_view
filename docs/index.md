@@ -2,16 +2,16 @@
 
 Load, visualize, and analyze [Allen Mouse Brain Connectivity Atlas](http://connectivity.brain-map.org/) data ([Oh et al., Nature, 2014](https://doi.org/10.1038/nature13186)).
 
-Available in both **MATLAB** and **Python**.
+Available in both **Python** and **MATLAB**.
 
 ```{image} ../images/bsv.png
 :width: 200px
 :align: center
 ```
 
-## Getting started
+## Installation
 
-Install from PyPI:
+### Python
 
 ```bash
 pip install brain-street-view
@@ -25,17 +25,36 @@ cd brain_street_view
 pip install -e .
 ```
 
-You also need the [Allen CCF atlas files](https://github.com/cortex-lab/allenCCF).
+### MATLAB
 
-Then see the {doc}`quickstart` guide or browse the {doc}`api`.
+Clone the [repository](https://github.com/Julie-Fabre/brain_street_view) and add it to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html). Requires MATLAB >= 2019a.
+
+MATLAB dependencies:
+- [npy-matlab](https://github.com/kwikteam/npy-matlab)
+- [brewermap](https://github.com/DrosteEffect/BrewerMap)
+- [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab)
+
+### Both
+
+You need the [Allen CCF atlas files](https://github.com/cortex-lab/allenCCF) on your path / accessible locally.
 
 ```{toctree}
 :maxdepth: 2
-:caption: Contents
+:caption: Usage
 
-quickstart
-api
-papers
-matlab
+find_experiments
+plot_2d
+plot_3d
+plot_injections
+compare_regions
+thresholding
+striatum_analysis
+```
+
+```{toctree}
+:maxdepth: 2
+:caption: More
+
+examples
 contributing
 ```
