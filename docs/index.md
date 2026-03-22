@@ -33,6 +33,7 @@ pip install -e .
 :maxdepth: 1
 :caption: Contents
 
+getting_started
 find_and_fetch
 plot_2d
 plot_3d
@@ -41,5 +42,6 @@ compare_regions
 thresholding
 striatum_analysis
 examples
+api
 contributing
 ```

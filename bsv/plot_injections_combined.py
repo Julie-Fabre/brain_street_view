@@ -11,6 +11,39 @@ def plot_injections_combined(experiment_imgs, allen_atlas_path, input_regions,
                               region_only, smoothing, color_limits, color,
                               normalization_method, experiment_region_info=None,
                               atlas_type='allen', atlas_resolution=10):
+    """Plot injection sites for multiple regions in a combined grid.
+
+    Parameters
+    ----------
+    experiment_imgs : numpy.ndarray
+        Projection density array from :func:`fetch_connectivity_data`.
+    allen_atlas_path : str
+        Path to the Allen CCF atlas directory.
+    input_regions : list of str
+        Source region acronyms to display.
+    number_of_slices : int
+        Number of slices per region.
+    number_of_pixels : int
+        Pixel resolution per slice panel.
+    plane : str
+        ``'coronal'`` or ``'sagittal'``.
+    region_only : bool
+        Mask to the region boundary.
+    smoothing : float
+        Gaussian smoothing sigma in pixels.
+    color_limits : str or list
+        Colour scale specification.
+    color : list or None
+        RGB colour(s).
+    normalization_method : str
+        Normalization label.
+    experiment_region_info : dict, optional
+        Per-experiment metadata.
+    atlas_type : str, optional
+        Atlas type (default ``'allen'``).
+    atlas_resolution : int, optional
+        Atlas resolution in micrometres (10 or 20).
+    """
     av, st = load_atlas(allen_atlas_path, atlas_type, atlas_resolution)
     n_regions = len(input_regions)
 

@@ -4,6 +4,20 @@ import os
 
 
 def get_atlas_files(atlas_type='allen', atlas_resolution=10):
+    """Return annotation volume and structure tree filenames for an atlas.
+
+    Parameters
+    ----------
+    atlas_type : str, optional
+        ``'allen'`` or a custom atlas name.
+    atlas_resolution : int, optional
+        Resolution in micrometres (10 or 20 for Allen).
+
+    Returns
+    -------
+    tuple of str
+        ``(annotation_filename, structure_tree_filename)``.
+    """
     if atlas_type.lower() == 'allen':
         if atlas_resolution == 10:
             return 'annotation_volume_10um_by_index.npy', 'structure_tree_safe_2017.csv'
@@ -16,6 +30,24 @@ def get_atlas_files(atlas_type='allen', atlas_resolution=10):
 
 
 def load_atlas(allen_atlas_path, atlas_type='allen', atlas_resolution=10):
+    """Load the annotation volume and structure tree for an atlas.
+
+    Parameters
+    ----------
+    allen_atlas_path : str
+        Path to the atlas directory.
+    atlas_type : str, optional
+        ``'allen'`` or a custom atlas name.
+    atlas_resolution : int, optional
+        Resolution in micrometres (10 or 20 for Allen).
+
+    Returns
+    -------
+    av : numpy.ndarray
+        Annotation volume (AP x DV x ML).
+    st : pandas.DataFrame
+        Structure tree.
+    """
     annotation_file, structure_file = get_atlas_files(atlas_type, atlas_resolution)
     av = np.load(os.path.join(allen_atlas_path, annotation_file))
     st = load_structure_tree(os.path.join(allen_atlas_path, structure_file))
@@ -23,6 +55,17 @@ def load_atlas(allen_atlas_path, atlas_type='allen', atlas_resolution=10):
 
 
 def load_structure_tree(filepath):
+    """Load a structure tree CSV as a DataFrame.
+
+    Parameters
+    ----------
+    filepath : str
+        Path to the CSV file.
+
+    Returns
+    -------
+    pandas.DataFrame
+    """
     return pd.read_csv(filepath)
 
 
