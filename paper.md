@@ -32,7 +32,7 @@ The Allen Mouse Brain Connectivity Atlas [@Oh2014] is one of the most comprehens
 BSV fills this gap by providing an end-to-end pipeline that:
 
 - Queries the Allen API for connectivity experiments filtered by injection region, transgenic mouse line, and injection quality criteria.
-- Downloads and caches projection density maps at multiple atlas resolutions (10 $\mu$m and 25 $\mu$m), avoiding redundant downloads.
+- Downloads and caches projection density maps at multiple atlas resolutions (10 $\mu$m and 20 $\mu$m), avoiding redundant downloads.
 - Generates 2D coronal and sagittal slice visualizations with region-of-interest masking, customizable colormaps, and multiple normalization strategies (injection intensity, per-region, z-score, robust scaling).
 - Produces 3D isosurface renderings of projection patterns overlaid on atlas anatomy.
 - Supports quantitative analysis of projections within anatomical subdivisions, including CSV export of per-region statistics.
