@@ -2,6 +2,11 @@
 
 Break down projection density by anatomical subdivisions of the caudate putamen (CP) and nucleus accumbens (NAc) using the Allen v2 atlas, with optional CSV export.
 
+```{image} ../images/docs/striatum_subregions.png
+:width: 100%
+```
+*Mean fluorescence intensity per striatum subregion for projections from all visual cortical areas to CP and NAc. Subregions are defined by the Allen v2 atlas.*
+
 Requires the Allen v2 atlas files (`annotation_volume_v2_20um_by_index.npy` and `UnifiedAtlas_Label_ontology_v2.csv`) in a separate directory.
 
 **Python:**
