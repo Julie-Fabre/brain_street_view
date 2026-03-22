@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "brain-street-view"
-version = "0.1.0"
+version = "0.1.1"
 description = "Load and plot Allen Mouse Brain Connectivity data"
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "GPL-3.0-or-later"}
 requires-python = ">=3.9"
 authors = [
     {name = "Julie M. Fabre", email = "juliemfabre@gmail.com"},

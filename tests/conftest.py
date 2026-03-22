@@ -14,6 +14,8 @@ TEST_EXPERIMENT_IDS = [100141219, 112423392]
 
 @pytest.fixture
 def atlas_path():
+    if not os.path.exists(ALLEN_ATLAS_PATH):
+        pytest.skip('Allen atlas not found locally')
     return ALLEN_ATLAS_PATH
 
 

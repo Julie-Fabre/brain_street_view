@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Brain Street View"
+abstract: "Load, visualize, and analyze Allen Mouse Brain Connectivity Atlas data."
+authors:
+  - family-names: Fabre
+    given-names: Julie M.
+    orcid: "https://orcid.org/0000-0002-1968-0473"
+version: 0.1.1
+date-released: "2026-03-22"
+license: GPL-3.0-or-later
+url: "https://github.com/Julie-Fabre/brain_street_view"
+repository-code: "https://github.com/Julie-Fabre/brain_street_view"
+keywords:
+  - neuroscience
+  - connectomics
+  - Allen Brain Atlas
+  - mouse brain
+  - connectivity
+  - striatum
+  - visualization
