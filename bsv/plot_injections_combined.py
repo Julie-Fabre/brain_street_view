@@ -23,6 +23,7 @@ def plot_injections_combined(experiment_imgs, allen_atlas_path, input_regions,
     # Collapse hemispheres
     half = experiment_imgs.shape[2] // 2
     collapsed = experiment_imgs[:, :, :half] + experiment_imgs[:, :, ::-1][:, :, :half]
+    global_vmax = np.nanmax(collapsed) if np.nanmax(collapsed) > 0 else 1
 
     for i_reg in range(n_regions):
         region = input_regions[i_reg]
@@ -101,7 +102,7 @@ def plot_injections_combined(experiment_imgs, allen_atlas_path, input_regions,
 
             ax.imshow(projtemp.T, origin='upper' if plane == 'coronal' else 'lower',
                        extent=[x_edges[0], x_edges[-1], y_edges[-1], y_edges[0]],
-                       cmap='gray_r', vmin=0, vmax=1, aspect='equal')
+                       cmap='gray_r', vmin=0, vmax=global_vmax, aspect='equal')
             ax.set_facecolor('0.5')
 
             # Plot boundary

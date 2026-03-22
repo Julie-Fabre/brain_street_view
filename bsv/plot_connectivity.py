@@ -179,6 +179,15 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                 if group_max[i_g] > 0:
                     projection_matrix[i_chunk][:, :, i_g] /= group_max[i_g]
 
+    # Compute global color limits from data
+    global_vmax = 0
+    for i_chunk in range(number_of_chunks):
+        vals = projection_matrix[i_chunk]
+        if vals is not None:
+            global_vmax = max(global_vmax, np.nanmax(vals))
+    if global_vmax == 0:
+        global_vmax = 1
+
     # Plot
     fig, axes = plt.subplots(n_region_groups, number_of_chunks,
                               figsize=(3 * number_of_chunks, 3 * n_region_groups),
@@ -226,7 +235,7 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
             ax.imshow(masked_data.T, origin='upper' if plane == 'coronal' else 'lower',
                        extent=[x_edges[0], x_edges[-1], y_edges[-1], y_edges[0]] if plane == 'coronal'
                        else [x_edges[0], x_edges[-1], y_edges[0], y_edges[-1]],
-                       cmap='gray_r', vmin=0, vmax=1, aspect='equal')
+                       cmap='gray_r', vmin=0, vmax=global_vmax, aspect='equal')
             ax.set_facecolor('0.5')
 
             # Plot boundary
