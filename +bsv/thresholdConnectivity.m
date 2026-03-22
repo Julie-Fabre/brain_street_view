@@ -262,9 +262,6 @@ end
 
 prettify_plot;
 
-% Conversion factor: atlas voxels per projection grid voxel
-atlasToGridFactor = 100 / atlas_slice_spacing;
-
 if size(experimentData, 4) == 1
     theseLocations_ap_dv_ml = zeros(size(experimentData)./[1, 1, 2]);
 else
@@ -296,15 +293,15 @@ for iChunk = 1:numberOfChunks
         if strcmp(plane, 'coronal')
             projtemp = permute(squeeze(nanmean( ...
                 theseLocations_ap_dv_ml(round( ...
-                (chunks_region(iChunk) - thisdiff)./atlasToGridFactor):round((chunks_region(iChunk) + thisdiff)./atlasToGridFactor), ...
-                round(yEdges/atlasToGridFactor),...
-                round(xEdges/atlasToGridFactor), :), 1)), [2, 1, 3]); % AP x DV x ML ->  DV x AP x ML
+                (chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), ...
+                round(yEdges/10),...
+                round(xEdges/10), :), 1)), [2, 1, 3]); % AP x DV x ML ->  DV x AP x ML
         else
             projtemp = permute(squeeze(nanmean( ...
-                theseLocations_ap_dv_ml(round(xEdges/atlasToGridFactor),...
-                round(yEdges/atlasToGridFactor), ...
-                round((chunks_region(iChunk) - thisdiff)./atlasToGridFactor):...
-                round((chunks_region(iChunk) + thisdiff)./atlasToGridFactor), :), 3)), [2, 1, 3]);
+                theseLocations_ap_dv_ml(round(xEdges/10),...
+                round(yEdges/10), ...
+                round((chunks_region(iChunk) - thisdiff)./10):...
+                round((chunks_region(iChunk) + thisdiff)./10), :), 3)), [2, 1, 3]);
 
         end
         projectionMatrix{iChunk} = projtemp;
@@ -506,13 +503,8 @@ for iChunk = 1:numberOfChunks
         % Set corresponding elements in projectionMatrix to 0
         projectionMatrix{iChunk}(sub2ind(size(projectionMatrix{iChunk}(:,:,iGroup)), isIN_i, isIN_j, repmat(iGroup, size(isIN_i)))) = 0;
 
-        % Apply Gaussian smoothing if requested
-        if smoothing > 0
-            binnedArrayPixelSmooth = imgaussfilt(binnedArrayPixel, smoothing, 'FilterDomain', 'spatial');
-            binnedArrayPixelSmooth(isnan(binnedArrayPixel)) = NaN;
-        else
-            binnedArrayPixelSmooth = binnedArrayPixel;
-        end
+        % smooth - QQ TODO
+        binnedArrayPixelSmooth = binnedArrayPixel;
 
         % plot data
         im = imagesc(projection_view_bins{iChunk}{1}, projection_view_bins{iChunk}{2}, ...
@@ -591,7 +583,7 @@ for iChunk = 1:numberOfChunks
         axis off;
 
         % title
-        this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./atlasToGridFactor); %  coordinates = ya_convert_allen_to_paxinos(values_toConvert, allenOrBrainreg)
+        this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./10); %  coordinates = ya_convert_allen_to_paxinos(values_toConvert, allenOrBrainreg)
         if iChunk == 1
             if strcmp(plane, 'coronal')
                 title(['ARA level (cor.): ', num2str(this_slice_ARA)]); % Allen Reference Atlas level
@@ -638,13 +630,8 @@ for iChunk = 1:numberOfChunks
         binnedArrayPixel_orig = originalProjectionMatrix{iChunk}(:, :, iGroup);
         binnedArrayPixel_orig(isIN == 0) = NaN;
 
-        % Apply Gaussian smoothing if requested
-        if smoothing > 0
-            binnedArrayPixelSmooth_orig = imgaussfilt(binnedArrayPixel_orig, smoothing, 'FilterDomain', 'spatial');
-            binnedArrayPixelSmooth_orig(isnan(binnedArrayPixel_orig)) = NaN;
-        else
-            binnedArrayPixelSmooth_orig = binnedArrayPixel_orig;
-        end
+        % smooth - QQ TODO
+        binnedArrayPixelSmooth_orig = binnedArrayPixel_orig;
 
         % plot original data
         im = imagesc(projection_view_bins{iChunk}{1}, projection_view_bins{iChunk}{2}, ...
@@ -802,7 +789,7 @@ for iChunk = 1:numberOfChunks
         axis off;
 
         % title
-        this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./atlasToGridFactor);
+        this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./10);
         if iChunk == 1
             if strcmp(plane, 'coronal')
                 title(['Original - ARA level (cor.): ', num2str(this_slice_ARA)]); % Allen Reference Atlas level

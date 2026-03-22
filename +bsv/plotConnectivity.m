@@ -287,9 +287,6 @@ end
 
 %% for each chunk, get ML x DV values (if coronal) or AP x DV values (if sagital)
 projectionGridSize = [132, 80, 114]; % experiment data (from Allen) is in AP (100 um) * DV (100 um) * ML(100 um)
-% Conversion factor: atlas voxels per projection grid voxel
-% Atlas is at atlas_slice_spacing um, projection grid is at 100 um
-atlasToGridFactor = 100 / atlas_slice_spacing;
 % debugging :
 % figure();
 % iSlice=1
@@ -429,9 +426,9 @@ for iChunk = 1:numberOfChunks
         if strcmp(plane, 'coronal')
             % Extract data slice
             dataSlice = theseLocations_ap_dv_ml(round( ...
-                (chunks_region(iChunk) - thisdiff)./atlasToGridFactor):round((chunks_region(iChunk) + thisdiff)./atlasToGridFactor), ...
-                round(yEdges/atlasToGridFactor),...
-                round(xEdges/atlasToGridFactor), :);
+                (chunks_region(iChunk) - thisdiff)./10):round((chunks_region(iChunk) + thisdiff)./10), ...
+                round(yEdges/10),...
+                round(xEdges/10), :);
             if iChunk == 1
             end
             
@@ -446,10 +443,10 @@ for iChunk = 1:numberOfChunks
             end
         else
             % Similar for sagittal
-            dataSlice = theseLocations_ap_dv_ml(round(xEdges/atlasToGridFactor),...
-                round(yEdges/atlasToGridFactor), ...
-                round((chunks_region(iChunk) - thisdiff)./atlasToGridFactor):...
-                round((chunks_region(iChunk) + thisdiff)./atlasToGridFactor), :);
+            dataSlice = theseLocations_ap_dv_ml(round(xEdges/10),...
+                round(yEdges/10), ...
+                round((chunks_region(iChunk) - thisdiff)./10):...
+                round((chunks_region(iChunk) + thisdiff)./10), :);
             meanData = nanmean(dataSlice, 3);
             projtemp = permute(squeeze(meanData), [2, 1, 3]);
         end
@@ -554,14 +551,8 @@ for iChunk = 1:numberOfChunks
         binnedArrayPixel = avgData;
         binnedArrayPixel(isIN == 0) = NaN;
 
-        % Apply Gaussian smoothing if requested
-        if smoothing > 0
-            binnedArrayPixelSmooth = imgaussfilt(binnedArrayPixel, smoothing, 'FilterDomain', 'spatial');
-            % Restore NaN mask (imgaussfilt spreads NaN, so re-apply)
-            binnedArrayPixelSmooth(isnan(binnedArrayPixel)) = NaN;
-        else
-            binnedArrayPixelSmooth = binnedArrayPixel;
-        end
+        % smooth - QQ TODO
+        binnedArrayPixelSmooth = binnedArrayPixel;
 
         % plot data
         im = imagesc(projection_view_bins{iChunk}{1}, projection_view_bins{iChunk}{2}, ...
@@ -616,7 +607,7 @@ for iChunk = 1:numberOfChunks
             this_slice_ARA = customSlices(iChunk);
         else
             % Original calculation for automatic chunking
-            this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./atlasToGridFactor); %  coordinates = ya_convert_allen_to_paxinos(values_toConvert, allenOrBrainreg)
+            this_slice_ARA = round(nanmean(chunks_region(iChunk:iChunk+1))./10); %  coordinates = ya_convert_allen_to_paxinos(values_toConvert, allenOrBrainreg)
         end
         
         if iRegionGroup == 1

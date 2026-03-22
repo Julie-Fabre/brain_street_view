@@ -33,11 +33,11 @@ for iRegion = 1:size(regions,2)
     fullURL = [baseURL, '[primary_structure_only$eq', primary, ']'];
 
     %Get data from Allen
+    experimentPage = urlread(fullURL);
     try
-        result = webread(fullURL);
-    catch ME
-        warning('Failed to fetch data from Allen API for region %s: %s', regions{iRegion}, ME.message);
-        continue;
+        result = jsondecode(experimentPage);
+    catch
+        keyboard;
     end
     if ~result.success
         fprintf('Query failed!\n%s\nAt URL: %s\n\n', result.msg, fullURL);
