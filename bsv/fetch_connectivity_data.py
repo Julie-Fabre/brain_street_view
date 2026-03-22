@@ -147,30 +147,25 @@ def fetch_connectivity_data(experiment_ids, save_location, file_name,
         # Read density.raw - MATLAB reads column-major (Fortran order)
         experiment_projection = np.fromfile(raw_path, dtype='<f4').reshape(PROJECTION_GRID_SIZE, order='F')
 
-        # Normalize
+        # Normalize by injection volume (mm^3).
+        # The density.raw values are already fractional (0-1), so dividing
+        # by injection volume makes experiments with different injection
+        # sizes comparable.
         if normalization_method in ('injectionVolume', 'injectionIntensity'):
             exp_indices = np.array(combined_injection_info.get('experimentID', [])) == exp_id
             struct_indices = exp_indices & (np.array(combined_injection_info.get('structure_id', [])) == 997)
 
             hem_ids = np.array(combined_injection_info.get('hemisphere_id', []))
             hem3 = struct_indices & (hem_ids == 3)
-            hem12 = struct_indices & ((hem_ids == 1) | (hem_ids == 2))
 
-            field = 'projection_volume' if normalization_method == 'injectionVolume' else 'sum_pixel_intensity'
-            vals_arr = np.array(combined_injection_info.get(field, []), dtype=float)
+            vol_arr = np.array(combined_injection_info.get('projection_volume', []), dtype=float)
+            inj_vol = vol_arr[hem3].max() if hem3.any() else 0
 
-            vol3 = vals_arr[hem3].max() if hem3.any() else 0
-            vol12 = vals_arr[hem12].sum() if hem12.any() else 0
+            if inj_vol == 0:
+                print(f'Warning: Invalid injection volume for experiment {exp_id}, skipping normalization')
+                inj_vol = 1
 
-            if vol3 > 0 and vol12 > 0:
-                volume_diff = vol12 - vol3
-                adjusted_volume = vol12 + volume_diff
-            else:
-                adjusted_volume = max(vol3, vol12)
-                if adjusted_volume == 0:
-                    adjusted_volume = 1
-
-            experiment_projection = experiment_projection / adjusted_volume
+            experiment_projection = experiment_projection / inj_vol
 
         # Subtract other hemisphere
         if subtract_other_hemisphere:

@@ -314,52 +314,27 @@ primaryStructure_abbreviation = cell(nExpIDs, 1);
         experiment_projection = reshape(experiment_projection, projectionGridSize);
         
         % normalize projection values
-        if strcmp(normalizationMethod, 'injectionVolume') || strcmp(normalizationMethod, 'injectionIntensity') 
+        if strcmp(normalizationMethod, 'injectionVolume') || strcmp(normalizationMethod, 'injectionIntensity')
 
-            % Find indices for the current experiment
+            % Find indices for the current experiment and structure 997 (root)
             expIndices = combinedInjectionInfo.experimentID == currExpID;
-
-            % Find indices for structure 997 (root-> so it will contain all pther structures) within this experiment
-            % another option is to just use volume for injection structure of
-            % interest. The best solution will depend on the application. 
             structureIndices = expIndices & combinedInjectionInfo.structure_id == 997;
-            
-            % Calculate the difference between hemisphere 3 (both hemipsheres: contains summed 
-            % value for structure in hemisphere 1 + 2 and hemispheres 1/2
+
+            % Use hemisphere 3 (both hemispheres combined)
             hem3Indices = structureIndices & [combinedInjectionInfo.hemisphere_id] == 3;
-            hem12Indices = structureIndices & ([combinedInjectionInfo.hemisphere_id] == 1 | [combinedInjectionInfo.hemisphere_id] == 2);
-            
-          if strcmp(normalizationMethod, 'injectionVolume')
-            % Extract projection volumes for hemisphere 3 and hemispheres 1/2
-            vol3 = combinedInjectionInfo.projection_volume(hem3Indices);
-            vol12 = combinedInjectionInfo.projection_volume(hem12Indices);
-          else
-            vol3 = combinedInjectionInfo.sum_pixel_intensity(hem3Indices);
-            vol12 = combinedInjectionInfo.sum_pixel_intensity(hem12Indices);
-          end
-            
-            % Handle multiple entries by taking appropriate values
-            % vol3 should be a single value (hemisphere 3 = both hemispheres)
-            % vol12 can have multiple entries (separate left/right hemisphere values)
-            
-            vol3_single = max(vol3);  % Use max in case of duplicates
-            vol12_sum = sum(vol12);   % Sum the hemisphere values
-            
-            % Check if data is valid (non-zero and reasonable)
-            if vol3_single > 0 && vol12_sum > 0
-                % Calculate volume difference and adjusted volume
-                volumeDifference = vol12_sum - vol3_single;
-                adjustedVolume = vol12_sum + volumeDifference;
-            else
-                fprintf('Warning: Invalid volume data for experiment %d (vol3=%.6f, vol12_sum=%.6f), using fallback\n', currExpID, vol3_single, vol12_sum);
-                adjustedVolume = max(vol3_single, vol12_sum);
-                if adjustedVolume == 0
-                    adjustedVolume = 1; % Prevent division by zero
-                end
+
+            % Both methods normalize by projection_volume (mm^3).
+            % The density.raw values are already fractional (0-1), so dividing
+            % by injection volume makes experiments with different injection
+            % sizes comparable.
+            injVol = max(combinedInjectionInfo.projection_volume(hem3Indices));
+
+            if isempty(injVol) || injVol == 0
+                fprintf('Warning: Invalid injection volume for experiment %d, skipping normalization\n', currExpID);
+                injVol = 1;
             end
-                        
-            % normalize to adjusted volume
-            experiment_projection = experiment_projection / adjustedVolume;
+
+            experiment_projection = experiment_projection / injVol;
         end
 
         if subtractOtherHemisphere
