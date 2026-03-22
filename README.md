@@ -102,4 +102,4 @@ See `+bsv/example.m` for the full MATLAB workflow.
 
 
 ### 📬 Contact me
-If you run into any issues or if you have any suggestions, please raise a github issue, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@gmail.com).
+If you run into any issues or if you have any suggestions, please raise a github issue, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:juliemfabre@gmail.com).
