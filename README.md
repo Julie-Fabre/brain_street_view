@@ -5,7 +5,8 @@
 [![Tests](https://github.com/Julie-Fabre/brain_street_view/actions/workflows/tests.yml/badge.svg)](https://github.com/Julie-Fabre/brain_street_view/actions/workflows/tests.yml)
 [![Documentation](https://readthedocs.org/projects/brain-street-view/badge/?version=latest)](https://brain-street-view.readthedocs.io/en/latest/?badge=latest)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Python versions](https://img.shields.io/pypi/pyversions/brain-street-view.svg)](https://pypi.org/project/brain-street-view/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![MATLAB 2019a+](https://img.shields.io/badge/MATLAB-2019a%2B-orange.svg)](https://mathworks.com/products/matlab.html)
 [![DOI](https://img.shields.io/badge/DOI-pending-yellow.svg)]()
 
 Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](https://doi.org/10.1038/nature13186))
@@ -14,7 +15,7 @@ Available in both **MATLAB** and **Python**. **[Documentation](https://brain-str
 
 ### 🏁 Quick start
 
-**Python** (recommended):
+**Python**:
 ```bash
 pip install brain-street-view
 ```
