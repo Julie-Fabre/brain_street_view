@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brain-street-view"
+version = "0.1.0"
+description = "Load and plot Allen Mouse Brain Connectivity data"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "Julie M. Fabre", email = "juliemfabre@gmail.com"},
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "pandas",
+    "requests",
+    "scikit-image",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/Julie-Fabre/brain_street_view"
+
+[tool.setuptools.packages.find]
+include = ["bsv*"]
+
+[tool.setuptools.package-data]
+"*" = ["*.csv"]

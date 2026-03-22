@@ -1,26 +1,96 @@
 
 # Brain Street View <img src="./images/bsv.png" width="20%" title="bsv" alt="bsv" align="left" vspace = "20">
-Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](doi.org/10.1038/nature13186))
+Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](https://doi.org/10.1038/nature13186))
 
-### 🏁 Quick start 
+Available in both **MATLAB** and **Python**.
 
-See the script `gettingStarted.mlx` to get started. The first time the script is run, it will be slow  because images need to be downloaded. In subsequent runs, these images will simply be loaded and it will be much faster. 
+### 🏁 Quick start
+
+**Python** (recommended):
+```bash
+pip install -e .
+```
+Then open `example.ipynb` or run `example.py`. The first run downloads images from the Allen API and caches them locally. Subsequent runs load from cache.
+
+**MATLAB**:
+See the script `gettingStarted.mlx`. Requires MATLAB>=2019a.
 
 ### ⚒️ Installation
 
-BrainStreetView requires MATLAB>=2019a.
+#### Python
 
-To begin using BrainStreetView:
-- [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the [repository](https://github.com/Julie-Fabre/brain_street_view) and the [dependencies](#Dependencies).
-- add BrainStreetView's and the dependancies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
+```bash
+# clone and install
+git clone https://github.com/Julie-Fabre/brain_street_view.git
+cd brain_street_view
+pip install -e .
+```
 
-Dependencies:
+Or with conda:
+```bash
+conda create -n bsv python=3.12 -y
+conda activate bsv
+pip install -e .
+```
+
+You also need the Allen CCF atlas files (not included):
+- [allenCCF](https://github.com/cortex-lab/allenCCF) — annotation volumes and structure trees
+
+#### MATLAB
+
+- [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) the [repository](https://github.com/Julie-Fabre/brain_street_view) and the dependencies below.
+- Add BrainStreetView's and the dependencies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
+
+MATLAB dependencies:
 - [allenCCF](https://github.com/cortex-lab/allenCCF), to get Allen Atlas files
 - [npy-matlab](https://github.com/kwikteam/npy-matlab), to read in .npy files
 - [brewermap](https://github.com/DrosteEffect/BrewerMap), to generate colormaps
 - [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab), to make plots pretty.
 
-### 🖼️ Gallery 
+### 📖 Usage
+
+#### Python
+```python
+import bsv
+
+# 1. Find experiments
+experiment_ids = bsv.find_connectivity_experiments(['VISp', 'VISl'])
+
+# 2. Fetch data
+imgs, inj_summary, _, _ = bsv.fetch_connectivity_data(
+    experiment_ids, '/path/to/cache', '',
+    'injectionIntensity', False,
+    allen_atlas_path='/path/to/allenCCF')
+
+# 3. Plot projections to striatum
+bsv.plot_connectivity(imgs, '/path/to/allenCCF', 'CP',
+                       10, 15, 'coronal', True, 2, 'global', None,
+                       'injectionIntensity')
+
+# 4. 3D visualization
+bsv.plot_connectivity_3d(inj_summary, '/path/to/allenCCF', 'CP',
+                          plot_patch=True)
+```
+
+See `example.ipynb` for the full workflow including region grouping, thresholding, and CP subregion analysis.
+
+#### MATLAB
+```matlab
+% 1. Find experiments
+experimentIDs = bsv.findConnectivityExperiments({'VISp', 'VISl'});
+
+% 2. Fetch data
+[experimentImgs, injectionSummary] = bsv.fetchConnectivityData(experimentIDs, ...
+    saveLocation, fileName, 'injectionIntensity', false, '', allenAtlasPath);
+
+% 3. Plot
+bsv.plotConnectivity(experimentImgs, allenAtlasPath, 'CP', 10, 15, ...
+    'coronal', true, 2, 'global', [], 'injectionIntensity')
+```
+
+See `+bsv/example.m` for the full MATLAB workflow.
+
+### 🖼️ Gallery
  - projections from visual cortices to striatum: injection sites and striatum plotted in 3D
 <img src="./images/visualInjections.gif" width="50%" title="ex_vis_cp" vspace = "20">
 
@@ -35,4 +105,4 @@ Dependencies:
 
 
 ### 📬 Contact me
-If you run into any issues or if you have any suggestions, please raise a github issue, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@hmail.com).
+If you run into any issues or if you have any suggestions, please raise a github issue, create a pull request or email me: [juliemfabre[at]gmail[dot]com](mailto:julie.mfabre@gmail.com).
