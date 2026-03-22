@@ -10,6 +10,60 @@ def plot_connectivity_with_subregion_analysis(experiment_data, allen_atlas_path,
                                                region_groups=None, experiment_region_info=None,
                                                normalize_by_group=False, custom_slices=None,
                                                slice_averaging=0):
+    """Plot projections and run CP subregion analysis in one step.
+
+    Combines :func:`plot_connectivity` and :func:`analyze_cp_subregions`.
+
+    Parameters
+    ----------
+    experiment_data : numpy.ndarray
+        Projection density array from :func:`fetch_connectivity_data`.
+    allen_atlas_path : str
+        Path to the Allen CCF atlas directory.
+    allen_atlas_path_v2 : str
+        Path to the Allen v2 atlas directory.
+    output_region : str
+        Target region acronym (e.g. ``'CP'``).
+    number_of_chunks : int
+        Number of slices.
+    number_of_pixels : int
+        Pixel resolution per slice panel.
+    plane : str
+        ``'coronal'`` or ``'sagittal'``.
+    region_only : bool
+        Mask to the target region boundary.
+    smoothing : float
+        Gaussian smoothing sigma in pixels.
+    color_limits : str or list
+        Colour scale specification.
+    color : list or None
+        RGB colour(s).
+    normalization_info : str, optional
+        Normalization label.
+    input_regions : list of str, optional
+        Source region acronyms.
+    region_groups : list of int, optional
+        Group assignment per input region.
+    experiment_region_info : dict, optional
+        Per-experiment metadata.
+    normalize_by_group : bool, optional
+        Normalize each group independently.
+    custom_slices : list of int, optional
+        Specific slice indices.
+    slice_averaging : int, optional
+        Adjacent-slice averaging radius.
+
+    Returns
+    -------
+    proj_array : numpy.ndarray
+        Projection matrix.
+    proj_coords : list
+        Coordinate information.
+    subregion_results : dict or None
+        Subregion analysis results (None if region is not CP).
+    global_results : dict or None
+        Global subregion results (None if region is not CP).
+    """
     print('=== CONNECTIVITY ANALYSIS WITH CP SUBREGION ANALYSIS ===')
 
     # Step 1: connectivity plotting
