@@ -227,11 +227,8 @@ def analyze_cp_subregions(projection_matrix_array, projection_matrix_coordinates
                 ax.bar(range(len(vals)), vals, color=[0.2, 0.6, 0.8])
                 ax.set_xticks(range(len(names)))
                 ax.set_xticklabels(names, rotation=45, ha='right')
-                for j, v in enumerate(vals):
-                    if v > 0:
-                        label = f'{v:.3f}' if v >= 0.001 else f'{v:.2e}'
-                        ax.text(j, v + y_max * 0.02, label, ha='center', fontsize=8)
                 ax.set_ylim(0, y_max)
+                ax.ticklabel_format(axis='y', style='scientific', scilimits=(0, 0))
 
             # Title
             if input_regions and region_groups:
