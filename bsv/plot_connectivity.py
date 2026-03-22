@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.path import Path
+from scipy.ndimage import gaussian_filter
 
 from .atlas_utils import load_atlas, find_structure_indices, get_structure_color
 
@@ -120,6 +121,10 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
         n_groups = 1
         collapsed = experiment_data[:, :, :half_slices] + experiment_data[:, :, ::-1][:, :, :half_slices]
 
+    # Conversion factor: atlas voxels per projection grid voxel
+    # Atlas is at atlas_resolution um, projection grid is at 100 um
+    atlas_to_grid = 100 / atlas_resolution
+
     # Extract projection data for each chunk
     projection_matrix = [None] * number_of_chunks
     for i_chunk in range(number_of_chunks):
@@ -136,10 +141,10 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
         this_diff = np.mean(np.diff(chunks_region))
 
         if plane == 'coronal':
-            ap_start = max(0, int(round((chunks_region[i_chunk] - this_diff) / 10)))
-            ap_end = min(collapsed.shape[0] - 1, int(round((chunks_region[i_chunk] + this_diff) / 10)))
-            y_idx = np.clip((y_edges / 10).astype(int), 0, collapsed.shape[1] - 1)
-            x_idx = np.clip((x_edges / 10).astype(int), 0, collapsed.shape[2] - 1 if collapsed.ndim >= 3 else 0)
+            ap_start = max(0, int(round((chunks_region[i_chunk] - this_diff) / atlas_to_grid)))
+            ap_end = min(collapsed.shape[0] - 1, int(round((chunks_region[i_chunk] + this_diff) / atlas_to_grid)))
+            y_idx = np.clip((y_edges / atlas_to_grid).astype(int), 0, collapsed.shape[1] - 1)
+            x_idx = np.clip((x_edges / atlas_to_grid).astype(int), 0, collapsed.shape[2] - 1 if collapsed.ndim >= 3 else 0)
 
             if collapsed.ndim == 4:
                 data_slice = collapsed[ap_start:ap_end + 1][:, y_idx][:, :, x_idx, :]
@@ -150,11 +155,11 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                 mean_data = np.nanmean(data_slice, axis=0)
                 projtemp = mean_data.T
         else:
-            ml_start = max(0, int(round((chunks_region[i_chunk] - this_diff) / 10)))
+            ml_start = max(0, int(round((chunks_region[i_chunk] - this_diff) / atlas_to_grid)))
             ml_end = min(collapsed.shape[2] - 1 if collapsed.ndim >= 3 else 0,
-                         int(round((chunks_region[i_chunk] + this_diff) / 10)))
-            x_idx = np.clip((x_edges / 10).astype(int), 0, collapsed.shape[0] - 1)
-            y_idx = np.clip((y_edges / 10).astype(int), 0, collapsed.shape[1] - 1)
+                         int(round((chunks_region[i_chunk] + this_diff) / atlas_to_grid)))
+            x_idx = np.clip((x_edges / atlas_to_grid).astype(int), 0, collapsed.shape[0] - 1)
+            y_idx = np.clip((y_edges / atlas_to_grid).astype(int), 0, collapsed.shape[1] - 1)
 
             if collapsed.ndim == 4:
                 data_slice = collapsed[x_idx][:, y_idx][:, :, ml_start:ml_end + 1, :]
@@ -232,6 +237,14 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
             masked_data = avg_data.copy()
             masked_data[~is_in] = np.nan
 
+            # Apply Gaussian smoothing if requested
+            if smoothing and smoothing > 0:
+                # Replace NaN with 0 for filtering, then restore NaN mask
+                temp = np.nan_to_num(masked_data, nan=0.0)
+                temp = gaussian_filter(temp, sigma=smoothing)
+                temp[np.isnan(masked_data)] = np.nan
+                masked_data = temp
+
             ax.imshow(masked_data.T, origin='upper' if plane == 'coronal' else 'lower',
                        extent=[x_edges[0], x_edges[-1], y_edges[-1], y_edges[0]] if plane == 'coronal'
                        else [x_edges[0], x_edges[-1], y_edges[0], y_edges[-1]],
@@ -257,7 +270,7 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
             if custom_slices:
                 this_slice_ara = custom_slices[i_chunk]
             else:
-                this_slice_ara = int(round(np.nanmean(chunks_region[i_chunk:i_chunk + 2]) / 10))
+                this_slice_ara = int(round(np.nanmean(chunks_region[i_chunk:i_chunk + 2]) / atlas_to_grid))
             slice_aras[i_chunk] = this_slice_ara
 
             if i_rg == 0:

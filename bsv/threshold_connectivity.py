@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import ConvexHull
-from scipy.ndimage import label
+from scipy.ndimage import label, gaussian_filter
 from matplotlib.path import Path
 
 from .atlas_utils import load_atlas, find_structure_indices, get_structure_color
@@ -79,6 +79,9 @@ def threshold_connectivity(experiment_data, allen_atlas_path, input_region,
     else:
         collapsed = experiment_data[:, :, :half_slices] + experiment_data[:, :, -1:half_slices - 1:-1]
 
+    # Conversion factor: atlas voxels per projection grid voxel
+    atlas_to_grid = 100 / atlas_resolution
+
     # Extract projection data
     projection_matrix = [None] * number_of_chunks
     for i_chunk in range(number_of_chunks):
@@ -92,10 +95,10 @@ def threshold_connectivity(experiment_data, allen_atlas_path, input_region,
         this_diff = np.mean(np.diff(chunks_region))
 
         if plane == 'coronal':
-            ap_s = max(0, int(round((chunks_region[i_chunk] - this_diff) / 10)))
-            ap_e = min(collapsed.shape[0] - 1, int(round((chunks_region[i_chunk] + this_diff) / 10)))
-            y_idx = np.clip((y_edges / 10).astype(int), 0, collapsed.shape[1] - 1)
-            x_idx = np.clip((x_edges / 10).astype(int), 0, collapsed.shape[2] - 1 if collapsed.ndim >= 3 else 0)
+            ap_s = max(0, int(round((chunks_region[i_chunk] - this_diff) / atlas_to_grid)))
+            ap_e = min(collapsed.shape[0] - 1, int(round((chunks_region[i_chunk] + this_diff) / atlas_to_grid)))
+            y_idx = np.clip((y_edges / atlas_to_grid).astype(int), 0, collapsed.shape[1] - 1)
+            x_idx = np.clip((x_edges / atlas_to_grid).astype(int), 0, collapsed.shape[2] - 1 if collapsed.ndim >= 3 else 0)
             if collapsed.ndim == 4:
                 data_slice = collapsed[ap_s:ap_e + 1][:, y_idx][:, :, x_idx, :]
                 mean_data = np.nanmean(data_slice, axis=0)
@@ -105,11 +108,11 @@ def threshold_connectivity(experiment_data, allen_atlas_path, input_region,
                 mean_data = np.nanmean(data_slice, axis=0)
                 projtemp = mean_data.T
         else:
-            ml_s = max(0, int(round((chunks_region[i_chunk] - this_diff) / 10)))
+            ml_s = max(0, int(round((chunks_region[i_chunk] - this_diff) / atlas_to_grid)))
             ml_e = min(collapsed.shape[2] - 1 if collapsed.ndim >= 3 else 0,
-                       int(round((chunks_region[i_chunk] + this_diff) / 10)))
-            x_idx = np.clip((x_edges / 10).astype(int), 0, collapsed.shape[0] - 1)
-            y_idx = np.clip((y_edges / 10).astype(int), 0, collapsed.shape[1] - 1)
+                       int(round((chunks_region[i_chunk] + this_diff) / atlas_to_grid)))
+            x_idx = np.clip((x_edges / atlas_to_grid).astype(int), 0, collapsed.shape[0] - 1)
+            y_idx = np.clip((y_edges / atlas_to_grid).astype(int), 0, collapsed.shape[1] - 1)
             if collapsed.ndim == 4:
                 data_slice = collapsed[x_idx][:, y_idx][:, :, ml_s:ml_e + 1, :]
                 mean_data = np.nanmean(data_slice, axis=2)
@@ -193,7 +196,7 @@ def threshold_connectivity(experiment_data, allen_atlas_path, input_region,
 
         is_in = _build_mask(x_edges, y_edges, bnd_x, bnd_y)
 
-        this_slice_ara = int(round(np.nanmean(chunks_region[i_chunk:i_chunk + 2]) / 10))
+        this_slice_ara = int(round(np.nanmean(chunks_region[i_chunk:i_chunk + 2]) / atlas_to_grid))
         slice_aras[i_chunk] = this_slice_ara
 
         for i_group in range(max(1, n_groups)):
@@ -207,6 +210,18 @@ def threshold_connectivity(experiment_data, allen_atlas_path, input_region,
 
             thresh_data[~is_in] = np.nan
             orig_data[~is_in] = np.nan
+
+            # Apply Gaussian smoothing if requested
+            if smoothing and smoothing > 0:
+                for name in ['thresh', 'orig']:
+                    arr = thresh_data if name == 'thresh' else orig_data
+                    nan_mask = np.isnan(arr)
+                    temp = gaussian_filter(np.nan_to_num(arr, nan=0.0), sigma=smoothing)
+                    temp[nan_mask] = np.nan
+                    if name == 'thresh':
+                        thresh_data = temp
+                    else:
+                        orig_data = temp
 
             # Thresholded plot
             ax_t = axes_t[i_group, i_chunk]
