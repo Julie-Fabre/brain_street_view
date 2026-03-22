@@ -12,18 +12,6 @@ requires-python = ">=3.9"
 authors = [
     {name = "Julie M. Fabre", email = "juliemfabre@gmail.com"},
 ]
-dependencies = [
-    "numpy",
-    "scipy",
-    "matplotlib",
-    "pandas",
-    "requests",
-    "scikit-image",
-]
-
-[project.optional-dependencies]
-dev = ["pytest"]
-
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -38,6 +26,17 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Visualization",
 ]
 keywords = ["neuroscience", "connectomics", "Allen Brain Atlas", "mouse brain", "striatum", "visualization"]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "pandas",
+    "requests",
+    "scikit-image",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
 
 [project.urls]
 Homepage = "https://github.com/Julie-Fabre/brain_street_view"
