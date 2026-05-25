@@ -20,8 +20,12 @@ def atlas_path():
 
 
 @pytest.fixture
-def save_location():
-    return SAVE_LOCATION
+def save_location(tmp_path_factory):
+    # Use the configured cache if BSV_SAVE_LOCATION is set, otherwise a temp
+    # directory so fetched experiment data never pollutes the repo / cwd.
+    if SAVE_LOCATION:
+        return SAVE_LOCATION
+    return str(tmp_path_factory.mktemp('bsv_data'))
 
 
 @pytest.fixture

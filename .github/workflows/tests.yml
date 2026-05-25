@@ -7,9 +7,11 @@ on:
     branches: [main]
 
 jobs:
+  # Deterministic tests: no atlas download, no network. Run on every Python version.
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
 
@@ -26,5 +28,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      - name: Run tests (CI-safe subset)
-        run: python -m pytest tests/test_import.py -v
+      - name: Run tests (no network, no atlas)
+        run: python -m pytest tests/ -m "not network" -v
+
+  # Integration tests that hit the live Allen Brain Atlas API. Run on a single
+  # Python version and allowed to fail so transient API outages don't break CI.
+  integration:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run live Allen API tests
+        run: python -m pytest tests/ -m "network" -v

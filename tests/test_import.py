@@ -1,5 +1,7 @@
 """Tests that run without atlas files (CI-friendly)."""
 
+import pytest
+
 
 def test_import():
     import bsv
@@ -20,6 +22,7 @@ def test_projection_info():
     assert 'injection_coordinates' in info.columns
 
 
+@pytest.mark.network
 def test_find_experiments_api():
     """Smoke test against live Allen API (single small query)."""
     import bsv

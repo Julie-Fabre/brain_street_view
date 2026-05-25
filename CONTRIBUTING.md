@@ -23,6 +23,24 @@ Open a GitHub issue describing the feature and its use case.
 
 Please keep code concise and match the existing style.
 
+## Running the tests
+
+```bash
+pip install -e ".[dev]"
+python -m pytest tests/
+```
+
+Tests are grouped with markers so you can run only what your environment supports:
+
+- `python -m pytest tests/ -m "not network"` — fast, deterministic tests that need
+  neither network access nor the atlas. This is what CI runs on every Python version.
+- `python -m pytest tests/ -m network` — integration tests that query the live
+  [Allen Brain Atlas API](http://api.brain-map.org/).
+- Tests using the `atlas_path` fixture are skipped automatically unless the Allen CCF
+  atlas files are available. Set `ALLEN_ATLAS_PATH` to a directory containing them to
+  run these locally, and optionally `BSV_SAVE_LOCATION` to reuse a cache of fetched
+  experiment data.
+
 ## Getting help
 
 Open a [GitHub issue](https://github.com/Julie-Fabre/brain_street_view/issues) or email juliemfabre@gmail.com.
