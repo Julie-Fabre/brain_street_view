@@ -33,7 +33,12 @@ def find_connectivity_experiments(regions, mouse_line='', primary_injection=True
     if target_regions is not None:
         upstream = fetch_upstream_regions(target_regions, mouse_line=mouse_line)
         if regions:
-            upstream = [r for r in upstream if r in regions]
+            # Match upstream leaves against caller-supplied regions, supporting
+            # parent acronyms: 'ACA' should match 'ACAd', 'ACAv', etc.
+            upstream = [
+                r for r in upstream
+                if any(r == s or r.startswith(s) for s in regions)
+            ]
         regions = upstream
         if not regions:
             print("Warning: No upstream regions found for the specified target(s).")
@@ -42,6 +47,29 @@ def find_connectivity_experiments(regions, mouse_line='', primary_injection=True
     experiment_ids = []
     primary = 'true' if primary_injection else 'false'
     projection_info = load_projection_info()
+
+    # Expand parent regions to their children.
+    # A region is considered a parent if it never appears as a primary injection
+    # site in the database but prefix-matches child regions that do (same
+    # convention as find_structure_indices in atlas_utils).
+    all_abbrevs = set(projection_info['structure_abbrev'].dropna())
+    expanded = []
+    for region in regions:
+        if region in all_abbrevs:
+            expanded.append(region)
+        else:
+            children = sorted(
+                a for a in all_abbrevs
+                if a != region and a.startswith(region)
+            )
+            if children:
+                print(f"'{region}' expanded to children: {children}")
+                expanded.extend(children)
+            else:
+                expanded.append(region)  # pass through; API will handle it
+    # Deduplicate while preserving order
+    seen = set()
+    regions = [r for r in expanded if not (r in seen or seen.add(r))]
 
     for region in regions:
         url = 'http://api.brain-map.org/api/v2/data/query.json?criteria=service::mouse_connectivity_injection_structure'
