@@ -26,6 +26,7 @@ Complete reference for all public functions in Brain Street View.
 .. autofunction:: bsv.plot_connectivity_multi_region
 .. autofunction:: bsv.plot_injections_combined
 .. autofunction:: bsv.plot_multi_region_injections
+.. autofunction:: bsv.plot_upstream_projectome
 .. autofunction:: bsv.threshold_connectivity
 ```
 

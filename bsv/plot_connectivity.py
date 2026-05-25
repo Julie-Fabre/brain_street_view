@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 from matplotlib.path import Path
+from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 from scipy.ndimage import gaussian_filter
 
 from .atlas_utils import load_atlas, find_structure_indices, get_structure_color
@@ -324,6 +326,19 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
             ax.set_yticks([])
             ax.axis('off')
 
+            # 1 mm scale bar, placed just *below* the bottom-right panel so it never
+            # overlaps the data. Axes are in atlas voxels (atlas_resolution µm each)
+            # with aspect='equal', so 1 mm = 1000/res voxels.
+            if i_rg == n_rows - 1 and i_chunk == number_of_chunks - 1:
+                bar_units = 1000.0 / atlas_resolution
+                scalebar = AnchoredSizeBar(
+                    ax.transData, bar_units, '1 mm', loc='upper right',
+                    bbox_to_anchor=(1.0, -0.02), bbox_transform=ax.transAxes,
+                    pad=0.1, borderpad=0.0, sep=4, color='black', frameon=False,
+                    size_vertical=max(bar_units * 0.04, 0.5),
+                    fontproperties=fm.FontProperties(size=14))
+                ax.add_artist(scalebar)
+
             # ARA slice level
             if custom_slices:
                 this_slice_ara = custom_slices[i_chunk]
@@ -345,8 +360,9 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                 ax.text(-0.15, 0.5, label, transform=ax.transAxes,
                         fontweight='bold', fontsize=18, ha='right', va='center', rotation=90)
             elif i_chunk == 0 and n_groups > 1:
-                # Label rows with the exact injection-coordinate center of each group
-                # (e.g. "AP 7560 µm") when available, else a generic group index.
+                # Per-row sub-label: the exact injection-site coordinate of this group
+                # (e.g. "AP 7560 µm"). The shared "Injection location (CCF)" header is
+                # added once after the loop. Falls back to a generic group index.
                 label = f'Group {i_rg + 1}'
                 if experiment_region_info:
                     centers = experiment_region_info.get('group_centers')
@@ -355,9 +371,18 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                             and np.isfinite(centers[i_rg])):
                         label = f'{axis} {centers[i_rg]:.0f} µm'
                 ax.text(-0.15, 0.5, label, transform=ax.transAxes,
-                        fontweight='bold', fontsize=18, ha='right', va='center', rotation=90)
+                        fontweight='bold', fontsize=13, ha='right', va='center', rotation=90)
 
     plt.tight_layout()
+
+    # Single shared header for coordinate-grouped rows (AP/ML/DV); the per-row
+    # sub-labels above give the actual coordinate of each level.
+    if (not input_regions and n_groups > 1 and experiment_region_info
+            and experiment_region_info.get('group_centers') is not None
+            and experiment_region_info.get('grouping_axis')):
+        fig.text(0.015, 0.5, 'Injection location (CCF)', rotation=90,
+                 va='center', ha='center', fontweight='bold', fontsize=16)
+
     plt.show(block=False)
 
     # Build return arrays

@@ -32,11 +32,14 @@ img_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 os.makedirs(img_dir, exist_ok=True)
 
 
-def save_current(name):
-    path = os.path.join(img_dir, name)
-    plt.savefig(path, facecolor='white', edgecolor='none')
+def save_current(name, facecolor='white'):
+    # Save vector SVG (for polishing in Inkscape) plus a PNG (for the docs/paper build).
+    base = os.path.splitext(name)[0]
+    for ext in ('.svg', '.png'):
+        path = os.path.join(img_dir, base + ext)
+        plt.savefig(path, facecolor=facecolor, edgecolor='none')
+        print(f'  Saved: {path}')
     plt.close('all')
-    print(f'  Saved: {path}')
 
 
 # ── 1. Single region: VISam → CP (2D projections) ──
@@ -125,5 +128,14 @@ matrix, fig = bsv.plot_connectivity_matrix(
     annotate=True,
     title='Visual → Subcortical Connectivity')
 save_current('plot_connectivity_matrix.png')
+
+# ── 8. Interactive upstream projectome (static snapshot of one AP slice) ──
+print('Generating: upstream projectome snapshot (visual areas → CP)...')
+proj_src_regions = ['VISp', 'VISl', 'VISam', 'VISpm']
+proj_src_ids = bsv.find_connectivity_experiments(proj_src_regions)
+bsv.plot_upstream_projectome(
+    proj_src_ids, proj_src_regions, 'CP', save_location, allen_atlas_path,
+    static_ap=55)
+save_current('plot_upstream_projectome_CP.png', facecolor='black')
 
 print('\nDone! All images in:', img_dir)

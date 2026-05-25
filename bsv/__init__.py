@@ -1,5 +1,6 @@
 from .find_connectivity_experiments import find_connectivity_experiments
 from .fetch_upstream_regions import fetch_upstream_regions
+from .plot_upstream_projectome import plot_upstream_projectome
 from .fetch_connectivity_data import fetch_connectivity_data
 from .fetch_connectivity_images import fetch_connectivity_images
 from .fetch_connectivity_summary import fetch_connectivity_summary

@@ -33,6 +33,7 @@ dependencies = [
     "pandas",
     "requests",
     "scikit-image",
+    "ipywidgets",
 ]
 
 [project.optional-dependencies]
