@@ -12,13 +12,15 @@ Install the package:
 pip install brain-street-view
 ```
 
-You also need the [Allen CCF atlas files](https://github.com/cortex-lab/allenCCF)
-downloaded locally. Set the path once and reuse it:
+Set your paths once and reuse them throughout the workflow:
 
 ```python
-allen_atlas_path = '/path/to/allenCCF'
-save_location = '/path/to/cache'   # where downloaded data will be stored
+allen_atlas_path = '/path/to/allenCCF'  # atlas files are auto-downloaded here on first use (~2.4 GB)
+save_location = '/path/to/cache'        # where Allen API projection data will be cached
 ```
+
+The Allen CCF atlas files are downloaded automatically the first time a plotting function is called.
+You can also download them manually from [figshare](https://figshare.com/articles/dataset/Modified_Allen_CCF_2017_for_cortex-lab_allenCCF/25365829).
 
 ## Step 1: Find experiments
 
@@ -45,18 +47,18 @@ Fetch the projection density volumes for every experiment. Data is
 downloaded once from the Allen API and cached locally for future runs:
 
 ```python
-experiment_imgs, injection_summary, _, _ = bsv.fetch_connectivity_data(
+(experiment_imgs,       # ndarray (AP x DV x ML x groups): averaged projection fluorescence volumes
+ injection_summary,     # dict of lists: injection metadata per experiment (coordinates, volumes, etc.)
+ _,                     # ndarray or None: per-experiment volumes (only if load_all=True)
+ _                      # dict: per-experiment region and group metadata
+) = bsv.fetch_connectivity_data(
     experiment_ids=experiment_ids,
     save_location=save_location,
-    file_name='visual_cortex_query',
-    normalization_method='injectionIntensity',
-    subtract_other_hemisphere=False,
+    file_name='visual_cortex_query',  # base name for cached metadata CSV
+    normalization_method='injectionIntensity',  # 'none' or 'injectionIntensity' (divide by injection volume)
+    subtract_other_hemisphere=False,            # subtract contralateral hemisphere signal
     allen_atlas_path=allen_atlas_path)
 ```
-
-The returned ``experiment_imgs`` array contains the averaged projection
-density across experiments (shape: AP x DV x ML). ``injection_summary``
-holds per-experiment injection metadata used by the 3D viewer.
 
 ## Step 3: Visualize projections in 2D
 
@@ -64,17 +66,19 @@ Plot the mean projection density to the caudate putamen (CP) across 10
 evenly spaced coronal slices:
 
 ```python
-proj_array, proj_coords = bsv.plot_connectivity(
+(proj_array,    # ndarray (n_slices x n_bins x n_bins x groups): binned projection density per slice
+ proj_coords    # list of bin edge arrays: spatial coordinates of each slice panel
+) = bsv.plot_connectivity(
     experiment_data=experiment_imgs,
     allen_atlas_path=allen_atlas_path,
-    output_region='CP',
-    number_of_chunks=10,
-    number_of_pixels=15,
-    plane='coronal',
-    region_only=True,
-    smoothing=2,
-    color_limits='global',
-    color=None,
+    output_region='CP',                    # target region acronym to visualize
+    number_of_chunks=10,                   # number of evenly spaced slices to display
+    number_of_pixels=15,                   # number of 2D histogram bins per axis per slice (bin size adapts to region extent)
+    plane='coronal',                       # 'coronal' or 'sagittal'
+    region_only=True,                      # mask display to target region boundary
+    smoothing=2,                           # Gaussian smoothing sigma in bins (0 for none)
+    color_limits='global',                 # 'global', 'per_slice', or [min, max]
+    color=None,                            # RGB colour(s) for region groups, or None for default
     normalization_info='injectionIntensity')
 ```
 

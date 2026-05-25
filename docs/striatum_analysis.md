@@ -7,17 +7,19 @@ Break down projection density by anatomical subdivisions of the caudate putamen 
 ```
 *Mean fluorescence intensity per striatum subregion for projections from all visual cortical areas to CP and NAc. Subregions are defined by the Allen v2 atlas.*
 
-Requires the Allen v2 atlas files (`annotation_volume_v2_20um_by_index.npy` and `UnifiedAtlas_Label_ontology_v2.csv`) in a separate directory.
+Requires the Allen v2 atlas files (`annotation_volume_v2_20um_by_index.npy` and `UnifiedAtlas_Label_ontology_v2.csv`) placed in a separate directory (`allen_atlas_path_v2`). These files must be downloaded manually — they are not auto-downloaded.
 
 **Python:**
 ```python
 # First get the projection matrix from plot_connectivity
-proj_matrix, proj_coords = bsv.plot_connectivity(
+(proj_matrix,   # ndarray (n_slices x n_bins x n_bins x groups): binned projection density per slice
+ proj_coords    # list of bin edge arrays: spatial coordinates of each slice panel
+) = bsv.plot_connectivity(
     experiment_data=experiment_imgs,
-    allen_atlas_path='/path/to/allenCCF',
+    allen_atlas_path='/path/to/allenCCF',    # atlas files auto-downloaded here on first use
     output_region='CP',
-    number_of_chunks=10,
-    number_of_pixels=15,
+    number_of_chunks=10,                     # number of evenly spaced slices to display
+    number_of_pixels=15,                     # number of 2D histogram bins per axis per slice (bin size adapts to region extent)
     plane='coronal',
     region_only=True,
     smoothing=2,
@@ -26,10 +28,12 @@ proj_matrix, proj_coords = bsv.plot_connectivity(
     normalization_info='injectionIntensity')
 
 # Analyze subregions
-subregion_results, global_results = bsv.analyze_cp_subregions(
+(subregion_results,  # dict: mean fluorescence per CP/NAc subregion per group
+ global_results      # dict: whole-region summary statistics
+) = bsv.analyze_cp_subregions(
     projection_matrix_array=proj_matrix,
     projection_matrix_coordinates_ara=proj_coords,
-    allen_atlas_path_v2='/path/to/allenCCF_v2')
+    allen_atlas_path_v2='/path/to/allenCCF_v2')  # v2 atlas dir — must be downloaded manually
 
 # Export to CSV
 subregion_results, global_results = bsv.analyze_cp_subregions(

@@ -1,6 +1,36 @@
 import numpy as np
 import pandas as pd
 import os
+import urllib.request
+
+# Auto-download URLs for atlas files.
+# The annotation volume (~2.4 GB) is hosted on figshare:
+#   https://figshare.com/articles/dataset/Modified_Allen_CCF_2017_for_cortex-lab_allenCCF/25365829
+# The structure tree CSV is the small lookup table from cortex-lab/allenCCF.
+# These are downloaded automatically the first time load_atlas() is called if the
+# files are not already present at allen_atlas_path.
+_AUTO_DOWNLOAD_URLS = {
+    'annotation_volume_10um_by_index.npy': 'https://ndownloader.figshare.com/files/44925493',
+    'structure_tree_safe_2017.csv': (
+        'https://raw.githubusercontent.com/cortex-lab/allenCCF/master/structure_tree_safe_2017.csv'
+    ),
+}
+
+
+def _download_file(url, dest_path, filename):
+    """Download a file with a simple progress indicator."""
+    print(f"Downloading {filename} ...")
+
+    def _progress(block_num, block_size, total_size):
+        if total_size > 0:
+            downloaded = min(block_num * block_size, total_size)
+            pct = downloaded * 100 // total_size
+            mb_done = downloaded / 1e6
+            mb_total = total_size / 1e6
+            print(f"\r  {pct:3d}%  {mb_done:.0f} / {mb_total:.0f} MB", end='', flush=True)
+
+    urllib.request.urlretrieve(url, dest_path, _progress)
+    print(f"\r  Done. Saved to {dest_path}          ")
 
 
 def get_atlas_files(atlas_type='allen', atlas_resolution=10):
@@ -49,6 +79,20 @@ def load_atlas(allen_atlas_path, atlas_type='allen', atlas_resolution=10):
         Structure tree.
     """
     annotation_file, structure_file = get_atlas_files(atlas_type, atlas_resolution)
+    allen_atlas_path = str(allen_atlas_path)
+    os.makedirs(allen_atlas_path, exist_ok=True)
+
+    for filename in (annotation_file, structure_file):
+        filepath = os.path.join(allen_atlas_path, filename)
+        if not os.path.exists(filepath):
+            if filename in _AUTO_DOWNLOAD_URLS:
+                _download_file(_AUTO_DOWNLOAD_URLS[filename], filepath, filename)
+            else:
+                raise FileNotFoundError(
+                    f"Atlas file not found and no auto-download URL is configured: {filepath}\n"
+                    "Please download it manually and place it in: {allen_atlas_path}"
+                )
+
     av = np.load(os.path.join(allen_atlas_path, annotation_file))
     st = load_structure_tree(os.path.join(allen_atlas_path, structure_file))
     return av, st

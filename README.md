@@ -38,8 +38,7 @@ cd brain_street_view
 pip install -e .
 ```
 
-You also need the Allen CCF atlas files (not included):
-- [allenCCF](https://github.com/cortex-lab/allenCCF) — annotation volumes and structure trees
+The Allen CCF atlas files (~2.4 GB) are downloaded automatically the first time a plotting function is called. They are saved to the `allen_atlas_path` you specify. You can also download them manually from [figshare](https://figshare.com/articles/dataset/Modified_Allen_CCF_2017_for_cortex-lab_allenCCF/25365829) and place them in your `allen_atlas_path`.
 
 #### MATLAB
 
@@ -47,7 +46,7 @@ You also need the Allen CCF atlas files (not included):
 - Add BrainStreetView's and the dependencies' folders to [MATLAB's path](https://uk.mathworks.com/help/matlab/ref/pathtool.html).
 
 MATLAB dependencies:
-- [allenCCF](https://github.com/cortex-lab/allenCCF), to get Allen Atlas files
+- [allenCCF](https://github.com/cortex-lab/allenCCF), to get Allen Atlas files (annotation volumes on [figshare](https://figshare.com/articles/dataset/Modified_Allen_CCF_2017_for_cortex-lab_allenCCF/25365829))
 - [npy-matlab](https://github.com/kwikteam/npy-matlab), to read in .npy files
 - [brewermap](https://github.com/DrosteEffect/BrewerMap), to generate colormaps
 - [prettify-matlab](https://github.com/Julie-Fabre/prettify_matlab), to make plots pretty.
