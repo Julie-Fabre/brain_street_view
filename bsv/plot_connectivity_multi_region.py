@@ -23,7 +23,9 @@ def plot_connectivity_multi_region(experiment_data, allen_atlas_path, output_reg
     number_of_chunks : int
         Number of slices per region.
     number_of_pixels : int
-        Pixel resolution per slice panel.
+        Number of 2D histogram bins per axis for each slice. The physical bin
+        size adapts to the spatial extent of the region (bin_size ≈
+        region_extent_voxels / number_of_pixels × atlas_resolution µm).
     plane : str
         ``'coronal'`` or ``'sagittal'``.
     region_only : bool

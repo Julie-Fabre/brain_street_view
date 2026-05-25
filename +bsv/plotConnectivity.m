@@ -21,6 +21,13 @@ function [projectionMatrix_array, projectionMatrixCoordinates_ARA] = plotConnect
 %   sliceAveraging (optional) - Number of slices to average around each specified slice (default: 0)
 %                             For example, 2 means average from slice-2 to slice+2
 %
+%   numberOfChunks  - Number of evenly spaced slices to display
+%   numberOfPixels  - Number of 2D histogram bins per axis for each slice.
+%                     The physical bin size adapts to the spatial extent of
+%                     the region (bin_size ≈ region_extent / numberOfPixels
+%                     × atlas_resolution µm).
+%   plane           - 'coronal' or 'sagittal'
+%
 % this function needs cleaning up + commenting
 
 % Handle optional normalization info parameter

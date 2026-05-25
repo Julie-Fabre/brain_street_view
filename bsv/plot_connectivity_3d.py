@@ -45,35 +45,56 @@ def plot_connectivity_3d(injection_summary, allen_atlas_path, region_to_plot,
     region_color = get_structure_color(st, curr_idx[0])
     slice_spacing = atlas_resolution
 
-    # Subsample atlas: av is [AP, DV, ML]
-    av_sub = av[::slice_spacing, ::slice_spacing, ::slice_spacing]
-
-    # MATLAB: permute([AP,DV,ML], [3,1,2]) -> [ML, AP, DV]
-    # isosurface returns (col=AP, row=ML, page=DV)
-    # marching_cubes returns (dim0, dim1, dim2), so swap 0,1 to get (AP, ML, DV)
-    region_mask = np.isin(av_sub, curr_idx).transpose(2, 0, 1).astype(float)
-
     from skimage.measure import marching_cubes
+
+    def _isosurface(volume, spacing):
+        """Run marching cubes and convert verts to atlas voxel coordinates."""
+        verts, faces, _, _ = marching_cubes(volume, level=0.5)
+        verts = verts[:, [1, 0, 2]] * spacing  # swap to (AP, ML, DV), scale to atlas voxels
+        return verts, faces
+
+    # Target region surface (subsampled at atlas_resolution)
+    av_sub = av[::slice_spacing, ::slice_spacing, ::slice_spacing]
+    region_mask = np.isin(av_sub, curr_idx).transpose(2, 0, 1).astype(float)
     try:
-        verts, faces, _, _ = marching_cubes(region_mask, level=0.5)
-        verts = verts[:, [1, 0, 2]] * slice_spacing  # -> (AP, ML, DV)
+        verts, faces = _isosurface(region_mask, slice_spacing)
     except Exception:
-        print('Warning: Could not generate isosurface')
+        print('Warning: Could not generate isosurface for target region')
         verts, faces = np.zeros((0, 3)), np.zeros((0, 3), dtype=int)
+
+    # Brain outline (root structure, 2× coarser for speed)
+    brain_spacing = slice_spacing * 2
+    av_brain = av[::brain_spacing, ::brain_spacing, ::brain_spacing]
+    brain_idx = find_structure_indices(st, 'root')
+    brain_verts, brain_faces = np.zeros((0, 3)), np.zeros((0, 3), dtype=int)
+    if brain_idx:
+        brain_mask = np.isin(av_brain, brain_idx).transpose(2, 0, 1).astype(float)
+        try:
+            brain_verts, brain_faces = _isosurface(brain_mask, brain_spacing)
+        except Exception:
+            pass
 
     fig = plt.figure(figsize=(10, 8))
     fig.patch.set_facecolor('white')
     ax = fig.add_subplot(111, projection='3d')
 
-    # Plot region surface
+    # Brain outline (very transparent grey, drawn first so it sits behind everything)
+    if len(brain_faces) > 0:
+        brain_mesh = Poly3DCollection(brain_verts[brain_faces], alpha=0.04,
+                                      facecolor='lightgrey', edgecolor='none')
+        ax.add_collection3d(brain_mesh)
+
+    # Target region surface
     if len(faces) > 0:
         mesh = Poly3DCollection(verts[faces], alpha=0.3, facecolor=region_color, edgecolor='none')
         ax.add_collection3d(mesh)
 
-    # Injection coordinates (um), divide by atlas_resolution to match isosurface
-    max_voxel_x = np.array(injection_summary.get('max_voxel_x', []), dtype=float) / atlas_resolution
-    max_voxel_y = np.array(injection_summary.get('max_voxel_y', []), dtype=float) / atlas_resolution
-    max_voxel_z = np.array(injection_summary.get('max_voxel_z', []), dtype=float) / atlas_resolution
+    # Injection coordinates: Allen API max_voxel fields are in 100µm voxel space;
+    # convert to atlas_resolution voxel space for alignment with the isosurface.
+    scale = 1 / atlas_resolution
+    max_voxel_x = np.array(injection_summary.get('max_voxel_x', []), dtype=float) * scale
+    max_voxel_y = np.array(injection_summary.get('max_voxel_y', []), dtype=float) * scale
+    max_voxel_z = np.array(injection_summary.get('max_voxel_z', []), dtype=float) * scale
     proj_vol = np.array(injection_summary.get('projection_volume', []), dtype=float)
 
     keep = max_voxel_x != 0
@@ -83,18 +104,19 @@ def plot_connectivity_3d(injection_summary, allen_atlas_path, region_to_plot,
         matching = st.index[st['id'] == first_struct].tolist()
         rgb = get_structure_color(st, matching[0] + 1) if matching else region_color
 
-        dot_size = proj_vol[keep] * 1e3
+        dot_size = proj_vol[keep] * 1e2
         dot_size = np.clip(dot_size, 5, 500)
 
-        # MATLAB: scatter3(AP, ML, DV)
+        # scatter3(AP, ML, DV)
         ax.scatter(max_voxel_x[keep], max_voxel_z[keep], max_voxel_y[keep],
                    s=dot_size, c=[rgb], alpha=0.5, edgecolors=[rgb])
 
-    # Set axis limits from isosurface
-    if len(verts) > 0:
+    # Set axis limits from brain outline (full brain context), fall back to region
+    ref_verts = brain_verts if len(brain_verts) > 0 else verts
+    if len(ref_verts) > 0:
         for i, setter in enumerate([ax.set_xlim, ax.set_ylim, ax.set_zlim]):
-            margin = (verts[:, i].max() - verts[:, i].min()) * 0.1
-            setter(verts[:, i].min() - margin, verts[:, i].max() + margin)
+            margin = (ref_verts[:, i].max() - ref_verts[:, i].min()) * 0.02
+            setter(ref_verts[:, i].min() - margin, ref_verts[:, i].max() + margin)
 
     # Dorsal at top
     ax.invert_zaxis()
