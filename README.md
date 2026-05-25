@@ -82,7 +82,7 @@ bsv.plot_connectivity(
     allen_atlas_path='/path/to/allenCCF',  # path to the Allen CCF atlas directory
     output_region='CP',                    # target region acronym to visualize
     number_of_chunks=10,                   # number of evenly spaced slices to display
-    number_of_pixels=15,                   # pixel resolution per slice panel
+    number_of_pixels=15,                   # number of 2D histogram bins per axis per slice (bin size adapts to region extent)
     plane='coronal',                       # 'coronal' or 'sagittal'
     region_only=True,                      # mask display to target region boundary
     smoothing=2,                           # Gaussian smoothing sigma in pixels (0 for none)
@@ -125,7 +125,7 @@ bsv.plotConnectivity( ...
     allenAtlasPath, ...     % path to the Allen CCF atlas directory
     'CP', ...               % target region acronym to visualize
     10, ...                 % number of evenly spaced slices to display
-    15, ...                 % pixel resolution per slice panel
+    15, ...                 % number of 2D histogram bins per axis per slice (bin size adapts to region extent)
     'coronal', ...          % plane: 'coronal' or 'sagittal'
     true, ...               % region_only: mask display to target region boundary
     2, ...                  % smoothing: Gaussian sigma in pixels (0 for none)
