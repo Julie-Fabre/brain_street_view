@@ -65,7 +65,7 @@ All functions accept extensive configuration through keyword arguments, allowing
 
 # Research impact statement
 
-BSV has been used in published neuroscience research to visualize and analyze projection data from the Allen Connectivity Atlas. It was used in Pan-Vazquez et al. [@PanVazquez2025] to characterize dopaminergic projections from the ventral tegmental area to the striatum, in Song and Peters [@Song2025] to examine prefrontal cortex projections to the striatum during cross-modal sensorimotor learning, and in Piantadosi et al. [@Piantadosi2025] to visualize amygdala connectivity patterns in the context of risk-based decision making.
+BSV has been used in published neuroscience research to visualize and analyze projection data from the Allen Connectivity Atlas. It was used in Pan-Vazquez et al. [@PanVazquez2025] to characterize dopaminergic projections from the ventral tegmental area to the striatum, in Song and Peters [@Song2025] to examine prefrontal cortex projections to the striatum during cross-modal sensorimotor learning, and in Piantadosi et al. [@Piantadosi2025] to visualize amygdala connectivity patterns in the context of risk-based decision making, and in Fabre et al. [@Fabre2026] to map visual cortical projections to the striatum in a study of how the basal ganglia transform visual identity into behavioral relevance.
 
 # AI usage disclosure
 

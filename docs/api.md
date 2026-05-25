@@ -6,6 +6,7 @@ Complete reference for all public functions in Brain Street View.
 
 ```{eval-rst}
 .. autofunction:: bsv.find_connectivity_experiments
+.. autofunction:: bsv.fetch_upstream_regions
 ```
 
 ## Data retrieval

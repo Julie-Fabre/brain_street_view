@@ -11,15 +11,22 @@ Available in both **Python** and **MATLAB**.
 
 ## Installation
 
-**Python:**
+**Python:** (3.9–3.12). We recommend a fresh conda environment:
 
 ```bash
+conda create -n bsv python=3.11
+conda activate bsv
 pip install brain-street-view
 ```
+
+A `venv` works equally well, and plain `pip install brain-street-view` is fine if you
+don't want a dedicated environment.
 
 Or from source:
 
 ```bash
+conda create -n bsv python=3.11
+conda activate bsv
 git clone https://github.com/Julie-Fabre/brain_street_view.git
 cd brain_street_view
 pip install -e .

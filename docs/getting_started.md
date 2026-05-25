@@ -6,9 +6,11 @@ projection patterns to the striatum.
 
 ## Prerequisites
 
-Install the package:
+Install the package (Python 3.9–3.12). A fresh conda environment is recommended:
 
 ```bash
+conda create -n bsv python=3.11
+conda activate bsv
 pip install brain-street-view
 ```
 
