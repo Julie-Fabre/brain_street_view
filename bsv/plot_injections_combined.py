@@ -24,7 +24,9 @@ def plot_injections_combined(experiment_imgs, allen_atlas_path, input_regions,
     number_of_slices : int
         Number of slices per region.
     number_of_pixels : int
-        Pixel resolution per slice panel.
+        Number of 2D histogram bins per axis for each slice. The physical bin
+        size adapts to the spatial extent of the region (bin_size ≈
+        region_extent_voxels / number_of_pixels × atlas_resolution µm).
     plane : str
         ``'coronal'`` or ``'sagittal'``.
     region_only : bool

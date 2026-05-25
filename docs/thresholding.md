@@ -12,26 +12,38 @@ Identify significant projection signals using absolute, percentile, z-score, or 
 # Percentile - keep top 10% of voxels
 bsv.threshold_connectivity(
     experiment_data=experiment_imgs,
-    allen_atlas_path='/path/to/allenCCF',
-    input_region='CP',
-    number_of_chunks=10,
-    number_of_pixels=15,
-    plane='coronal',
-    region_only=True,
-    smoothing=2,
-    color_limits='global',
-    color=color,
-    threshold=90,
-    threshold_method='percentile')
+    allen_atlas_path='/path/to/allenCCF',  # atlas files auto-downloaded here on first use
+    input_region='CP',                     # target region acronym
+    number_of_chunks=10,                   # number of evenly spaced slices to display
+    number_of_pixels=15,                   # number of 2D histogram bins per axis per slice (bin size adapts to region extent)
+    plane='coronal',                       # 'coronal' or 'sagittal'
+    region_only=True,                      # mask display to target region boundary
+    smoothing=2,                           # Gaussian smoothing sigma in bins (0 for none)
+    color_limits='global',                 # 'global', 'per_slice', or [min, max]
+    color=color,                           # RGB colour(s) for region groups
+    threshold=90,                          # threshold value (interpretation depends on threshold_method)
+    threshold_method='percentile')         # 'percentile', 'absolute', 'zscore', or 'relative'
 
-# Other methods:
-#   threshold_method='absolute'  - raw density cutoff
-#   threshold_method='zscore'    - z-score cutoff
-#   threshold_method='relative'  - fraction of max (0-1)
+# threshold_method options:
+#   'percentile' - keep voxels above the Nth percentile (threshold=90 → top 10%)
+#   'absolute'   - raw density cutoff
+#   'zscore'     - z-score cutoff
+#   'relative'   - fraction of max (threshold between 0 and 1)
 ```
 
 **MATLAB:**
 ```matlab
-bsv.thresholdConnectivity(experimentImgs, allenAtlasPath, 'CP', ...
-    10, 15, 'coronal', true, 2, 'global', color, 90, 'percentile')
+bsv.thresholdConnectivity( ...
+    experimentImgs, ...    % projection fluorescence array from fetchConnectivityData
+    allenAtlasPath, ...    % atlas files auto-downloaded here on first use
+    'CP', ...              % target region acronym
+    10, ...                % number of evenly spaced slices to display
+    15, ...                % number of 2D histogram bins per axis per slice (bin size adapts to region extent)
+    'coronal', ...         % 'coronal' or 'sagittal'
+    true, ...              % region_only: mask to target region boundary
+    2, ...                 % smoothing sigma in bins
+    'global', ...          % color_limits: 'global', 'per_slice', or [min, max]
+    color, ...             % RGB colour(s) for region groups
+    90, ...                % threshold value
+    'percentile')          % threshold_method: 'percentile', 'absolute', 'zscore', or 'relative'
 ```
