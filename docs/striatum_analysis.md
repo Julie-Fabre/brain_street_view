@@ -59,6 +59,14 @@ proj_matrix, proj_coords, sub_results, glob_results = \
         normalization_info='injectionIntensity')
 ```
 
+The exported CSV contains one row per striatum subregion with its
+`GlobalMeanIntensity` (mean projection fluorescence across all analysed voxels of that
+subregion) and `TotalVoxelCount`, sorted from strongest to weakest. A companion
+`*_nonzero.csv` is also written containing only subregions that received signal. The
+returned `global_results` dict holds the same per-subregion summary intensities, while
+`subregion_results` breaks them down per group (e.g. per injection-AP group) and per
+slice.
+
 **MATLAB:**
 ```matlab
 [projMatrix, projCoords] = bsv.plotConnectivity(experimentImgs, allenAtlasPath, ...

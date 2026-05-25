@@ -49,9 +49,9 @@ Several tools exist for working with Allen Brain Atlas data. The Allen SDK [@all
 BSV is organized as a four-step pipeline:
 
 1. **Experiment discovery**: `find_connectivity_experiments` queries the Allen API with filters for source region, transgenic line, and injection parameters, returning a list of experiment IDs.
-2. **Data retrieval**: `fetch_connectivity_data` downloads projection density volumes for each experiment, caches them locally, and applies user-specified normalization. It supports multiple atlas resolutions and handles the coordinate transformations needed to align data across experiments.
+2. **Data retrieval**: `fetch_connectivity_data` downloads projection density volumes for each experiment, caches them locally, and applies user-specified normalization. It supports multiple atlas resolutions and handles the coordinate transformations needed to align data across experiments. Experiments can optionally be grouped by injection-site location along the anterior-posterior, medial-lateral, or dorsal-ventral axis (or pooled by source region), allowing projection topography to be compared across injection sites (\autoref{fig:ap_grouped}).
 3. **Visualization**: `plot_connectivity` generates 2D slice views with region masking, while `plot_connectivity_3d` produces 3D isosurface renderings. `plot_connectivity_multi_region` enables side-by-side comparison of projections from different source regions. `threshold_connectivity` applies signal thresholding using multiple statistical methods.
-4. **Analysis**: `analyze_cp_subregions` decomposes projection signals into anatomical subdivisions of the caudate putamen and nucleus accumbens, producing per-slice and summary statistics with optional CSV export.
+4. **Analysis**: `analyze_cp_subregions` decomposes projection signals into anatomical subdivisions of the caudate putamen and nucleus accumbens, producing a mean projection intensity per subregion---broken down per slice and per group, and as a global per-subregion summary---with optional CSV export.
 
 All functions accept extensive configuration through keyword arguments, allowing users to customize atlas resolution, normalization method, colormap, threshold strategy, and output format. Data downloaded from the Allen API is cached locally to avoid redundant network requests.
 
