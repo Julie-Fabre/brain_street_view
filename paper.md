@@ -69,7 +69,7 @@ BSV has been used in published neuroscience research to visualize and analyze pr
 
 # AI usage disclosure
 
-Claude Code (Anthropic) was used to assist with porting the original MATLAB codebase to Python and to help draft portions of this manuscript. All AI-generated code and text were reviewed and edited by the author.
+Claude Code (Anthropic) was used to assist with porting the original MATLAB codebase to Python, to help draft portions of the documentation, and to help draft portions of this manuscript. All AI-generated code, documentation, and text were reviewed and edited by the author.
 
 # Acknowledgements
 

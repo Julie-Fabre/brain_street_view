@@ -4,6 +4,8 @@ Load, visualize, and analyze [Allen Mouse Brain Connectivity Atlas](http://conne
 
 Available in both **Python** and **MATLAB**.
 
+📦 **Source code:** [github.com/Julie-Fabre/brain_street_view](https://github.com/Julie-Fabre/brain_street_view)
+
 ```{image} ../images/bsv.png
 :width: 200px
 :align: center
