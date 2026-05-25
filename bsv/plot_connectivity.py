@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 from matplotlib.path import Path
+from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 from scipy.ndimage import gaussian_filter
 
 from .atlas_utils import load_atlas, find_structure_indices, get_structure_color
@@ -173,6 +175,12 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
         n_groups = 1
         collapsed = experiment_data[:, :, :half_slices] + experiment_data[:, :, ::-1][:, :, :half_slices]
 
+    # Number of plot rows: one per group present in the data. Grouping by
+    # injection AP/ML/DV (or by region) in fetch_connectivity_data adds groups
+    # along axis 3, and each becomes its own row. Falls back to the region-group
+    # count so region-based grouping and the ungrouped single-row case are unchanged.
+    n_rows = max(n_region_groups, n_groups)
+
     # Conversion factor: atlas voxels per projection grid voxel
     # Atlas is at atlas_resolution um, projection grid is at 100 um
     atlas_to_grid = 100 / atlas_resolution
@@ -246,8 +254,8 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
         global_vmax = 1
 
     # Plot
-    fig, axes = plt.subplots(n_region_groups, number_of_chunks,
-                              figsize=(3 * number_of_chunks, 3 * n_region_groups),
+    fig, axes = plt.subplots(n_rows, number_of_chunks,
+                              figsize=(3 * number_of_chunks, 3 * n_rows),
                               squeeze=False)
     fig.patch.set_facecolor('white')
     fig.canvas.manager.set_window_title('Fluorescence intensity')
@@ -277,7 +285,7 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
 
         is_in = _build_region_mask(x_edges, y_edges, bnd_x, bnd_y)
 
-        for i_rg in range(n_region_groups):
+        for i_rg in range(n_rows):
             ax = axes[i_rg, i_chunk]
 
             if projection_matrix[i_chunk].ndim == 3 and projection_matrix[i_chunk].shape[2] > i_rg:
@@ -310,13 +318,26 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                 try:
                     hull = ConvexHull(pts)
                     hull_pts = pts[np.append(hull.vertices, hull.vertices[0])]
-                    ax.plot(hull_pts[:, 0], hull_pts[:, 1], color=plot_structure_color, linewidth=2)
+                    ax.plot(hull_pts[:, 0], hull_pts[:, 1], color=plot_structure_color, linewidth=3.5)
                 except Exception:
                     pass
 
             ax.set_xticks([])
             ax.set_yticks([])
             ax.axis('off')
+
+            # 1 mm scale bar, placed just *below* the bottom-right panel so it never
+            # overlaps the data. Axes are in atlas voxels (atlas_resolution µm each)
+            # with aspect='equal', so 1 mm = 1000/res voxels.
+            if i_rg == n_rows - 1 and i_chunk == number_of_chunks - 1:
+                bar_units = 1000.0 / atlas_resolution
+                scalebar = AnchoredSizeBar(
+                    ax.transData, bar_units, '1 mm', loc='upper right',
+                    bbox_to_anchor=(1.0, -0.02), bbox_transform=ax.transAxes,
+                    pad=0.1, borderpad=0.0, sep=4, color='black', frameon=False,
+                    size_vertical=max(bar_units * 0.04, 0.5),
+                    fontproperties=fm.FontProperties(size=14))
+                ax.add_artist(scalebar)
 
             # ARA slice level
             if custom_slices:
@@ -328,18 +349,40 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
             if i_rg == 0:
                 if i_chunk == 0:
                     prefix = 'ARA level (cor.): ' if plane == 'coronal' else 'ARA level (sag.): '
-                    ax.set_title(f'{prefix}{this_slice_ara}', fontsize=9)
+                    ax.set_title(f'{prefix}{this_slice_ara}', fontsize=16)
                 else:
-                    ax.set_title(str(this_slice_ara), fontsize=9)
+                    ax.set_title(str(this_slice_ara), fontsize=16)
 
-            if i_chunk == 0 and input_regions:
+            if i_chunk == 0 and input_regions and i_rg < len(region_groups_cell):
                 regions_in_group = region_groups_cell[i_rg]
                 group_names = [input_regions[r] for r in regions_in_group]
                 label = '+'.join(group_names)
                 ax.text(-0.15, 0.5, label, transform=ax.transAxes,
-                        fontweight='bold', fontsize=12, ha='right', va='center', rotation=90)
+                        fontweight='bold', fontsize=18, ha='right', va='center', rotation=90)
+            elif i_chunk == 0 and n_groups > 1:
+                # Per-row sub-label: the exact injection-site coordinate of this group
+                # (e.g. "AP 7560 µm"). The shared "Injection location (CCF)" header is
+                # added once after the loop. Falls back to a generic group index.
+                label = f'Group {i_rg + 1}'
+                if experiment_region_info:
+                    centers = experiment_region_info.get('group_centers')
+                    axis = experiment_region_info.get('grouping_axis')
+                    if (centers is not None and axis and i_rg < len(centers)
+                            and np.isfinite(centers[i_rg])):
+                        label = f'{axis} {centers[i_rg]:.0f} µm'
+                ax.text(-0.15, 0.5, label, transform=ax.transAxes,
+                        fontweight='bold', fontsize=13, ha='right', va='center', rotation=90)
 
     plt.tight_layout()
+
+    # Single shared header for coordinate-grouped rows (AP/ML/DV); the per-row
+    # sub-labels above give the actual coordinate of each level.
+    if (not input_regions and n_groups > 1 and experiment_region_info
+            and experiment_region_info.get('group_centers') is not None
+            and experiment_region_info.get('grouping_axis')):
+        fig.text(0.015, 0.5, 'Injection location (CCF)', rotation=90,
+                 va='center', ha='center', fontweight='bold', fontsize=16)
+
     plt.show(block=False)
 
     # Build return arrays

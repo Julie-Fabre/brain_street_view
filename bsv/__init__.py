@@ -12,4 +12,5 @@ from .plot_multi_region_injections import plot_multi_region_injections
 from .threshold_connectivity import threshold_connectivity
 from .analyze_cp_subregions import analyze_cp_subregions
 from .plot_connectivity_with_subregion_analysis import plot_connectivity_with_subregion_analysis
+from .plot_connectivity_matrix import plot_connectivity_matrix
 from .atlas_utils import load_atlas, load_structure_tree, find_structure_indices, get_structure_color

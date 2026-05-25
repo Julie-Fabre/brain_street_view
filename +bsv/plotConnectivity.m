@@ -505,6 +505,9 @@ figProjection = figure('Name', 'Fluorescence intensity', 'Color', 'w');
 
 % Get nGroups from experimentData for compatibility with return value logic
 nGroups = size(experimentData, 4);
+% Number of plot rows = one per group present in the data (AP/ML/DV or region
+% grouping adds groups along dim 4), falling back to the region-group count.
+nRows = max(nRegionGroups, nGroups);
 for iChunk = 1:numberOfChunks
 
     clearvars regionLocation isIN
@@ -532,24 +535,25 @@ for iChunk = 1:numberOfChunks
         end
     end
 
-    for iRegionGroup = 1:nRegionGroups
-        % Get the regions that belong to this region group
-        regionsInThisGroup = regionGroups{iRegionGroup};
-        
-        if iChunk == 1  % Only print debug for first chunk to avoid spam
+    for iRegionGroup = 1:nRows
+        % Get the regions that belong to this region group (region grouping only)
+        if iRegionGroup <= numel(regionGroups)
+            regionsInThisGroup = regionGroups{iRegionGroup};
+        else
+            regionsInThisGroup = [];
         end
-        
-        % Extract data for this region group (already pre-grouped in fetchConnectivityData)
+
+        % Extract data for this group (already pre-grouped in fetchConnectivityData)
         if size(projectionMatrix{iChunk}, 3) >= iRegionGroup
             avgData = projectionMatrix{iChunk}(:, :, iRegionGroup);
         else
             % Fallback to 2D data
             avgData = projectionMatrix{iChunk}(:, :);
         end
-        
+
         % setup plotting axis
         figure(figProjection);
-        subplot(nRegionGroups, numberOfChunks, (iRegionGroup - 1)*numberOfChunks+iChunk)
+        subplot(nRows, numberOfChunks, (iRegionGroup - 1)*numberOfChunks+iChunk)
         hold on;
         ax = gca;
 
@@ -666,10 +670,33 @@ for iChunk = 1:numberOfChunks
             text(xlims(1) - 0.15*(xlims(2)-xlims(1)), mean(ylims), groupLabel, ...
                 'FontWeight', 'bold', 'FontSize', 12, 'HorizontalAlignment', 'right', ...
                 'VerticalAlignment', 'middle', 'Rotation', 90, 'Color', 'black');
+        elseif iChunk == 1 && nGroups > 1
+            % Per-row sub-label: the exact injection coordinate of this group
+            % (e.g. "AP 7560 µm"). A single shared "Injection location (CCF)"
+            % header is added once, on the middle row.
+            if ~isempty(experimentRegionInfo) && isfield(experimentRegionInfo, 'group_centers') ...
+                    && ~isempty(experimentRegionInfo.group_centers) ...
+                    && iRegionGroup <= numel(experimentRegionInfo.group_centers) ...
+                    && isfinite(experimentRegionInfo.group_centers(iRegionGroup))
+                groupLabel = sprintf('%s %.0f \\mum', experimentRegionInfo.grouping_axis, ...
+                    experimentRegionInfo.group_centers(iRegionGroup));
+            else
+                groupLabel = sprintf('Group %d', iRegionGroup);
+            end
+            xlims = xlim;
+            ylims = ylim;
+            text(xlims(1) - 0.15*(xlims(2)-xlims(1)), mean(ylims), groupLabel, ...
+                'FontWeight', 'bold', 'FontSize', 12, 'HorizontalAlignment', 'right', ...
+                'VerticalAlignment', 'middle', 'Rotation', 90, 'Color', 'black');
+            if iRegionGroup == ceil(nRows/2)
+                text(xlims(1) - 0.45*(xlims(2)-xlims(1)), mean(ylims), 'Injection location (CCF)', ...
+                    'FontWeight', 'bold', 'FontSize', 13, 'HorizontalAlignment', 'center', ...
+                    'VerticalAlignment', 'middle', 'Rotation', 90, 'Color', 'black');
+            end
         end
-        
+
         % Add colorbar for the last subplot in each row
-        if iChunk == numberOfChunks && iRegionGroup == nRegionGroups
+        if iChunk == numberOfChunks && iRegionGroup == nRows
             cb = colorbar('eastoutside');
             
             % Create informative label based on normalization method and data characteristics
@@ -732,7 +759,7 @@ end
 xlims_region = nan(numberOfChunks, 2);
 ylims_region = nan(numberOfChunks, 2);
 for iChunk = 1:numberOfChunks
-    subplot(nRegionGroups, numberOfChunks, (nRegionGroups - 1)*numberOfChunks+iChunk)
+    subplot(nRows, numberOfChunks, (nRows - 1)*numberOfChunks+iChunk)
     xlims_region(iChunk, :) = xlim;
     ylims_region(iChunk, :) = ylim;
 end
@@ -740,8 +767,8 @@ end
 diff_xlims_region = diff(xlims_region');
 diff_ylims_region = diff(ylims_region');
 for iChunk = 1:numberOfChunks
-    for iRegionGroup = 1:nRegionGroups
-        subplot(nRegionGroups, numberOfChunks, (iRegionGroup - 1)*numberOfChunks+iChunk)
+    for iRegionGroup = 1:nRows
+        subplot(nRows, numberOfChunks, (iRegionGroup - 1)*numberOfChunks+iChunk)
 
         xlims_here = (max(diff_xlims_region) - diff_xlims_region(iChunk)) ./ 2;
         xlim([xlims_region(iChunk, 1) - xlims_here, xlims_region(iChunk, 2) + xlims_here])

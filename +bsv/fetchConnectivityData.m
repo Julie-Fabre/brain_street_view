@@ -1,5 +1,5 @@
 function [combinedProjection, combinedInjectionInfo, individualProjections, experimentRegionInfo] = fetchConnectivityData(experimentIDs, saveLocation, fileName, ...
-    normalizationMethod, subtractOtherHemisphere, groupingMethod, allenAtlasPath, loadAll, inputRegions, regionGroups, exportMetadata, reload, atlasType, atlasResolution)
+    normalizationMethod, subtractOtherHemisphere, groupingMethod, allenAtlasPath, loadAll, inputRegions, regionGroups, exportMetadata, reload, atlasType, atlasResolution, groupingBins)
 
 if nargin < 6 || isempty(groupingMethod) || nargin < 7 || isempty(allenAtlasPath) % group experiments by brain region (groupingMethod = 'region') or not
     groupingMethod = 'NaN';
@@ -27,6 +27,9 @@ if nargin < 13 || isempty(atlasType)
 end
 if nargin < 14 || isempty(atlasResolution)
     atlasResolution = 10; % Default to 10um resolution
+end
+if nargin < 15 || isempty(groupingBins)
+    groupingBins = 5; % Default number of equal-width AP/ML/DV bins (display rows)
 end
 
 %% Construct atlas filenames based on type and resolution
@@ -179,30 +182,54 @@ primaryStructure_abbreviation = cell(nExpIDs, 1);
     end
     fprintf('─────────────────────────────────\n\n');
 
-    % % grouping method 
+    % % grouping method
+    groupCenters = [];   % mean injection coordinate per group (for row labels)
+    groupingAxis = '';   % 'AP'/'ML'/'DV' when grouping by injection location
     if strcmp(groupingMethod, 'brainRegion')
         % because of hierarchy differences, this doesn't make much sense
-        % currently, not implemented 
+        % currently, not implemented
         warning('grouping method not implemented yet - skipping grouping. ')
-        % [sorted_values, sort_indices] = st.acronym(st.id == combinedInjectionInfo.structure_id);
-        % [groups, ~, groupID] = unique(primaryStructure_ID);
-        % groupID_original_order = zeros(size(groupID));
-        % groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'AP') % group by AP value
-        [sorted_values, sort_indices] = sort(primaryStructure_AP);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'ML') % group by ML value
-        [sorted_values, sort_indices] = sort(primaryStructure_ML);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
-    elseif strcmp(groupingMethod, 'DV') % group by DV value
-        [sorted_values, sort_indices] = sort(primaryStructure_DV);
-        [groups, ~, groupID] = unique(sorted_values);
-        groupID_original_order = zeros(size(groupID));
-        groupID_original_order(sort_indices) = groupID;
+        groups = ones(size(experimentIDs, 2), 1);
+        groupID_original_order = ones(size(experimentIDs, 2), 1);
+    elseif ismember(groupingMethod, {'AP', 'ML', 'DV'}) % group by injection coordinate, binned into equal-width levels
+        switch groupingMethod
+            case 'AP'
+                coordVals = double(primaryStructure_AP(:));
+            case 'ML'
+                coordVals = double(primaryStructure_ML(:));
+            case 'DV'
+                coordVals = double(primaryStructure_DV(:));
+        end
+        nBins = max(1, round(groupingBins));
+        finiteMask = isfinite(coordVals) & coordVals ~= 0; % 0 = coordinate not parsed
+        groupID_original_order = zeros(numel(coordVals), 1);
+        if any(finiteMask) && nBins > 1 && max(coordVals(finiteMask)) > min(coordVals(finiteMask))
+            % Bin the continuous injection coordinate into equal-width levels
+            % (anterior->posterior for AP) so each level becomes one display row.
+            edges = linspace(min(coordVals(finiteMask)), max(coordVals(finiteMask)), nBins + 1);
+            binIdx = discretize(coordVals(finiteMask), edges);
+            binIdx(isnan(binIdx)) = nBins; % values at the max edge
+            tmp = zeros(numel(coordVals), 1);
+            tmp(finiteMask) = binIdx;
+            % Drop empty bins and renumber 1..numberOfGroups so there are no blank rows.
+            present = unique(tmp(tmp > 0));
+            for iG = 1:numel(present)
+                groupID_original_order(tmp == present(iG)) = iG;
+            end
+            numberOfGroups = numel(present);
+        else
+            groupID_original_order(:) = 1;
+            numberOfGroups = 1;
+        end
+        groups = (1:numberOfGroups)';
+        % Exact center of each group = mean injection coordinate of its experiments.
+        groupingAxis = groupingMethod;
+        groupCenters = nan(numberOfGroups, 1);
+        for iG = 1:numberOfGroups
+            groupCenters(iG) = mean(coordVals(groupID_original_order == iG));
+        end
+        fprintf('Grouping by %s into %d bin(s) (%d experiments)\n', ...
+            groupingMethod, numberOfGroups, sum(groupID_original_order > 0));
     elseif strcmp(groupingMethod, 'NaN') || isempty(groupingMethod) % no grouping
         groups = ones(size(experimentIDs, 2), 1);
         groupID_original_order = ones(size(experimentIDs, 2), 1);
@@ -271,7 +298,9 @@ primaryStructure_abbreviation = cell(nExpIDs, 1);
         % Override the grouping variables
         numberOfGroups = nRegionGroups;
         groupID_original_order = regionBasedGroupID;
-        
+        groupCenters = [];   % region grouping is labelled by region name, not coordinate
+        groupingAxis = '';
+
         fprintf('Region-based grouping: %d experiments mapped to %d groups\n', sum(regionBasedGroupID > 0), numberOfGroups);
     end
     
@@ -373,6 +402,8 @@ primaryStructure_abbreviation = cell(nExpIDs, 1);
     experimentRegionInfo.primaryStructure_AP = primaryStructure_AP;
     experimentRegionInfo.primaryStructure_DV = primaryStructure_DV;
     experimentRegionInfo.primaryStructure_ML = primaryStructure_ML;
+    experimentRegionInfo.group_centers = groupCenters;
+    experimentRegionInfo.grouping_axis = groupingAxis;
     
     % Export metadata to CSV if requested
     if exportMetadata

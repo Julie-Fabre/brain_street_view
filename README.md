@@ -27,12 +27,23 @@ See the script `gettingStarted.mlx`. Requires MATLAB>=2019a.
 
 #### Python
 
+Brain Street View supports Python 3.9–3.12. We recommend installing into a fresh
+conda environment to avoid dependency conflicts:
+
 ```bash
+conda create -n bsv python=3.11
+conda activate bsv
 pip install brain-street-view
 ```
 
+(A `venv` works just as well: `python -m venv bsv && source bsv/bin/activate`.)
+If you prefer not to use an environment, `pip install brain-street-view` on its own
+is fine too.
+
 Or from source:
 ```bash
+conda create -n bsv python=3.11
+conda activate bsv
 git clone https://github.com/Julie-Fabre/brain_street_view.git
 cd brain_street_view
 pip install -e .

@@ -11,7 +11,8 @@ from .fetch_connectivity_summary import fetch_connectivity_summary, load_injecti
 
 def plot_upstream_projectome(experiment_ids, source_regions, target_region, save_location,
                               allen_atlas_path, atlas_resolution=10, atlas_type='allen',
-                              slice_thickness=2, density_percentile=99):
+                              slice_thickness=2, density_percentile=99,
+                              static_ap=None, save_path=None):
     """Interactive coronal slice viewer of upstream projections into a target region.
 
     Displays a Jupyter widget with a coronal AP slider showing:
@@ -45,6 +46,12 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
         Percentile of non-zero target-voxel density values used as the colour
         saturation ceiling (default 99). Lower values make dim signals brighter;
         raise toward 100 to avoid saturation on bright spots.
+    static_ap : int or None, optional
+        If given, render this single AP slice (100 µm grid index) as a static
+        figure instead of launching the interactive widget — used to produce
+        documentation figures headlessly.
+    save_path : str or None, optional
+        When *static_ap* is set, save the rendered figure to this path.
     """
     AP, DV, ML = PROJECTION_GRID_SIZE
     # Number of full-res atlas voxels per 100 µm projection grid voxel
@@ -248,6 +255,14 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
 
         plt.tight_layout()
         plt.show()
+
+    # ------------------------------------- static render (docs / headless use)
+    if static_ap is not None:
+        _draw(int(static_ap))
+        if save_path:
+            plt.savefig(save_path, facecolor='black', bbox_inches='tight')
+            print(f'Saved: {save_path}')
+        return
 
     # --------------------------------------------------------- widget assembly
     out = widgets.Output()

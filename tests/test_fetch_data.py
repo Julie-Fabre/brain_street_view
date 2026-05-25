@@ -1,11 +1,13 @@
 import os
 import json
 import numpy as np
+import pytest
 import bsv
 from bsv.fetch_connectivity_summary import fetch_connectivity_summary, load_injection_summary
 from bsv.fetch_connectivity_images import fetch_connectivity_images, PROJECTION_GRID_SIZE
 
 
+@pytest.mark.network
 def test_fetch_summary(save_location, test_experiment_ids):
     exp_id = test_experiment_ids[0]
     save_dir = os.path.join(save_location, str(exp_id))
@@ -30,6 +32,7 @@ def test_fetch_summary(save_location, test_experiment_ids):
     print(f'Summary has {len(data)} injection entries')
 
 
+@pytest.mark.network
 def test_fetch_images(save_location, test_experiment_ids):
     exp_id = test_experiment_ids[0]
     save_dir = os.path.join(save_location, str(exp_id))

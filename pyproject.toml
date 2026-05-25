@@ -51,3 +51,10 @@ include = ["bsv*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "network: test makes live HTTP requests to the Allen Brain Atlas API",
+    "atlas: test requires the Allen CCF atlas files (~2.4 GB) downloaded locally",
+]

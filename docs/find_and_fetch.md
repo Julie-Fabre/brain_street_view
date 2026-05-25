@@ -46,3 +46,44 @@ experimentIDs = bsv.findConnectivityExperiments({'VISp', 'VISl', 'VISal', 'VISam
 ```
 
 Data is cached locally after the first download, so subsequent calls load from disk.
+
+## Grouping experiments by injection location
+
+By default all experiments are averaged into a single projection volume. Setting
+`grouping_method` instead splits them into groups by the coordinate of their
+**injection site**, so you can see how projection topography varies with injection
+location:
+
+- `'AP'` — group by anterior–posterior coordinate
+- `'ML'` — group by medial–lateral coordinate
+- `'DV'` — group by dorsal–ventral coordinate
+- `''` — no grouping (default; average everything together)
+
+The continuous injection coordinate is split into `grouping_bins` equal-width levels
+(default 5), and the returned `experiment_imgs` gains a `groups` axis
+(AP x DV x ML x **groups**). Passing this to {func}`bsv.plot_connectivity` renders each
+level as its own row of slices.
+
+**Python:**
+```python
+(experiment_imgs,    # ndarray (AP x DV x ML x groups): one group per AP level
+ injection_summary, _, _
+) = bsv.fetch_connectivity_data(
+    experiment_ids=experiment_ids,
+    save_location='/path/to/cache',
+    file_name='my_query',
+    normalization_method='injectionIntensity',
+    subtract_other_hemisphere=False,
+    grouping_method='AP',                   # 'AP', 'ML', 'DV', or '' for none
+    grouping_bins=3,                        # number of equal-width AP levels (rows)
+    allen_atlas_path='/path/to/allenCCF')
+```
+
+**MATLAB:** pass `'AP'` (or `'ML'`/`'DV'`) as the sixth argument to
+`bsv.fetchConnectivityData`. Note that the MATLAB version groups by *exact* injection
+coordinate (one row per distinct value); equal-width binning via `grouping_bins` is
+currently Python-only.
+
+To instead group by **source region** (e.g. pooling several visual areas into one
+row), pass `input_regions` together with `region_groups` — a group index per region —
+rather than `grouping_method`.

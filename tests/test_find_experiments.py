@@ -1,6 +1,8 @@
+import pytest
 import bsv
 
 
+@pytest.mark.network
 def test_find_visp_experiments():
     """Test finding experiments for VISp - should return multiple IDs."""
     ids = bsv.find_connectivity_experiments(['VISp'])
@@ -9,6 +11,7 @@ def test_find_visp_experiments():
     print(f'Found {len(ids)} VISp experiments')
 
 
+@pytest.mark.network
 def test_find_with_mouse_line():
     """Test filtering by mouse line (wild-type = C57BL/6J)."""
     ids_all = bsv.find_connectivity_experiments(['VISp'])
@@ -18,6 +21,7 @@ def test_find_with_mouse_line():
     print(f'VISp all: {len(ids_all)}, wild-type: {len(ids_wt)}')
 
 
+@pytest.mark.network
 def test_find_multiple_regions():
     """Test querying multiple regions returns IDs from both."""
     ids = bsv.find_connectivity_experiments(['VISp', 'VISl'])
