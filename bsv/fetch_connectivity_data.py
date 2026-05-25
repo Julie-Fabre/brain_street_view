@@ -13,7 +13,8 @@ def fetch_connectivity_data(experiment_ids, save_location, file_name,
                             grouping_method='', allen_atlas_path='',
                             load_all=False, input_regions=None, region_groups=None,
                             export_metadata=True, reload=False,
-                            atlas_type='allen', atlas_resolution=10):
+                            atlas_type='allen', atlas_resolution=10,
+                            grouping_bins=5):
     """Download and cache projection density maps for a set of experiments.
 
     Parameters
@@ -30,7 +31,12 @@ def fetch_connectivity_data(experiment_ids, save_location, file_name,
         Subtract the contralateral hemisphere signal.
     grouping_method : str, optional
         Group experiments by ``'AP'``, ``'ML'``, ``'DV'``, or ``''`` (no
-        grouping).
+        grouping). For ``'AP'``/``'ML'``/``'DV'`` the continuous injection-site
+        coordinate is binned into *grouping_bins* equal-width levels.
+    grouping_bins : int, optional
+        Number of equal-width bins (display rows) to split the injection
+        coordinate into when *grouping_method* is ``'AP'``/``'ML'``/``'DV'``.
+        Default is 5. Empty bins are dropped.
     allen_atlas_path : str, optional
         Path to the Allen CCF atlas directory.
     load_all : bool, optional
@@ -131,15 +137,37 @@ def fetch_connectivity_data(experiment_ids, save_location, file_name,
         print(f'  {reg}: {count} experiments')
 
     # Grouping
+    group_centers = None   # mean injection coordinate per group (for row labels)
+    grouping_axis = None   # 'AP' / 'ML' / 'DV' when grouping by injection location
     if grouping_method in ('AP', 'ML', 'DV'):
         coord_map = {'AP': primary_structure_AP, 'ML': primary_structure_ML, 'DV': primary_structure_DV}
-        vals = coord_map[grouping_method]
-        sorted_idx = np.argsort(vals)
-        unique_vals = np.unique(vals[sorted_idx])
+        vals = np.asarray(coord_map[grouping_method], dtype=float)
+        # An injection coordinate of 0 means it could not be parsed from the CSV.
+        finite = np.isfinite(vals) & (vals != 0)
+        n_bins = max(1, int(grouping_bins))
         group_id = np.zeros(n_exp, dtype=int)
-        for j, v in enumerate(unique_vals):
-            group_id[vals == v] = j + 1
-        n_groups = len(unique_vals)
+        if finite.any() and n_bins > 1 and vals[finite].max() > vals[finite].min():
+            # Bin the continuous injection coordinate into equal-width levels
+            # (anterior->posterior for AP) so each level becomes one display row.
+            edges = np.linspace(vals[finite].min(), vals[finite].max(), n_bins + 1)
+            bin_idx = np.clip(np.digitize(vals[finite], edges) - 1, 0, n_bins - 1)
+            group_id[finite] = bin_idx + 1
+            # Drop empty bins and renumber 1..n_groups so there are no blank rows.
+            present = sorted(set(group_id[group_id > 0].tolist()))
+            remap = {g: i + 1 for i, g in enumerate(present)}
+            group_id = np.array([remap.get(g, 0) for g in group_id], dtype=int)
+            n_groups = len(present)
+        else:
+            group_id[:] = 1
+            n_groups = 1
+        # Exact center of each group = mean injection coordinate of its experiments.
+        grouping_axis = grouping_method
+        group_centers = np.array([
+            float(np.mean(vals[group_id == g + 1])) if np.any(group_id == g + 1) else np.nan
+            for g in range(n_groups)
+        ])
+        print(f'Grouping by {grouping_method} into {n_groups} bin(s) '
+              f'({int((group_id > 0).sum())} experiments)')
     elif grouping_method == 'NaN' or not grouping_method:
         group_id = np.ones(n_exp, dtype=int)
         n_groups = 1
@@ -170,6 +198,8 @@ def fetch_connectivity_data(experiment_ids, save_location, file_name,
 
         n_groups = n_region_groups
         group_id = region_based_group_id
+        group_centers = None   # region grouping is labelled by region name, not coordinate
+        grouping_axis = None
         print(f'Region-based grouping: {np.sum(group_id > 0)} experiments mapped to {n_groups} groups')
 
     # Initialize combined projection
@@ -243,6 +273,8 @@ def fetch_connectivity_data(experiment_ids, save_location, file_name,
         'primaryStructure_AP': primary_structure_AP,
         'primaryStructure_DV': primary_structure_DV,
         'primaryStructure_ML': primary_structure_ML,
+        'group_centers': group_centers,
+        'grouping_axis': grouping_axis,
     }
 
     # Export metadata CSV

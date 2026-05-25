@@ -173,6 +173,12 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
         n_groups = 1
         collapsed = experiment_data[:, :, :half_slices] + experiment_data[:, :, ::-1][:, :, :half_slices]
 
+    # Number of plot rows: one per group present in the data. Grouping by
+    # injection AP/ML/DV (or by region) in fetch_connectivity_data adds groups
+    # along axis 3, and each becomes its own row. Falls back to the region-group
+    # count so region-based grouping and the ungrouped single-row case are unchanged.
+    n_rows = max(n_region_groups, n_groups)
+
     # Conversion factor: atlas voxels per projection grid voxel
     # Atlas is at atlas_resolution um, projection grid is at 100 um
     atlas_to_grid = 100 / atlas_resolution
@@ -246,8 +252,8 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
         global_vmax = 1
 
     # Plot
-    fig, axes = plt.subplots(n_region_groups, number_of_chunks,
-                              figsize=(3 * number_of_chunks, 3 * n_region_groups),
+    fig, axes = plt.subplots(n_rows, number_of_chunks,
+                              figsize=(3 * number_of_chunks, 3 * n_rows),
                               squeeze=False)
     fig.patch.set_facecolor('white')
     fig.canvas.manager.set_window_title('Fluorescence intensity')
@@ -277,7 +283,7 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
 
         is_in = _build_region_mask(x_edges, y_edges, bnd_x, bnd_y)
 
-        for i_rg in range(n_region_groups):
+        for i_rg in range(n_rows):
             ax = axes[i_rg, i_chunk]
 
             if projection_matrix[i_chunk].ndim == 3 and projection_matrix[i_chunk].shape[2] > i_rg:
@@ -332,10 +338,22 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                 else:
                     ax.set_title(str(this_slice_ara), fontsize=16)
 
-            if i_chunk == 0 and input_regions:
+            if i_chunk == 0 and input_regions and i_rg < len(region_groups_cell):
                 regions_in_group = region_groups_cell[i_rg]
                 group_names = [input_regions[r] for r in regions_in_group]
                 label = '+'.join(group_names)
+                ax.text(-0.15, 0.5, label, transform=ax.transAxes,
+                        fontweight='bold', fontsize=18, ha='right', va='center', rotation=90)
+            elif i_chunk == 0 and n_groups > 1:
+                # Label rows with the exact injection-coordinate center of each group
+                # (e.g. "AP 7560 µm") when available, else a generic group index.
+                label = f'Group {i_rg + 1}'
+                if experiment_region_info:
+                    centers = experiment_region_info.get('group_centers')
+                    axis = experiment_region_info.get('grouping_axis')
+                    if (centers is not None and axis and i_rg < len(centers)
+                            and np.isfinite(centers[i_rg])):
+                        label = f'{axis} {centers[i_rg]:.0f} µm'
                 ax.text(-0.15, 0.5, label, transform=ax.transAxes,
                         fontweight='bold', fontsize=18, ha='right', va='center', rotation=90)
 

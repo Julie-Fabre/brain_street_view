@@ -56,11 +56,12 @@ print('Generating: VISam → CP grouped by AP location...')
 exp_imgs_ap, _, _, exp_region_info_ap = bsv.fetch_connectivity_data(
     exp_ids, save_location, '', 'injectionIntensity', False,
     allen_atlas_path=allen_atlas_path,
-    grouping_method='AP')
+    grouping_method='AP', grouping_bins=3)
 
 bsv.plot_connectivity(
     exp_imgs_ap, allen_atlas_path, 'CP',
-    10, 15, 'coronal', True, 2, 'global', None, 'injectionIntensity')
+    10, 15, 'coronal', True, 2, 'global', None, 'injectionIntensity',
+    experiment_region_info=exp_region_info_ap)
 save_current('plot_ap_grouped_VISam_CP.png')
 
 # ── 3. Plot injection sites ──

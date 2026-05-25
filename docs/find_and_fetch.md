@@ -59,13 +59,14 @@ location:
 - `'DV'` — group by dorsal–ventral coordinate
 - `''` — no grouping (default; average everything together)
 
-Each unique coordinate value becomes one group, and the returned `experiment_imgs`
-gains a `groups` axis (AP x DV x ML x **groups**). Passing this to
-{func}`bsv.plot_connectivity` renders each group as its own row of slices.
+The continuous injection coordinate is split into `grouping_bins` equal-width levels
+(default 5), and the returned `experiment_imgs` gains a `groups` axis
+(AP x DV x ML x **groups**). Passing this to {func}`bsv.plot_connectivity` renders each
+level as its own row of slices.
 
 **Python:**
 ```python
-(experiment_imgs,    # ndarray (AP x DV x ML x groups): one group per injection AP level
+(experiment_imgs,    # ndarray (AP x DV x ML x groups): one group per AP level
  injection_summary, _, _
 ) = bsv.fetch_connectivity_data(
     experiment_ids=experiment_ids,
@@ -74,11 +75,14 @@ gains a `groups` axis (AP x DV x ML x **groups**). Passing this to
     normalization_method='injectionIntensity',
     subtract_other_hemisphere=False,
     grouping_method='AP',                   # 'AP', 'ML', 'DV', or '' for none
+    grouping_bins=3,                        # number of equal-width AP levels (rows)
     allen_atlas_path='/path/to/allenCCF')
 ```
 
 **MATLAB:** pass `'AP'` (or `'ML'`/`'DV'`) as the sixth argument to
-`bsv.fetchConnectivityData` (the `grouping method` argument shown above).
+`bsv.fetchConnectivityData`. Note that the MATLAB version groups by *exact* injection
+coordinate (one row per distinct value); equal-width binning via `grouping_bins` is
+currently Python-only.
 
 To instead group by **source region** (e.g. pooling several visual areas into one
 row), pass `input_regions` together with `region_groups` — a group index per region —
