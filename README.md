@@ -58,39 +58,44 @@ MATLAB dependencies:
 ```python
 import bsv
 
-# 1. Find experiments
+# 1. Find experiments by injected region (source search)
+# Checkout region acronyms here: https://connectivity.brain-map.org/
 experiment_ids = bsv.find_connectivity_experiments(
-    regions=['VISp', 'VISl'])
+    regions=['VISp', 'VISl'])       # list of injection region acronyms to search for
 
-# 2. Fetch data
-imgs, inj_summary, _, _ = bsv.fetch_connectivity_data(
+# 2. Fetch fluorescence data
+(imgs,                       # ndarray (AP x DV x ML x groups): averaged projection fluorescence volumes
+ inj_summary,               # dict of lists: injection metadata per experiment (coordinates, volumes, etc.)
+ individual_projections,    # ndarray or None: per-experiment volumes (only populated if load_all=True)
+ experiment_region_info     # dict: per-experiment region and group metadata
+) = bsv.fetch_connectivity_data(
     experiment_ids=experiment_ids,
-    save_location='/path/to/cache',
-    file_name='',
-    normalization_method='injectionIntensity',
-    subtract_other_hemisphere=False,
-    allen_atlas_path='/path/to/allenCCF')
+    save_location='/path/to/cache', # local directory for caching downloaded data
+    file_name='',                   # base name for the cached metadata CSV ('' to skip)
+    normalization_method='injectionIntensity',  # 'none' or 'injectionIntensity' (divide by injection volume)
+    subtract_other_hemisphere=False,            # subtract contralateral hemisphere signal
+    allen_atlas_path='/path/to/allenCCF')       # path to the Allen CCF atlas directory
 
 # 3. Plot projections to striatum
 bsv.plot_connectivity(
     experiment_data=imgs,
-    allen_atlas_path='/path/to/allenCCF',
-    output_region='CP',
-    number_of_chunks=10,
-    number_of_pixels=15,
-    plane='coronal',
-    region_only=True,
-    smoothing=2,
-    color_limits='global',
-    color=None,
+    allen_atlas_path='/path/to/allenCCF',  # path to the Allen CCF atlas directory
+    output_region='CP',                    # target region acronym to visualize
+    number_of_chunks=10,                   # number of evenly spaced slices to display
+    number_of_pixels=15,                   # pixel resolution per slice panel
+    plane='coronal',                       # 'coronal' or 'sagittal'
+    region_only=True,                      # mask display to target region boundary
+    smoothing=2,                           # Gaussian smoothing sigma in pixels (0 for none)
+    color_limits='global',                 # 'global', 'per_slice', or [min, max]
+    color=None,                            # RGB colour(s) for region groups, or None for default
     normalization_info='injectionIntensity')
 
 # 4. 3D visualization
 bsv.plot_connectivity_3d(
     injection_summary=inj_summary,
-    allen_atlas_path='/path/to/allenCCF',
-    region_to_plot='CP',
-    plot_patch=True)
+    allen_atlas_path='/path/to/allenCCF',  # path to the Allen CCF atlas directory
+    region_to_plot='CP',                   # target region acronym
+    plot_patch=True)                       # render region as solid isosurface (False for grid)
 ```
 
 See `example.ipynb` for the full workflow including region grouping, thresholding, and CP subregion analysis.
@@ -98,15 +103,35 @@ See `example.ipynb` for the full workflow including region grouping, thresholdin
 #### MATLAB
 ```matlab
 % 1. Find experiments
-experimentIDs = bsv.findConnectivityExperiments({'VISp', 'VISl'});
+experimentIDs = bsv.findConnectivityExperiments({'VISp', 'VISl'}); % list of injection region acronyms
 
 % 2. Fetch data
-[experimentImgs, injectionSummary] = bsv.fetchConnectivityData(experimentIDs, ...
-    saveLocation, fileName, 'injectionIntensity', false, '', allenAtlasPath);
+[experimentImgs, ...         % ndarray (AP x DV x ML x groups): averaged projection fluorescence volumes
+ injectionSummary, ...      % struct: injection metadata per experiment (coordinates, volumes, etc.)
+ individualProjections, ... % ndarray or []: per-experiment volumes (only populated if loadAll=true)
+ experimentRegionInfo ...   % struct: per-experiment region and group metadata
+] = bsv.fetchConnectivityData( ...
+    experimentIDs, ...      % experiment IDs from findConnectivityExperiments
+    saveLocation, ...       % local directory for caching downloaded data
+    fileName, ...           % base name for cached metadata CSV ('' to skip)
+    'injectionIntensity', ...  % normalization: 'none' or 'injectionIntensity'
+    false, ...              % subtract contralateral hemisphere signal
+    '', ...                 % grouping method: 'AP', 'ML', 'DV', or '' for none
+    allenAtlasPath);        % path to the Allen CCF atlas directory
 
 % 3. Plot
-bsv.plotConnectivity(experimentImgs, allenAtlasPath, 'CP', 10, 15, ...
-    'coronal', true, 2, 'global', [], 'injectionIntensity')
+bsv.plotConnectivity( ...
+    experimentImgs, ...     % projection density array from fetchConnectivityData
+    allenAtlasPath, ...     % path to the Allen CCF atlas directory
+    'CP', ...               % target region acronym to visualize
+    10, ...                 % number of evenly spaced slices to display
+    15, ...                 % pixel resolution per slice panel
+    'coronal', ...          % plane: 'coronal' or 'sagittal'
+    true, ...               % region_only: mask display to target region boundary
+    2, ...                  % smoothing: Gaussian sigma in pixels (0 for none)
+    'global', ...           % color_limits: 'global', 'per_slice', or [min, max]
+    [], ...                 % color: RGB colour(s) for region groups, or [] for default
+    'injectionIntensity')   % normalization method used during fetch
 ```
 
 See `+bsv/example.m` for the full MATLAB workflow.
