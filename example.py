@@ -50,3 +50,28 @@ for region in input_regions:
 # 5. 3D plot
 bsv.plot_connectivity_3d(injection_summary, allen_atlas_path, output_regions[0],
                           color, plot_patch=True)
+
+# 6. Connectivity matrix heatmap
+# Fetch data for each source region separately
+source_regions = ['VISp', 'VISl', 'VISam', 'VISpm']
+target_regions = ['CP', 'ACB', 'SNr']
+
+projection_data = {}
+for src in source_regions:
+    src_ids = bsv.find_connectivity_experiments([src], mouse_line, primary_injection)
+    src_data = bsv.fetch_connectivity_data(
+        src_ids, save_location, '',
+        normalization_method, subtract_other_hemisphere,
+        allen_atlas_path=allen_atlas_path)
+    projection_data[src] = src_data
+
+# Create the connectivity matrix heatmap
+matrix, fig = bsv.plot_connectivity_matrix(
+    projection_data=projection_data,
+    allen_atlas_path=allen_atlas_path,
+    target_regions=target_regions,
+    metric='mean',
+    cmap='viridis',
+    annotate=True,
+    title='Visual Areas → Subcortical Targets'
+)

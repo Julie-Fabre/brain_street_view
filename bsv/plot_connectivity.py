@@ -308,7 +308,7 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
                 try:
                     hull = ConvexHull(pts)
                     hull_pts = pts[np.append(hull.vertices, hull.vertices[0])]
-                    ax.plot(hull_pts[:, 0], hull_pts[:, 1], color=plot_structure_color, linewidth=2)
+                    ax.plot(hull_pts[:, 0], hull_pts[:, 1], color=plot_structure_color, linewidth=3.5)
                 except Exception:
                     pass
 
@@ -326,16 +326,16 @@ def plot_connectivity(experiment_data, allen_atlas_path, output_region,
             if i_rg == 0:
                 if i_chunk == 0:
                     prefix = 'ARA level (cor.): ' if plane == 'coronal' else 'ARA level (sag.): '
-                    ax.set_title(f'{prefix}{this_slice_ara}', fontsize=9)
+                    ax.set_title(f'{prefix}{this_slice_ara}', fontsize=16)
                 else:
-                    ax.set_title(str(this_slice_ara), fontsize=9)
+                    ax.set_title(str(this_slice_ara), fontsize=16)
 
             if i_chunk == 0 and input_regions:
                 regions_in_group = region_groups_cell[i_rg]
                 group_names = [input_regions[r] for r in regions_in_group]
                 label = '+'.join(group_names)
                 ax.text(-0.15, 0.5, label, transform=ax.transAxes,
-                        fontweight='bold', fontsize=12, ha='right', va='center', rotation=90)
+                        fontweight='bold', fontsize=18, ha='right', va='center', rotation=90)
 
     plt.tight_layout()
     plt.show(block=False)

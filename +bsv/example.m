@@ -51,3 +51,24 @@ end
 plotPatch = true; % if true plots a full volume; if false, plots a grid
 bsv.plotConnectivity3D(injectionSummary, allenAtlasPath, outputRegions(1), color, plotPatch)
 
+%% 5. Connectivity matrix heatmap
+% Fetch data for each source region separately
+sourceRegionsMatrix = {'VISp', 'VISl', 'VISam', 'VISpm'};
+targetRegions = {'CP', 'ACB', 'SNr'};
+
+projectionData = struct();
+for iSrc = 1:length(sourceRegionsMatrix)
+    src = sourceRegionsMatrix{iSrc};
+    srcIDs = bsv.findConnectivityExperiments({src}, mouseLine, primaryInjection);
+    [srcData, ~] = bsv.fetchConnectivityData(srcIDs, saveLocation, '', ...
+        normalizationMethod, subtractOtherHemisphere, '', allenAtlasPath, false);
+    projectionData.(src) = srcData;
+end
+
+% Create the connectivity matrix heatmap
+[connectivityMatrix, figMatrix] = bsv.plotConnectivityMatrix(projectionData, ...
+    allenAtlasPath, targetRegions, ...
+    'metric', 'mean', ...
+    'annotate', true, ...
+    'title', 'Visual Areas to Subcortical Targets');
+

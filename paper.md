@@ -55,11 +55,13 @@ BSV is organized as a four-step pipeline:
 
 All functions accept extensive configuration through keyword arguments, allowing users to customize atlas resolution, normalization method, colormap, threshold strategy, and output format. Data downloaded from the Allen API is cached locally to avoid redundant network requests.
 
-![2D coronal slices showing projection density from antero-medial visual cortex (VISam) to the caudate putamen (CP), across 10 evenly spaced anterior-posterior levels. Each panel shows the mean projection density within the CP boundary (blue outline), with darker values indicating stronger projections.\label{fig:plot2d}](images/docs/plot_2d_VISam_CP.png)
+![**Figure 1.** 2D coronal slices showing projection density from antero-medial visual cortex (VISam) to the caudate putamen (CP), across 10 evenly spaced anterior-posterior levels. Each panel shows the mean projection density within the CP boundary (blue outline), with darker values indicating stronger projections.\label{fig:plot2d}](images/docs/plot_2d_VISam_CP.png)
 
-![Grouped comparison of projections to caudate putamen from visual cortical areas. Top row: primary visual cortex (VISp). Middle row: lateral and antero-lateral visual areas (VISl + VISal). Bottom row: remaining visual areas (VISam + VISpl + VISpm + VISli + VISpor). Each row shows the mean projection density across all experiments from that group.\label{fig:grouped}](images/docs/plot_grouped_VIS_CP.png)
+![**Figure 2.** VISam projections to caudate putamen grouped by injection site anterior-posterior (AP) location. Each row shows the mean projection density for experiments with injections at a specific AP coordinate, revealing how projection topography varies with injection location along the anterior-posterior axis.\label{fig:ap_grouped}](images/docs/plot_ap_grouped_VISam_CP.png)
 
-![3D rendering of VISam injection sites (teal dots) overlaid on a transparent volume of the mouse brain, with the caudate putamen highlighted. Dot size reflects injection volume.\label{fig:plot3d}](images/docs/plot_3d_VISam_CP.png)
+![**Figure 3.** Grouped comparison of projections to caudate putamen from visual cortical areas. Top row: primary visual cortex (VISp). Middle row: lateral and antero-lateral visual areas (VISl + VISal). Bottom row: remaining visual areas (VISam + VISpl + VISpm + VISli + VISpor). Each row shows the mean projection density across all experiments from that group.\label{fig:grouped}](images/docs/plot_grouped_VIS_CP.png)
+
+![**Figure 4.** 3D rendering of VISam injection sites (teal dots) overlaid on a transparent volume of the mouse brain, with the caudate putamen highlighted. Dot size reflects injection volume.\label{fig:plot3d}](images/docs/plot_3d_VISam_CP.png)
 
 # Research impact statement
 

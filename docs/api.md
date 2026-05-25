@@ -21,6 +21,7 @@ Complete reference for all public functions in Brain Street View.
 ```{eval-rst}
 .. autofunction:: bsv.plot_connectivity
 .. autofunction:: bsv.plot_connectivity_3d
+.. autofunction:: bsv.plot_connectivity_matrix
 .. autofunction:: bsv.plot_connectivity_multi_region
 .. autofunction:: bsv.plot_injections_combined
 .. autofunction:: bsv.plot_multi_region_injections
