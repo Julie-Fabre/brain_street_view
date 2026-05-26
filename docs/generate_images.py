@@ -138,4 +138,11 @@ bsv.plot_upstream_projectome(
     static_ap=55)
 save_current('plot_upstream_projectome_CP.png', facecolor='black')
 
+# ── 9. Animated GIF scrolling through the brain (for README / docs) ──
+print('Generating: upstream projectome scroll GIF...')
+bsv.plot_upstream_projectome(
+    proj_src_ids, proj_src_regions, 'CP', save_location, allen_atlas_path,
+    save_gif=os.path.join(img_dir, 'upstream_projectome_scroll.gif'),
+    gif_ap_step=2, gif_fps=8, gif_width=720)
+
 print('\nDone! All images in:', img_dir)

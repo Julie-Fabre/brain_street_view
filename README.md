@@ -12,6 +12,12 @@ Load and plot Allen Connectivity Data ([Oh et al., Nature, 2014](https://doi.org
 
 Available in both **MATLAB** and **Python**. **[Documentation](https://brain-street-view.readthedocs.io)**
 
+<p align="center">
+  <img src="./images/docs/upstream_projectome_scroll.gif" width="80%" alt="Scrolling through coronal slices showing projections into the caudate putamen from several visual areas, each in its own colour">
+</p>
+
+*Scroll through the brain to see projections into a target region from several source areas at once, each in its own colour ([interactive slice viewer](https://brain-street-view.readthedocs.io/en/latest/interactive_viewer.html)).*
+
 ### 🏁 Quick start
 
 **Python**:
