@@ -182,8 +182,8 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
         bnd[:-1, :] |= v;  bnd[1:, :] |= v
         bnd &= brain
 
-        # White brain, light-gray target region, black boundaries + outside
-        img = np.zeros(sl.shape, dtype=float)   # black outside brain
+        # White background + brain, light-gray target region, black boundaries
+        img = np.ones(sl.shape, dtype=float)    # white outside brain
         img[brain] = 1.0                         # white brain tissue
         img[target] = 0.85                       # light gray target region
         img[bnd] = 0.0                           # black structure boundaries
@@ -192,8 +192,8 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
     # ----------------------------------------------------------- draw function
     def _draw(ap_idx):
         fig, ax = plt.subplots(figsize=(9, 5))
-        fig.patch.set_facecolor('black')
-        ax.set_facecolor('black')
+        fig.patch.set_facecolor('white')
+        ax.set_facecolor('white')
 
         # Full-resolution atlas background (DV_full x ML_full)
         ax.imshow(_atlas_bg(ap_idx), cmap='gray', vmin=0, vmax=1,
@@ -243,26 +243,29 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
                 continue
             ax.scatter(ml_val, dv_val, s=dot_sizes[i],
                        c=[region_colors[reg]],
-                       edgecolors='white', linewidths=0.5,
+                       edgecolors='black', linewidths=0.5,
                        zorder=10, alpha=0.9)
 
-        # Legend
+        # Legend (input / source regions, colour-coded)
         handles = [
             plt.scatter([], [], s=80, c=[region_colors[r]],
-                        edgecolors='white', linewidths=0.5, label=r)
+                        edgecolors='black', linewidths=0.5, label=r)
             for r in source_regions
         ]
         if handles:
             leg = ax.legend(handles=handles, loc='upper right',
-                            framealpha=0.3, labelcolor='white', fontsize=9)
-            leg.get_frame().set_facecolor('black')
+                            title='Input regions',
+                            framealpha=0.6, labelcolor='black', fontsize=9)
+            leg.get_frame().set_facecolor('white')
+            leg.get_title().set_color('black')
 
         ax.set_xlim(0, ML_full)
         ax.set_ylim(DV_full, 0)
         ax.set_xticks([]);  ax.set_yticks([])
         ax.set_title(
-            f'Upstream projections → {target_region}   |   AP {ap_idx}  ({ap_idx * 100} µm)',
-            color='white', fontsize=11, pad=6)
+            f'Target region: {target_region}'
+            f'      AP = {ap_idx * 100} µm (CCF space)',
+            color='black', fontsize=11, pad=6)
 
         plt.tight_layout()
         plt.show()
@@ -301,7 +304,7 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
     if static_ap is not None:
         _draw(int(static_ap))
         if save_path:
-            plt.savefig(save_path, facecolor='black', bbox_inches='tight')
+            plt.savefig(save_path, facecolor='white', bbox_inches='tight')
             print(f'Saved: {save_path}')
         return
 

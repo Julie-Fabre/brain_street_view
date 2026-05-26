@@ -136,7 +136,7 @@ proj_src_ids = bsv.find_connectivity_experiments(proj_src_regions)
 bsv.plot_upstream_projectome(
     proj_src_ids, proj_src_regions, 'CP', save_location, allen_atlas_path,
     static_ap=55)
-save_current('plot_upstream_projectome_CP.png', facecolor='black')
+save_current('plot_upstream_projectome_CP.png', facecolor='white')
 
 # ── 9. Animated GIF scrolling through the brain (for README / docs) ──
 print('Generating: upstream projectome scroll GIF...')
