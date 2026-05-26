@@ -99,8 +99,11 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
     valid_ids = [e for e in experiment_ids if e in exp_to_region]
 
     # ------------------------------------------------------- colours (tab10)
-    cmap = plt.cm.get_cmap('tab10', max(len(source_regions), 1))
-    region_colors = {reg: np.array(cmap(i)[:3]) for i, reg in enumerate(source_regions)}
+    # Index tab10's discrete palette directly (blue, orange, green, ...) so the
+    # source regions get maximally-distinct hues — this matters where two
+    # regions overlap the same target voxel and their colours alpha-blend.
+    cmap = plt.cm.get_cmap('tab10')
+    region_colors = {reg: np.array(cmap(i % 10)[:3]) for i, reg in enumerate(source_regions)}
 
     # ----------------------------------------- load density volumes & metadata
     print(f"Loading {len(valid_ids)} experiment volumes...")

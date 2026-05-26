@@ -24,7 +24,7 @@ drives this; injection-site dots appear at their own (more posterior) AP levels.
 import bsv
 
 # Find experiments injected in the chosen source regions
-source_regions = ['VISp', 'VISl', 'VISam', 'VISpm']
+source_regions = ['VISam', 'SSp-m']
 experiment_ids = bsv.find_connectivity_experiments(source_regions)
 
 # Launch the interactive AP-slider viewer (in a Jupyter notebook)
