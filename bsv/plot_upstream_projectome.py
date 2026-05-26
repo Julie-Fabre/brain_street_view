@@ -12,7 +12,8 @@ from .fetch_connectivity_summary import fetch_connectivity_summary, load_injecti
 def plot_upstream_projectome(experiment_ids, source_regions, target_region, save_location,
                               allen_atlas_path, atlas_resolution=10, atlas_type='allen',
                               slice_thickness=2, density_percentile=99,
-                              static_ap=None, save_path=None):
+                              static_ap=None, save_path=None,
+                              save_gif=None, gif_ap_step=2, gif_fps=8, gif_width=720):
     """Interactive coronal slice viewer of upstream projections into a target region.
 
     Displays a Jupyter widget with a coronal AP slider showing:
@@ -52,6 +53,16 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
         documentation figures headlessly.
     save_path : str or None, optional
         When *static_ap* is set, save the rendered figure to this path.
+    save_gif : str or None, optional
+        If given, render an animated GIF scrolling through the AP slices that
+        contain the target region and write it to this path (requires Pillow).
+        Skips the interactive widget.
+    gif_ap_step : int, optional
+        Step between AP slices when building the GIF (default 2).
+    gif_fps : int, optional
+        Frames per second of the GIF (default 8).
+    gif_width : int, optional
+        Width in pixels to downscale GIF frames to (default 720).
     """
     AP, DV, ML = PROJECTION_GRID_SIZE
     # Number of full-res atlas voxels per 100 µm projection grid voxel
@@ -255,6 +266,36 @@ def plot_upstream_projectome(experiment_ids, source_regions, target_region, save
 
         plt.tight_layout()
         plt.show()
+
+    # ------------------------------------- animated GIF (scroll through AP)
+    if save_gif is not None:
+        try:
+            from PIL import Image
+        except ImportError as exc:
+            raise ImportError("Saving a GIF requires Pillow (pip install pillow).") from exc
+
+        present = np.where(target_mask.any(axis=(1, 2)))[0]
+        ap_lo, ap_hi = (int(present.min()), int(present.max())) if present.size else (0, AP - 1)
+        ap_indices = list(range(ap_lo, ap_hi + 1, max(1, int(gif_ap_step))))
+
+        frames = []
+        for ap in ap_indices:
+            _draw(ap)
+            fig = plt.gcf()
+            fig.canvas.draw()
+            w, h = fig.canvas.get_width_height()
+            rgba = np.frombuffer(fig.canvas.buffer_rgba(), dtype=np.uint8).reshape(h, w, 4)
+            img = Image.fromarray(rgba[:, :, :3].copy())
+            if gif_width and img.width > gif_width:
+                img = img.resize((int(gif_width), round(img.height * gif_width / img.width)))
+            frames.append(img.convert('P', palette=Image.ADAPTIVE, colors=256))
+            plt.close(fig)
+
+        if frames:
+            frames[0].save(save_gif, save_all=True, append_images=frames[1:],
+                           duration=int(1000 / max(gif_fps, 1)), loop=0, optimize=True)
+            print(f'Saved GIF: {save_gif} ({len(frames)} frames)')
+        return
 
     # ------------------------------------- static render (docs / headless use)
     if static_ap is not None:

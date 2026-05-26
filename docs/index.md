@@ -47,7 +47,7 @@ find_and_fetch
 plot_2d
 plot_3d
 plot_injections
-upstream_projectome
+interactive_viewer
 compare_regions
 thresholding
 striatum_analysis

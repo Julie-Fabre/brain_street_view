@@ -1,4 +1,4 @@
-# Interactive upstream projectome
+# Interactive slice viewer
 
 Scroll through the brain and see, at every coronal level, the projections that
 *multiple* source regions send into a target region — each source drawn in its own
@@ -12,12 +12,12 @@ slider. At each slice it overlays, on the Allen CCF structure boundaries:
 - injection-site dots (sized by injection volume) at the AP levels where the injections
   actually sit.
 
-```{image} ../images/docs/plot_upstream_projectome_CP.png
+```{image} ../images/docs/upstream_projectome_scroll.gif
 :width: 100%
 ```
-*One AP slice (CCF 5500 µm) of projections into the caudate putamen (CP) from four
-visual areas, each in its own colour. Dragging the slider scrolls through the brain;
-injection-site dots appear at their own (more posterior) AP levels.*
+*Scrolling through coronal slices: projections into the caudate putamen (CP) from four
+visual areas, each in its own colour. In the live widget an anterior-posterior slider
+drives this; injection-site dots appear at their own (more posterior) AP levels.*
 
 **Python:**
 ```python
