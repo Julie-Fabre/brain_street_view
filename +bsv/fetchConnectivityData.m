@@ -343,8 +343,8 @@ primaryStructure_abbreviation = cell(nExpIDs, 1);
         experiment_projection = reshape(experiment_projection, projectionGridSize);
         
         % normalize projection values
-        if strcmp(normalizationMethod, 'injectionVolume') || strcmp(normalizationMethod, 'injectionIntensity')
-
+        if strcmp(normalizationMethod, 'injectionVolume')
+            
             % Find indices for the current experiment and structure 997 (root)
             expIndices = combinedInjectionInfo.experimentID == currExpID;
             structureIndices = expIndices & combinedInjectionInfo.structure_id == 997;
